@@ -1,0 +1,14 @@
+﻿  RigidBody.cpp
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\RigidBody.cpp(116,53): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\RigidBody.cpp(122,50): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\RigidBody.cpp(126,51): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\RigidBody.cpp(128,58): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/FORCE'
+  emptyExample.vcxproj -> D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\bin\emptyExample_debug.exe
+  
+  	                   2	D:\Newtonix2001\of_v0.12.0_vs_release\libs\fmod\lib\vs\x64\
+  	  *Fichier SUPPL.		 6942208	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\bin\FreeImage.dll
+  
+  	                   1	D:\Newtonix2001\of_v0.12.0_vs_release\libs\FreeImage\lib\vs\x64\
+  	  *Fichier SUPPL.		 1826304	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\bin\fmod.dll
+  	  *Fichier SUPPL.		 2041856	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample_working\bin\fmodL.dll
