@@ -99,7 +99,7 @@ void ofApp::initializeParticles() {
 	rb1->setInverseMass(1);
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.8);
-	rb1->setPosition(Vecteur3D(0, 0, 0));
+	rb1->setPosition(Vecteur3D(0, 50, 0));
 	rb1->setVelocity(Vecteur3D(0, 10, 30));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
@@ -113,7 +113,8 @@ void ofApp::initializeParticles() {
 	GravityGenerator* rggravity = new GravityGenerator();
 	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), 1, 50);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce, 2, Vecteur3D(0,0,30) });
+	anchorsLinkRigid.push_back({  (*rb1).getPosition(),Vecteur3D(0,0,0)});
 	listRigidBodies.push_back(rb1);
 	
 }
@@ -198,74 +199,6 @@ void ofApp::update() {
 	numberOfContacts = 0;
 
 	
-
-	//Collision cables
-
-
-
-	////Collision rods
-
-	
-
-	//// Algorithme de résolution
-	//vector<ParticleContact> tempContact;
-	//for (int i = 0; i < numberOfContacts; i++) {
-	//	int first = 0;
-	//	int second = 0;
-	//	//get the two particles of contacts from listParticules
-
-	//	for (int j = 0; j < listParticules.size(); j++) {
-	//		if (contacts[i].particle[0]->getId() == listParticules[j].getId()) {
-	//			first = j;
-	//		}
-	//		if (contacts[i].particle[1]->getId() == listParticules[j].getId()) {
-	//			second = j;
-	//		}
-	//	}
-
-
-	//	ParticleContact temp = contacts[i].resolve(t);
-	//	tempContact.push_back(temp);
-	//	//replace in listParticles
-	//	listParticules[first] = *temp.particle[0];
-	//	listParticules[second] = *temp.particle[1];
-
-	//}
-	//update contacts and replace all particule 
-
-
-
-
-	//replace particles in cables with new particles
-	//for (int i = 0; i < numberOfCables; i++) {
-	//	for (int j = 0; j < listParticules.size(); j++) {
-	//		if (cables[i].getParticleCable1().getId() == listParticules[j].getId()) {
-	//			cables[i].setParticleCable1(listParticules[j]);
-	//		}
-	//		if (cables[i].getParticleCable2().getId() == listParticules[j].getId()) {
-	//			cables[i].setParticleCable2(listParticules[j]);
-	//		}
-	//	}
-	//}
-
-	////replace particles in rods with new particles
-	//for (int i = 0; i < numberOfRods; i++) {
-	//	for (int j = 0; j < listParticules.size(); j++) {
-	//		if (rods[i].getParticleRod1().getId() == listParticules[j].getId()) {
-	//			rods[i].setParticleRod1(listParticules[j]);
-	//		}
-	//		if (rods[i].getParticleRod2().getId() == listParticules[j].getId()) {
-	//			rods[i].setParticleRod2(listParticules[j]);
-	//		}
-	//	}
-	//}
-
-
-
-	////clear contacts
-	//numberOfContacts = 0;
-	//contacts.clear();
-	//tempContact.clear();
 
 
 	i = Integrateur();
@@ -378,9 +311,11 @@ void ofApp::draw() {
 		cylindre.setResolution(50, 50, 50);
 		cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
 		cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
-		cylindre.draw();
-		
-
+		cylindre.draw();	
+	}
+	for (int k = 0; k < anchorsLinkRigid.size(); k++) {
+		ofSetColor(255, 255, 0);
+		ofDrawLine(anchorsLinkRigid[k].first.getX(), anchorsLinkRigid[k].first.getY(), anchorsLinkRigid[k].first.getZ(), anchorsLinkRigid[k].second.getX(), anchorsLinkRigid[k].second.getY(), anchorsLinkRigid[k].second.getZ());
 		
 	}
 	

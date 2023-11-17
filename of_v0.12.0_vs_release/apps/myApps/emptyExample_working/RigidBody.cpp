@@ -151,10 +151,12 @@ void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
 void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point)
 {
 	//convertir le point en coordonnées locales
-	Vecteur3D localPoint = this->transformMatrix.Inverse() * point;
+	Vecteur3D localPoint = this->transformMatrix * point;
 	//ajouter la force
 	this->addForce(force);
 	//ajouter le moment de force
+	Vecteur3D torque = this->getTorqueAccum();
+	Vecteur3D newTorque =localPoint ^ force;
 	this->setTorqueAccum(this->getTorqueAccum() + (localPoint ^ force));
 }
 void RigidBody::calculateDerivedData()
@@ -176,7 +178,8 @@ InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height 
 
 
 
-	this->transformMatrix.Inverse();
+	//calculate the transform matrix
+	this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
 
 
 
@@ -188,6 +191,7 @@ void RigidBody::clearAccumulator()
 {
 	this->setForceAccum(Vecteur3D(0, 0, 0));
 	this->setTorqueAccum(Vecteur3D(0, 0, 0));
+	
 
 }
 

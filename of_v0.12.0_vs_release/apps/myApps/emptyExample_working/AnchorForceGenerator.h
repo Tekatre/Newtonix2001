@@ -9,6 +9,6 @@ private:
 
 	public:
 		AnchorForceGenerator(Vecteur3D anchor, float k, float lzero);
-		void updateForce(RigidBody* rigidBody);
+		void updateForce(RigidBody* rigidBody, int type, Vecteur3D point);
 };
 

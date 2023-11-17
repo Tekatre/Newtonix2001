@@ -63,6 +63,7 @@ public:
 	int numberOfRods = 0;
 	int numberOfSprings = 0;
 	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
+	vector<std::pair<Vecteur3D, Vecteur3D>> anchorsLinkRigid;
 
 	
 
