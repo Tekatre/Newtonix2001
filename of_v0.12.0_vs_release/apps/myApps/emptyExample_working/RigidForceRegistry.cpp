@@ -4,9 +4,6 @@ RigidForceRegistry::RigidForceRegistry()
 {
 }
 
-RigidForceRegistry::~RigidForceRegistry()
-{
-}
 
 void RigidForceRegistry::updateForces(float duration)
 {

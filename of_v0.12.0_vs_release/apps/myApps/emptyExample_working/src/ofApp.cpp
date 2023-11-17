@@ -109,6 +109,8 @@ void ofApp::initializeParticles() {
 	rb1->setRotation(Vecteur3D(1,0, 0));
 	rb1->setTransformMatrix(Matrix34());
 
+	GravityGenerator* rggravity = new GravityGenerator();
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
 	listRigidBodies.push_back(rb1);
 	
 }
@@ -153,6 +155,7 @@ void ofApp::update() {
 
 
 	registry->updateForces(t);
+	rigidRegistry->updateForces(t);
 
 
 
@@ -184,9 +187,9 @@ void ofApp::update() {
 		//addcontact
 		numberOfContacts += rods[l]->addContact(contacts, numberOfContacts);
 	}
-	if (numberOfContacts > 0) {
+	/*if (numberOfContacts > 0) {
 		cout << "Number of contacts : " << numberOfContacts << endl;
-	}
+	}*/
 
 	resolver->resolveContacts(contacts, numberOfContacts, t);
 	numberOfContacts = 0;

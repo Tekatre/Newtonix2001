@@ -2,5 +2,5 @@
 
 void GravityGenerator::updateForce(RigidBody* rigidBody)
 {
-	//rigidBody->addForce(gravity * rigidBody->getMass());
+	rigidBody->addForce(gravity);
 }
