@@ -100,9 +100,10 @@ void ofApp::initializeParticles() {
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.8);
 	rb1->setPosition(Vecteur3D(0, 0, 0));
-	rb1->setVelocity(Vecteur3D(0, 10, 0));
+	rb1->setVelocity(Vecteur3D(0, 10, 30));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb1->setInverseMass(1);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
@@ -110,7 +111,9 @@ void ofApp::initializeParticles() {
 	rb1->setTransformMatrix(Matrix34());
 
 	GravityGenerator* rggravity = new GravityGenerator();
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), 1, 50);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
 	listRigidBodies.push_back(rb1);
 	
 }

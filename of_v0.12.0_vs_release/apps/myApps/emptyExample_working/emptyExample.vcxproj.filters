@@ -67,6 +67,9 @@
     <ClCompile Include="RigidForceRegistry.cpp">
       <Filter>forces Corps Rigide</Filter>
     </ClCompile>
+    <ClCompile Include="AnchorForceGenerator.cpp">
+      <Filter>forces Corps Rigide</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -144,6 +147,9 @@
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
     <ClInclude Include="RigidForceRegistry.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
+    <ClInclude Include="AnchorForceGenerator.h">
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
   </ItemGroup>

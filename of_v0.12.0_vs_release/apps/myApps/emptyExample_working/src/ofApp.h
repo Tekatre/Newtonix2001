@@ -23,6 +23,7 @@
 #include "../ParticleContactResolver.h"
 #include "../RigidBody.h"
 #include "../GravityForceGenerator.h"
+#include "../AnchorForceGenerator.h"
 
 class ofApp : public ofBaseApp {
 public:
