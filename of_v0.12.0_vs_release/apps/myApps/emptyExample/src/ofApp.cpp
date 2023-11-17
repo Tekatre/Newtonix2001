@@ -99,15 +99,24 @@ void ofApp::initializeParticles() {
 	rb1->setInverseMass(1);
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.8);
-	rb1->setPosition(Vecteur3D(0, 0, 0));
-	rb1->setVelocity(Vecteur3D(0, 10, 0));
+	rb1->setPosition(Vecteur3D(0, 50, 0));
+	rb1->setVelocity(Vecteur3D(50, 50, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb1->setInverseMass(1);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
 	rb1->setRotation(Vecteur3D(1,0, 0));
 	rb1->setTransformMatrix(Matrix34());
+
+	GravityGenerator* rggravity = new GravityGenerator();
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), 1, 100);
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1, rggravity });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1, anchorForce });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1, rggravity,0, Vecteur3D(0,0,0) });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce, 2, Vecteur3D(0,50,30) });
+
 
 	listRigidBodies.push_back(rb1);
 	
@@ -153,6 +162,7 @@ void ofApp::update() {
 
 
 	registry->updateForces(t);
+	rigidRegistry->updateForces(t);
 
 
 
@@ -184,9 +194,9 @@ void ofApp::update() {
 		//addcontact
 		numberOfContacts += rods[l]->addContact(contacts, numberOfContacts);
 	}
-	if (numberOfContacts > 0) {
+	/*if (numberOfContacts > 0) {
 		cout << "Number of contacts : " << numberOfContacts << endl;
-	}
+	}*/
 
 	resolver->resolveContacts(contacts, numberOfContacts, t);
 	numberOfContacts = 0;

@@ -19,8 +19,12 @@
 #include "../ParticleSpring.h"
 #include "../ParticleAnchorSpring.h"
 #include "../ParticleForceRegistry.h"
+
+#include "../RigidForceRegistry.h"
 #include "../ParticleContactResolver.h"
 #include "../RigidBody.h"
+#include "../GravityForceGenerator.h"
+#include "../AnchorForceGenerator.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -32,6 +36,7 @@ public:
 	const int maxCollisions = 100;
 
 	ParticleForceRegistry* registry = new ParticleForceRegistry;
+	RigidForceRegistry* rigidRegistry= new RigidForceRegistry;
 	vector<Particule*> listParticules;
 	vector<RigidBody*> listRigidBodies;
 	int* numberOfParticles= new int(0);
@@ -49,7 +54,6 @@ public:
 	ParticleCable** cables = new ParticleCable*;
 	ParticleRod** rods = new ParticleRod*;
 	int numberOfCables = 0;
-	/*vector<ParticleContact> contacts;*/
 
 
 	vector<ParticleSpring> springs;

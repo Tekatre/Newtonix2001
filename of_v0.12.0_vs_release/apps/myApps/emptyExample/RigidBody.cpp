@@ -109,6 +109,14 @@ void RigidBody::setTransformMatrix(Matrix34 matrix)
 	this->transformMatrix = matrix;
 }
 
+
+Vecteur3D RigidBody::getPointInWorldSpace(const Vecteur3D& point)
+{
+	return this->transformMatrix * point;
+}
+
+
+
 void RigidBody::integrate(double duration)
 {
 
@@ -138,6 +146,26 @@ void RigidBody::addForce(const Vecteur3D& force)
 	this->setForceAccum(this->getForceAccum() + force);
 }
 
+void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
+{
+	//convertir le point en coordonnées locales
+	Vecteur3D localPoint = this->transformMatrix.Inverse() * point;
+	//calculer le moment de force
+	Vecteur3D torque = localPoint ^ force;
+	//ajouter le moment de force
+	this->addForceAtBodyPoint(force, point);
+}
+
+void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point)
+{
+	//convertir le point en coordonnées locales
+	Vecteur3D localPoint = this->transformMatrix.Inverse() * point;
+	//ajouter la force
+	this->addForce(force);
+	//ajouter le moment de force
+	this->setTorqueAccum(this->getTorqueAccum() + (localPoint ^ force));
+}
+
 void RigidBody::calculateDerivedData()
 {
 	//call each frame to calculate the transform matrix and normalize the orientation
@@ -150,9 +178,9 @@ void RigidBody::calculateDerivedData()
 	double height = 1.0f;
 	//create a matrix with the inertia tensor values
 
-InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
-0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
-0.0f, 0.0f, 0.5f * mass * radius * radius);
+	InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
+	0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
+	0.0f, 0.0f, 0.5f * mass * radius * radius);
 
 
 

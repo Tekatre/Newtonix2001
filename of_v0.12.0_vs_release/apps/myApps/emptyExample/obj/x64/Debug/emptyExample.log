@@ -1,8 +1,13 @@
-﻿  emptyExample.vcxproj -> D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\emptyExample_debug.exe
-  
-  	                   2	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\fmod\lib\vs\x64\
-  	  *Fichier SUPPL.		 6942208	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\FreeImage.dll
-  
-  	                   1	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\FreeImage\lib\vs\x64\
-  	  *Fichier SUPPL.		 1826304	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmod.dll
-  	  *Fichier SUPPL.		 2041856	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmodL.dll
+﻿  AnchorForceGenerator.cpp
+  ForceGenerator.cpp
+  GravityForceGenerator.cpp
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C2143: erreur de syntaxe : absence de ';' avant '*' (compilation du fichier source AnchorForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut (compilation du fichier source AnchorForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,21): error C2238: jetons inattendus avant ';' (compilation du fichier source AnchorForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C2143: erreur de syntaxe : absence de ';' avant '*' (compilation du fichier source ForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut (compilation du fichier source ForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C2143: erreur de syntaxe : absence de ';' avant '*' (compilation du fichier source GravityForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,21): error C2238: jetons inattendus avant ';' (compilation du fichier source ForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,17): error C4430: spécificateur de type manquant - int est pris en compte par défaut. Remarque : C++ ne prend pas en charge int par défaut (compilation du fichier source GravityForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidForceRegistry.h(11,21): error C2238: jetons inattendus avant ';' (compilation du fichier source GravityForceGenerator.cpp)
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\AnchorForceGenerator.cpp(16,30): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données

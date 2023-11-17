@@ -160,6 +160,16 @@ Vecteur3D Vecteur3D::operator/(float k)
 	return r;
 }
 
+Vecteur3D Vecteur3D::operator^(Vecteur3D q)
+{
+	// Produit vectoriel de deux vecteurs
+	Vecteur3D r;
+	r.setX(y * q.getZ() - z * q.getY());
+	r.setY(z * q.getX() - x * q.getZ());
+	r.setZ(x * q.getY() - y * q.getX());
+	return r;
+}
+
 float Vecteur3D::ProduitScalaire(Vecteur3D q)
 {
 	// Produit scalaire de deux vecteurs

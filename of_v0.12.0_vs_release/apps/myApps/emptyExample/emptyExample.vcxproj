@@ -104,7 +104,10 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnchorForceGenerator.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ForceGenerator.cpp" />
+    <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Integrateur.cpp" />
     <ClCompile Include="Matrix33.cpp" />
@@ -124,12 +127,16 @@
     <ClCompile Include="Particule.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidForceRegistry.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnchorForceGenerator.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="ForceGenerator.h" />
+    <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Integrateur.h" />
     <ClInclude Include="Matrix33.h" />
@@ -149,6 +156,7 @@
     <ClInclude Include="Particule.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RigidForceRegistry.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />
   </ItemGroup>

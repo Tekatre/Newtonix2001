@@ -11,10 +11,10 @@
       <Filter>collision</Filter>
     </ClCompile>
     <ClCompile Include="Integrateur.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="ParticleAnchorSpring.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="ParticleContactGenerator.cpp">
       <Filter>collision</Filter>
@@ -29,16 +29,16 @@
       <Filter>collision</Filter>
     </ClCompile>
     <ClCompile Include="ParticleGravity.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="ParticleForceRegistry.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="ParticleForceGenerator.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="ParticleDrag.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="Particule.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
@@ -49,7 +49,7 @@
       <Filter>collision</Filter>
     </ClCompile>
     <ClCompile Include="ParticleSpring.cpp">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>collision</Filter>
@@ -58,6 +58,16 @@
     <ClCompile Include="Matrix34.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="ForceGenerator.cpp">
+      <Filter>forces Corps Rigide</Filter>
+    </ClCompile>
+    <ClCompile Include="GravityForceGenerator.cpp">
+      <Filter>forces Corps Rigide</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidForceRegistry.cpp">
+      <Filter>forces Corps Rigide</Filter>
+    </ClCompile>
+    <ClCompile Include="AnchorForceGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -66,8 +76,11 @@
     <Filter Include="collision">
       <UniqueIdentifier>{2c6b1571-2b8f-42d9-8a34-e40452303291}</UniqueIdentifier>
     </Filter>
-    <Filter Include="forces">
+    <Filter Include="forces Particule">
       <UniqueIdentifier>{3386984f-f39a-4409-ab04-c0a3bc889639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="forces Corps Rigide">
+      <UniqueIdentifier>{c88d060f-73f7-4c63-ae0a-dc7a694b24aa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -78,10 +91,10 @@
       <Filter>collision</Filter>
     </ClInclude>
     <ClInclude Include="Integrateur.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="ParticleAnchorSpring.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="ParticleContactGenerator.h">
       <Filter>collision</Filter>
@@ -96,16 +109,16 @@
       <Filter>collision</Filter>
     </ClInclude>
     <ClInclude Include="ParticleGravity.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="ParticleForceRegistry.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="ParticleForceGenerator.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="ParticleDrag.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="Particule.h" />
     <ClInclude Include="Vecteur3D.h" />
@@ -116,7 +129,7 @@
       <Filter>collision</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSpring.h">
-      <Filter>forces</Filter>
+      <Filter>forces Particule</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>collision</Filter>
@@ -125,6 +138,18 @@
     <ClInclude Include="Matrix34.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityForceGenerator.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidForceRegistry.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
+    <ClInclude Include="AnchorForceGenerator.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

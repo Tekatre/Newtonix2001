@@ -1,0 +1,10 @@
+﻿  RigidForceRegistry.cpp
+LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/FORCE'
+  emptyExample.vcxproj -> C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\emptyExample_debug.exe
+  
+  	                   2	C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\fmod\lib\vs\x64\
+  	  *Fichier SUPPL.		 6942208	C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\FreeImage.dll
+  
+  	                   1	C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\libs\FreeImage\lib\vs\x64\
+  	  *Fichier SUPPL.		 1826304	C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmod.dll
+  	  *Fichier SUPPL.		 2041856	C:\Users\noe76\Downloads\of_v0.12.0_vs_release\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmodL.dll

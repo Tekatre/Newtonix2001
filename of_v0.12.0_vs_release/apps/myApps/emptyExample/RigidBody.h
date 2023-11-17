@@ -6,12 +6,13 @@
 #include "Matrix33.h"
 #include <glm/fwd.hpp>
 
-class RigidBody
+class RigidBody 
 {
 private:
 	double inverseMass;
 	double linearDamping;
 	double angularDamping;
+
 	Vecteur3D position;
 	Vecteur3D velocity;
 
@@ -47,6 +48,9 @@ public :
 	void setRotation(Vecteur3D rot);
 	Matrix34 getTransformMatrix();
 	void setTransformMatrix(Matrix34 matrix);
+
+	//function to transform a point from local space to world space
+	Vecteur3D getPointInWorldSpace(const Vecteur3D& point);
 
 
 	void addForce(const Vecteur3D& force);
