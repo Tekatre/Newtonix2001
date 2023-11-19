@@ -106,6 +106,7 @@
   <ItemGroup>
     <ClCompile Include="AnchorForceGenerator.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DragForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
     <ClCompile Include="Ground.cpp" />
@@ -135,6 +136,7 @@
   <ItemGroup>
     <ClInclude Include="AnchorForceGenerator.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="DragForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravityForceGenerator.h" />
     <ClInclude Include="Ground.h" />

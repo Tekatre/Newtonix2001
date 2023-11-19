@@ -70,12 +70,22 @@ void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& p
 	values[11] = pos.getZ();
 }	
 
-//Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
-//{
-//
-//}	
+Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
+{
+	Vecteur3D result;
+	result.setX(values[0] * vector.getX() + values[1] * vector.getY() + values[2] * vector.getZ() + values[3]);
+	result.setY(values[4] * vector.getX() + values[5] * vector.getY() + values[6] * vector.getZ() + values[7]);
+	result.setZ(values[8] * vector.getX() + values[9] * vector.getY() + values[10] * vector.getZ() + values[11]);
+	return result;
+}	
 
-//Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector)
-//{
-//
-//}
+Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector)
+{
+	//ignore the translation part of the matrix
+	Vecteur3D result;
+	result.setX(values[0] * vector.getX() + values[1] * vector.getY() + values[2] * vector.getZ());
+	result.setY(values[4] * vector.getX() + values[5] * vector.getY() + values[6] * vector.getZ());
+	result.setZ(values[8] * vector.getX() + values[9] * vector.getY() + values[10] * vector.getZ());
+	return result;
+
+}

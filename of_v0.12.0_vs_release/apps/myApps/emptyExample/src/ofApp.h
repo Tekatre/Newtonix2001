@@ -24,6 +24,7 @@
 #include "../RigidBody.h"
 #include "../GravityForceGenerator.h"
 #include "../AnchorForceGenerator.h"
+#include "../DragForceGenerator.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -48,6 +49,11 @@ public:
 	Integrateur i;
 
 	ofEasyCam cam;
+	ofTexture texture;
+	ofLight light;
+
+
+
 
 	Collision collisionDetector;
 	ParticleContact* contacts = new ParticleContact();
@@ -63,7 +69,8 @@ public:
 	int numberOfRods = 0;
 	int numberOfSprings = 0;
 	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
-	vector<std::pair<Vecteur3D, Vecteur3D>> anchorsLinkRigid;
+	//create a vector with RigidBody and 2 Vecteur3D 
+	vector<std::pair<RigidBody*, Vecteur3D>> anchorsLinkRigid;
 
 	
 

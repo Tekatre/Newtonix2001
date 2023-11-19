@@ -11,111 +11,140 @@ void ofApp::initializeParticles() {
 	//*numberOfParticles = 0;
 
 
-	Particule* p1 = new Particule(numberOfParticles,Vecteur3D(50, 0, 0), Vecteur3D(-70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
-	Particule* p2 = new Particule(numberOfParticles,Vecteur3D(0, 0, 0), Vecteur3D(70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
-	Particule* p3 = new Particule(numberOfParticles,Vecteur3D(0, 0, 100), Vecteur3D(70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p4
-	Particule* p4 = new Particule(numberOfParticles,Vecteur3D(0, 0, 150), Vecteur3D(-70, -20, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p3
-	Particule* p5 = new Particule(numberOfParticles,Vecteur3D(-50, 0, 0), Vecteur3D(30, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue); //anchor en 0 0 0
+	//Particule* p1 = new Particule(numberOfParticles,Vecteur3D(50, 0, 0), Vecteur3D(-70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
+	//Particule* p2 = new Particule(numberOfParticles,Vecteur3D(0, 0, 0), Vecteur3D(70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
+	//Particule* p3 = new Particule(numberOfParticles,Vecteur3D(0, 0, 100), Vecteur3D(70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p4
+	//Particule* p4 = new Particule(numberOfParticles,Vecteur3D(0, 0, 150), Vecteur3D(-70, -20, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p3
+	//Particule* p5 = new Particule(numberOfParticles,Vecteur3D(-50, 0, 0), Vecteur3D(30, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue); //anchor en 0 0 0
 
-	Particule* p6 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -100), Vecteur3D(-70, 40, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
-	Particule* p7 = new Particule(numberOfParticles,Vecteur3D(30, 0, -100), Vecteur3D(60, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
+	//Particule* p6 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -100), Vecteur3D(-70, 40, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
+	//Particule* p7 = new Particule(numberOfParticles,Vecteur3D(30, 0, -100), Vecteur3D(60, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
 
-	Particule* p8 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -150), Vecteur3D(-70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
-	Particule* p9 = new Particule(numberOfParticles,Vecteur3D(30, 0, -150), Vecteur3D(60, 100, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
-	
-
-
-	ParticleCable* cable = new ParticleCable();
-
-	cable->particle[0] = p6;
-	cable->particle[1] = p7;
-	cable->maxLength = 200;
-	cable->restitution = 0.5;
-	cables[numberOfCables] = cable;
-	numberOfCables++;
-
-	ParticleRod* rod = new ParticleRod();
-	rod->particle[0] = p8;
-	rod->particle[1] = p9;
-	rod->length = 60;
-	rods[numberOfRods]=rod;
-	numberOfRods++;
+	//Particule* p8 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -150), Vecteur3D(-70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
+	//Particule* p9 = new Particule(numberOfParticles,Vecteur3D(30, 0, -150), Vecteur3D(60, 100, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
+	//
 
 
+	//ParticleCable* cable = new ParticleCable();
 
+	//cable->particle[0] = p6;
+	//cable->particle[1] = p7;
+	//cable->maxLength = 200;
+	//cable->restitution = 0.5;
+	//cables[numberOfCables] = cable;
+	//numberOfCables++;
 
-	ParticleSpring* Pspring4 = new ParticleSpring(p4, 1, 30);
-	ParticleSpring* Pspring3 = new ParticleSpring(p3, 1, 30);
-	ParticleSpring* Pspring8 = new ParticleSpring(p8, 1, 50);
-	ParticleSpring* Pspring7 = new ParticleSpring(p7, 1, 50);
-	ParticleAnchorSpring* anchor = new ParticleAnchorSpring(Vecteur3D(0, 0, 0), 1, 60);
-
-	registry->my_registry.push_back({p1,Pgravity});
-	registry->my_registry.push_back({ p1,Pdrag });
-	registry->my_registry.push_back({ p2,Pgravity });
-	registry->my_registry.push_back({ p3,Pgravity });
-	registry->my_registry.push_back({ p4,Pgravity });
-	registry->my_registry.push_back({ p3,Pspring4 });
-	registry->my_registry.push_back({ p4,Pspring3 });
-	registry->my_registry.push_back({ p5,Pgravity });
-	registry->my_registry.push_back({ p5,Pdrag });
-	registry->my_registry.push_back({ p5,anchor });
-	registry->my_registry.push_back({ p6,Pgravity });
-	registry->my_registry.push_back({ p7,Pgravity });
-	registry->my_registry.push_back({ p7,Pspring8 });
-	registry->my_registry.push_back({ p8, Pgravity });
-	registry->my_registry.push_back({ p8, Pspring7 });
-	registry->my_registry.push_back({ p9, Pgravity });
+	//ParticleRod* rod = new ParticleRod();
+	//rod->particle[0] = p8;
+	//rod->particle[1] = p9;
+	//rod->length = 60;
+	//rods[numberOfRods]=rod;
+	//numberOfRods++;
 
 
 
-	listParticules.push_back(p1);
-	listParticules.push_back(p2);
-	listParticules.push_back(p3);
-	listParticules.push_back(p4);
-	listParticules.push_back(p5);
-	listParticules.push_back(p6);
-	listParticules.push_back(p7);
-	listParticules.push_back(p8);
-	listParticules.push_back(p9);
-	//listParticules.push_back(p10);
-	//listParticules.push_back(p11);
 
-	
-	trails.push_back(*p1);
-	trails.push_back(*p2);
-	trails.push_back(*p3);
-	trails.push_back(*p4);
-	trails.push_back(*p5);
-	trails.push_back(*p6);
-	trails.push_back(*p7);
-	trails.push_back(*p8);
-	trails.push_back(*p9);
-	//trails.push_back(p10)
-	//trails.push_back(p11);
+	//ParticleSpring* Pspring4 = new ParticleSpring(p4, 1, 30);
+	//ParticleSpring* Pspring3 = new ParticleSpring(p3, 1, 30);
+	//ParticleSpring* Pspring8 = new ParticleSpring(p8, 1, 50);
+	//ParticleSpring* Pspring7 = new ParticleSpring(p7, 1, 50);
+	//ParticleAnchorSpring* anchor = new ParticleAnchorSpring(Vecteur3D(0, 0, 0), 1, 60);
+
+	//registry->my_registry.push_back({p1,Pgravity});
+	//registry->my_registry.push_back({ p1,Pdrag });
+	//registry->my_registry.push_back({ p2,Pgravity });
+	//registry->my_registry.push_back({ p3,Pgravity });
+	//registry->my_registry.push_back({ p4,Pgravity });
+	//registry->my_registry.push_back({ p3,Pspring4 });
+	//registry->my_registry.push_back({ p4,Pspring3 });
+	//registry->my_registry.push_back({ p5,Pgravity });
+	//registry->my_registry.push_back({ p5,Pdrag });
+	//registry->my_registry.push_back({ p5,anchor });
+	//registry->my_registry.push_back({ p6,Pgravity });
+	//registry->my_registry.push_back({ p7,Pgravity });
+	//registry->my_registry.push_back({ p7,Pspring8 });
+	//registry->my_registry.push_back({ p8, Pgravity });
+	//registry->my_registry.push_back({ p8, Pspring7 });
+	//registry->my_registry.push_back({ p9, Pgravity });
+
+
+
+	//listParticules.push_back(p1);
+	//listParticules.push_back(p2);
+	//listParticules.push_back(p3);
+	//listParticules.push_back(p4);
+	//listParticules.push_back(p5);
+	//listParticules.push_back(p6);
+	//listParticules.push_back(p7);
+	//listParticules.push_back(p8);
+	//listParticules.push_back(p9);
+	////listParticules.push_back(p10);
+	////listParticules.push_back(p11);
+
+	//
+	//trails.push_back(*p1);
+	//trails.push_back(*p2);
+	//trails.push_back(*p3);
+	//trails.push_back(*p4);
+	//trails.push_back(*p5);
+	//trails.push_back(*p6);
+	//trails.push_back(*p7);
+	//trails.push_back(*p8);
+	//trails.push_back(*p9);
+	////trails.push_back(p10)
+	////trails.push_back(p11);
 
 
 	RigidBody * rb1 = new RigidBody();
-	rb1->setInverseMass(1);
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.8);
 	rb1->setPosition(Vecteur3D(0, 50, 0));
-	rb1->setVelocity(Vecteur3D(0, 10, 30));
+	rb1->setVelocity(Vecteur3D(20, 10, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
-	rb1->setRotation(Vecteur3D(1,0, 0));
-	rb1->setTransformMatrix(Matrix34());
+	rb1->setRotation(Vecteur3D(5,5, 0));
+	Matrix34 tr;
+	tr.setOrientationAndPosition(q, rb1->getPosition());
+	rb1->setTransformMatrix(tr);
 
+	Particule* particuletest = new Particule(numberOfParticles, rb1->getTransformMatrix()*Vecteur3D(0,30,40), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0), 5, 1, ofColor::yellow);
+	listParticules.push_back(particuletest);
 	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), 1, 50);
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 10, 0), 1, 100);
+	DragForceGenerator* dragForce = new DragForceGenerator();
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce, 2, Vecteur3D(0,0,30) });
-	anchorsLinkRigid.push_back({  (*rb1).getPosition(),Vecteur3D(0,0,0)});
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce, 2, Vecteur3D(0,30,40)});
+
+
+	/*RigidBody* rb2 = new RigidBody();
+	rb2->setInverseMass(1);
+	rb2->setLinearDamping(0.95);
+	rb2->setAngularDamping(0.8);
+	rb2->setPosition(Vecteur3D(0, 50, 0));
+	rb2->setVelocity(Vecteur3D(50, 50, 0));
+	rb2->setForceAccum(Vecteur3D(0, 0, 0));
+	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb2->setInverseMass(1);
+
+	rb2->setOrientation(q);
+	rb2->setRotation(Vecteur3D(0, 0, 0));
+	rb2->setTransformMatrix(Matrix34());
+
+
+	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });*/
+
+
+
+	//->my_RigidRegistry.push_back({ rb1,anchorForce, 0, Vecteur3D(0,0,0) });
+	
+	anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
+	//listRigidBodies.push_back(rb2);
 	
 }
 
@@ -131,6 +160,14 @@ void ofApp::setup() {
 	
 
 	initializeParticles();
+	ofDisableAlphaBlending();
+	ofEnableDepthTest();
+	light.enable();
+	light.setPosition(ofVec3f(100, 100, 200));
+	light.lookAt(ofVec3f(0, 0, 0));
+
+	ofDisableArbTex();
+	ofLoadImage(texture, "D:\\Newtonix2001\\of_v0.12.0_vs_release\\apps\\myApps\\emptyExample\\choc.png");
 
 	//gui.setup();
 	//modify gui size
@@ -207,48 +244,13 @@ void ofApp::update() {
 		trails.push_back(*listParticules[k]);
 	}
 	for (int l = 0; l < listRigidBodies.size(); l++) {
+		cout << t;
 		i.integrer(listRigidBodies[l], t);
 	}
 
-	//replace all velocity of particles in cables and rods and registry2
-	//for (int i = 0; i < listParticules.size(); i++) {
-	//	for (int j = 0; j < cables.size(); j++) {
-	//		if (listParticules[i].getId() == cables[j].getParticleCable1().getId()) {
-	//			cables[j].setParticleCable1(listParticules[i]);
-	//		}
-	//		if (listParticules[i].getId() == cables[j].getParticleCable2().getId()) {
-	//			cables[j].setParticleCable2(listParticules[i]);
-	//		}
-	//	}
+	listParticules[0]->setPosition(listRigidBodies[0]->getTransformMatrix() * Vecteur3D(0, 30, 40));
 
-	//	for (int k = 0; k < rods.size(); k++) {
-	//		if (listParticules[i].getId() == rods[k].getParticleRod1().getId()) {
-	//			rods[k].setParticleRod1(listParticules[i]);
-	//		}
-	//		if (listParticules[i].getId() == rods[k].getParticleRod2().getId()) {
-	//			rods[k].setParticleRod2(listParticules[i]);
-	//		}
-	//	}
-
-	//	for (int l = 0; l < registry2.size(); l++) {
-	//		if (listParticules[i].getId() == registry2[l].first.getId()) {
-	//			registry2[l].first = listParticules[i];
-	//		}
-	//	}
-	//	//for springs
-	//	for (int m = 0; m < springs.size(); m++) {
-	//		if (listParticules[i].getId() == springs[m].getOther().getId()) {
-	//			springs[m].setOther(&listParticules[i]);
-	//		}
-	//	}
-
-	//	for (int n = 0; n < anchorsLink.size(); n++) {
-	//		if (listParticules[i].getId() == anchorsLink[n].first.getId()) {
-	//			anchorsLink[n].first = listParticules[i];
-	//		}
-	//	}
-
-	//}
+	
 
 
 
@@ -298,24 +300,32 @@ void ofApp::draw() {
 	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 300, 0), 10);
 	ofSetColor(0, 0, 255);
 	ofDrawArrow(glm::vec3(0, 0, 0), glm::vec3(0, 0, 300), 10);
-	ofSetColor(0, 255, 255);
-	ofDrawArrow(glm::vec3(0, -125, 0), glm::vec3(0, -75, 0), 10);
+	//ofSetColor(0, 255, 255);
+	//ofDrawArrow(glm::vec3(0, -125, 0), glm::vec3(0, -75, 0), 10);
 	/*ofSetColor(150,0,160);
 	ofDrawSphere(p1.getPosition().getX(), p1.getPosition().getY(), p1.getPosition().getZ(), 10);*/
 
 	//draw the rigid body
-	ofSetColor(0, 0, 0);
+	ofSetColor(255,255,255);
 	for (int i = 0; i < listRigidBodies.size(); i++) {
 		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive
 		ofCylinderPrimitive cylindre;
 		cylindre.setResolution(50, 50, 50);
+
+		cylindre.setRadius(50);
+		cylindre.setHeight(50);
+		cylindre.setResolutionCap(50);
+
 		cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
 		cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+		texture.bind();
 		cylindre.draw();	
+		texture.unbind();
 	}
 	for (int k = 0; k < anchorsLinkRigid.size(); k++) {
 		ofSetColor(255, 255, 0);
-		ofDrawLine(anchorsLinkRigid[k].first.getX(), anchorsLinkRigid[k].first.getY(), anchorsLinkRigid[k].first.getZ(), anchorsLinkRigid[k].second.getX(), anchorsLinkRigid[k].second.getY(), anchorsLinkRigid[k].second.getZ());
+		Vecteur3D pos= listRigidBodies[0]->getTransformMatrix()* Vecteur3D(0, 30, 40);
+		ofDrawLine(pos.getX(), pos.getY(),pos.getZ(), anchorsLinkRigid[k].second.getX(), anchorsLinkRigid[k].second.getY(), anchorsLinkRigid[k].second.getZ());
 		
 	}
 	

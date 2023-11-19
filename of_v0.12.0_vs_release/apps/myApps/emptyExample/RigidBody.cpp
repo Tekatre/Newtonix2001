@@ -123,10 +123,9 @@ void RigidBody::integrate(double duration)
 	//Calculer l'accélération angulaire a.. = I^-1' * T
 	Vecteur3D angularAcceleration = InverseInertiaTensor * torqueAccum;
 	//Mettre à jour la vélocité linéaire
-	this->velocity = this->velocity + acceleration * duration;
+	this->velocity = this->velocity*(pow(linearDamping,duration)) + acceleration * duration;
 	//Mettre à jour la vélocité angulaire
-	this->rotation = this->rotation + angularAcceleration * duration;
-
+	this->rotation = this->rotation * (pow(angularDamping, duration)) + angularAcceleration * duration;
 	//Réinitialiser les forces et les torques
 	this->clearAccumulator();
 
@@ -150,39 +149,47 @@ void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
 
 void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point)
 {
-	//convertir le point en coordonnées locales
-	Vecteur3D localPoint = this->transformMatrix * point;
+	//convertir le point local en coordonnées globales
+	Vecteur3D globalPoint = this->transformMatrix* point;
 	//ajouter la force
 	this->addForce(force);
 	//ajouter le moment de force
 	Vecteur3D torque = this->getTorqueAccum();
-	Vecteur3D newTorque =localPoint ^ force;
-	this->setTorqueAccum(this->getTorqueAccum() + (localPoint ^ force));
+	Vecteur3D newTorque = globalPoint ^ force;
+	this->setTorqueAccum(this->getTorqueAccum() + (globalPoint ^ force));
 }
 void RigidBody::calculateDerivedData()
 {
 	//call each frame to calculate the transform matrix and normalize the orientation
-	this->orientation.Normalized();
+
 	//this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
 
 	//calculate the intertia matrix for a cylinder
 	double mass = 1.0f / this->inverseMass;
-	double radius = 1.0f;
-	double height = 1.0f;
+	double radius = 50.0f;
+	double height = 50.0f;
 	//create a matrix with the inertia tensor values
 
-InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
-0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
-0.0f, 0.0f, 0.5f * mass * radius * radius);
+	InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
+	0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
+	0.0f, 0.0f, 0.5f * mass * radius * radius);
+
+	Matrix33 CylinderInertiaTensor;
+	CylinderInertiaTensor.setValues(0.083f * mass * height * height + 0.25f * mass * radius * radius, 0, 0,
+		0, 0.5f * mass * radius * radius, 0,
+		0, 0, 0.083f * mass * height * height + 0.25f * mass * radius * radius);
+
+	InverseInertiaTensor = CylinderInertiaTensor.Inverse();
 
 
 
 
 	//calculate the transform matrix
 	this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
+	std::cout << "41+1";
 
 
-
+	this->orientation.Normalized();
 
 }
 
