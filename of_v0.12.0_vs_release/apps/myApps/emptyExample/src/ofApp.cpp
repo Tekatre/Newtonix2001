@@ -103,6 +103,7 @@ void ofApp::initializeParticles() {
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
+	rb1->setShape(2);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
@@ -114,7 +115,7 @@ void ofApp::initializeParticles() {
 	Particule* particuletest = new Particule(numberOfParticles, rb1->getTransformMatrix()*Vecteur3D(0,30,40), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0), 5, 1, ofColor::yellow);
 	listParticules.push_back(particuletest);
 	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 10, 0), Vecteur3D(0,30,40), 1, 50);
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 100, 0), Vecteur3D(0,30,40), 1, 50);
 	DragForceGenerator* dragForce = new DragForceGenerator();
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
@@ -134,6 +135,7 @@ void ofApp::initializeParticles() {
 	rb2->setForceAccum(Vecteur3D(0, 0, 0));
 	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb2->setInverseMass(1);
+	rb2->setShape(1);
 	Quaternion q2 = Quaternion(1, 0, 0, 0);
 	q2.Normalized();
 	rb2->setOrientation(q2);
@@ -151,6 +153,7 @@ void ofApp::initializeParticles() {
 	rb3->setForceAccum(Vecteur3D(0, 0, 0));
 	rb3->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb3->setInverseMass(1);
+	rb3->setShape(1);
 	Quaternion q3 = Quaternion(1, 0, 0, 0);
 	q3.Normalized();
 	rb3->setOrientation(q3);
@@ -160,15 +163,59 @@ void ofApp::initializeParticles() {
 
 	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(30,0,0),rb3, Vecteur3D(0, 0, 0), 1, 100);
 	SpringForceGenerator* springForce3 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(30, 0, 0), 1, 100);
+	AnchorForceGenerator* anchor2 = new AnchorForceGenerator(Vecteur3D(0, 10, 0), Vecteur3D(20, 0, 0), 1, 100);
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity});
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb3,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb3,springForce3 });
+	rigidRegistry->my_RigidRegistry.push_back({ rb2,anchor2 });
+
+
+	RigidBody* rb4 = new RigidBody();
+	rb4->setLinearDamping(0.95);
+	rb4->setAngularDamping(0.5);
+	rb4->setPosition(Vecteur3D(0, 0, -150));
+	rb4->setVelocity(Vecteur3D(50, 50, 0));
+	rb4->setForceAccum(Vecteur3D(0, 0, 0));
+	rb4->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb4->setInverseMass(1);
+	rb4->setShape(0);
+	Quaternion q4 = Quaternion(1, 0, 0, 0);
+	q4.Normalized();
+	rb4->setOrientation(q4);
+	rb4->setRotation(Vecteur3D(0, 0, 0));
+	rb4->setTransformMatrix(Matrix34());
+	tr.setOrientationAndPosition(q4, rb4->getPosition());
+	rb4->setTransformMatrix(tr);
+
+	RigidBody* rb5 = new RigidBody();
+	rb5->setLinearDamping(0.95);
+	rb5->setAngularDamping(0.5);
+	rb5->setPosition(Vecteur3D(0, 0, -200));
+	rb5->setVelocity(Vecteur3D(50, 50, 0));
+	rb5->setForceAccum(Vecteur3D(0, 0, 0));
+	rb5->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb5->setInverseMass(1);
+	rb5->setShape(0);
+	Quaternion q5 = Quaternion(1, 0, 0, 0);
+	q5.Normalized();
+	rb5->setOrientation(q5);
+	rb5->setRotation(Vecteur3D(0, 0, 0));
+	rb5->setTransformMatrix(Matrix34());
+	tr.setOrientationAndPosition(q5, rb5->getPosition());
+	rb5->setTransformMatrix(tr);
+
+
+	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });
+	rigidRegistry->my_RigidRegistry.push_back({ rb5,rggravity });
+	rigidRegistry->my_RigidRegistry.push_back({ rb5,dragForce });
 	
-	anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
+	//anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
 	listRigidBodies.push_back(rb3);
+	listRigidBodies.push_back(rb4);
+	listRigidBodies.push_back(rb5);
 
 	
 }
@@ -342,17 +389,39 @@ void ofApp::draw() {
 	for (int i = 0; i < listRigidBodies.size(); i++) {
 		ofSetColor(255, 255, 255);
 		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive
-		ofCylinderPrimitive cylindre;
-		cylindre.setResolution(50, 50, 50);
+		if (listRigidBodies[i]->getShape() == 1) {
+			ofBoxPrimitive box;
+			box.setHeight(50);
+			box.setWidth(50);
+			box.setDepth(50);
+			box.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
+			box.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+			box.draw();
+		}
+		else if (listRigidBodies[i]->getShape() ==2) {
+			ofCylinderPrimitive cylindre;
+			cylindre.setResolution(50, 50, 50);
 
-		cylindre.setRadius(50);
-		cylindre.setHeight(50);
-		cylindre.setResolutionCap(50);
+			cylindre.setRadius(50);
+			cylindre.setHeight(50);
+			cylindre.setResolutionCap(50);
+			cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
+			cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+			cylindre.draw();
+		}
+		else {
+			ofSpherePrimitive sphere;
+			sphere.setRadius(50);
+			sphere.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
+			sphere.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+			sphere.draw();
+		}
+		
+		
 
-		cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
-		cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
+		
 		//texture.bind();
-		cylindre.draw();	
+			
 		//texture.unbind();
 		
 	}

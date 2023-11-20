@@ -9,6 +9,17 @@ RigidBody::~RigidBody()
 {
 }
 
+
+void RigidBody::setShape(int shape)
+{
+	this->shape = shape;
+}
+
+int RigidBody::getShape()
+{
+	return this->shape;
+}
+
 double RigidBody::getInverseMass()
 {
 	return this->inverseMass;
@@ -177,16 +188,50 @@ void RigidBody::calculateDerivedData()
 	double height = 50.0f;
 	//create a matrix with the inertia tensor values
 
-	InverseInertiaTensor.setValues(0.083f * mass * (3.0f * radius * radius + height * height), 0.0f, 0.0f,
-	0.0f, 0.083f * mass * (3.0f * radius * radius + height * height), 0.0f,
-	0.0f, 0.0f, 0.5f * mass * radius * radius);
+	int shape = this->getShape();
 
-	Matrix33 CylinderInertiaTensor;
-	CylinderInertiaTensor.setValues(0.083f * mass * height * height + 0.25f * mass * radius * radius, 0, 0,
-		0, 0.5f * mass * radius * radius, 0,
-		0, 0, 0.083f * mass * height * height + 0.25f * mass * radius * radius);
+	switch (shape)
+	{
+		case 0:
+		
+			Matrix33 SphereInertiaTensor;
+			SphereInertiaTensor.setValues(0.4f * mass * radius * radius, 0, 0,
+				0, 0.4f * mass * radius * radius, 0,
+				0, 0, 0.4f * mass * radius * radius);
+			InverseInertiaTensor = SphereInertiaTensor.Inverse();
+			break;
+		
+		case 1:
+		
+			Matrix33 CubeInertiaTensor;
+			CubeInertiaTensor.setValues(1.0f / 12.0f * mass * (height * height + radius * radius), 0, 0,
+				0, 1.0f / 12.0f * mass * (height * height + radius * radius), 0,
+				0, 0, 1.0f / 12.0f * mass * (height * height + height * height));
+			InverseInertiaTensor = CubeInertiaTensor.Inverse();
+			break;
+		
 
-	InverseInertiaTensor = CylinderInertiaTensor.Inverse();
+		case 2:
+		
+			Matrix33 CylinderInertiaTensor;
+			CylinderInertiaTensor.setValues(0.083f * mass * height * height + 0.25f * mass * radius * radius, 0, 0,
+				0, 0.5f * mass * radius * radius, 0,
+				0, 0, 0.083f * mass * height * height + 0.25f * mass * radius * radius);
+			InverseInertiaTensor = CylinderInertiaTensor.Inverse();
+			break;
+		
+		default:
+			Matrix33 SphereInertiaTensor2;
+			SphereInertiaTensor2.setValues(0.4f * mass * radius * radius, 0, 0,
+				0, 0.4f * mass * radius * radius, 0,
+				0, 0, 0.4f * mass * radius * radius);
+			InverseInertiaTensor = SphereInertiaTensor2.Inverse();
+		
+	}
+
+
+
+
 
 
 	this->orientation.Normalized();

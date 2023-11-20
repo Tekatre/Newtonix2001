@@ -9,6 +9,9 @@
 class RigidBody 
 {
 private:
+
+	int shape; // 0 Sphere, 1 Cube, 3 Cylindre
+
 	double inverseMass;
 	double linearDamping;
 	double angularDamping;
@@ -47,6 +50,9 @@ public :
 	void setRotation(Vecteur3D rot);
 	Matrix34 getTransformMatrix();
 	void setTransformMatrix(Matrix34 matrix);
+
+	void setShape(int shape);
+	int getShape();
 
 
 	void addForce(const Vecteur3D& force);
