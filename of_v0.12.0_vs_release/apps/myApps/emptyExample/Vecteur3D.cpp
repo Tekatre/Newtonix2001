@@ -170,6 +170,18 @@ Vecteur3D Vecteur3D::operator^(Vecteur3D q)
 	return r;
 }
 
+bool Vecteur3D::operator!=(Vecteur3D q)
+{
+	if (x == q.getX() && y == q.getY() && z == q.getZ())
+	{
+		return false ;
+	}
+	else
+	{
+		return true;
+	}
+}
+
 float Vecteur3D::ProduitScalaire(Vecteur3D q)
 {
 	// Produit scalaire de deux vecteurs

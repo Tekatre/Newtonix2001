@@ -6,6 +6,7 @@ private:
 	float k1 = 0.05;
 	float k2 = 0.001;
 public:
-	void updateForce(RigidBody* rigidBody, int type, Vecteur3D point);
+	void updateForce(RigidBody* rigidBody);
+	Vecteur3D getBodyAnchor();
 };
 

@@ -1,6 +1,11 @@
 #include "GravityForceGenerator.h"
 
-void GravityGenerator::updateForce(RigidBody* rigidBody, int type, Vecteur3D point)
+void GravityGenerator::updateForce(RigidBody* rigidBody)
 {
 	rigidBody->addForce(gravity);
+}
+
+Vecteur3D GravityGenerator::getBodyAnchor()
+{
+	return Vecteur3D();
 }

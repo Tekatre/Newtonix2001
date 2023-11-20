@@ -8,6 +8,7 @@ private :
 	Vecteur3D gravity = Vecteur3D(0,-9.81,0);
 
 public :
-	void updateForce(RigidBody* rigidBdy, int type, Vecteur3D point) override;
+	void updateForce(RigidBody* rigidBody) override;
+	Vecteur3D getBodyAnchor();
 };
 

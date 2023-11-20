@@ -35,6 +35,7 @@ public:
 	Vecteur3D operator*(float k);
 	Vecteur3D operator/(float k);
 	Vecteur3D operator^(Vecteur3D q);
+	bool operator!=(Vecteur3D q);
 	double norme();
 	float length();
 	Vecteur3D normalize();

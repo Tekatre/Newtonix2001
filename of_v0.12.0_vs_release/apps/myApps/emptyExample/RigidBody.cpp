@@ -143,6 +143,7 @@ void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
 	Vecteur3D localPoint = this->transformMatrix.Inverse() * point;
 	//calculer le moment de force
 	Vecteur3D torque = localPoint ^ force;
+
 	//ajouter le moment de force
 	this->addForceAtBodyPoint(force, point);
 }
@@ -150,13 +151,19 @@ void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
 void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point)
 {
 	//convertir le point local en coordonnées globales
-	Vecteur3D globalPoint = this->transformMatrix* point;
+	Matrix34 invTransformMatrix = this->transformMatrix;
+	Vecteur3D globalPoint = invTransformMatrix * point;
 	//ajouter la force
 	this->addForce(force);
 	//ajouter le moment de force
 	Vecteur3D torque = this->getTorqueAccum();
-	Vecteur3D newTorque = globalPoint ^ force;
-	this->setTorqueAccum(this->getTorqueAccum() + (globalPoint ^ force));
+	Vecteur3D newTorque = (Vecteur3D)point ^ force;
+	//si le newTorque n'est pas nul
+	if(newTorque != Vecteur3D(0, 0, 0))
+	{
+		//std::cout << "gbkheugi";
+	}
+	this->setTorqueAccum(this->getTorqueAccum() + newTorque);
 }
 void RigidBody::calculateDerivedData()
 {
@@ -182,14 +189,14 @@ void RigidBody::calculateDerivedData()
 	InverseInertiaTensor = CylinderInertiaTensor.Inverse();
 
 
-
+	this->orientation.Normalized();
 
 	//calculate the transform matrix
 	this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
-	std::cout << "41+1";
+	//std::cout << "41+1";
 
-
-	this->orientation.Normalized();
+	
+	
 
 }
 

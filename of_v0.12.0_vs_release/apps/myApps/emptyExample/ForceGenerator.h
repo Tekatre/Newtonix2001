@@ -5,6 +5,7 @@
 class ForceGenerator
 {
 public :
-	virtual void updateForce(RigidBody* rigidBody, int type, Vecteur3D point) = 0 ;
+	virtual void updateForce(RigidBody* rigidBody) = 0 ;
+	virtual Vecteur3D getBodyAnchor() = 0;
 };
 

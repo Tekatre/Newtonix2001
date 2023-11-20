@@ -129,6 +129,7 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidForceRegistry.cpp" />
+    <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="Vecteur3D.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RigidForceRegistry.h" />
+    <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />
   </ItemGroup>

@@ -73,6 +73,9 @@
     <ClCompile Include="DragForceGenerator.cpp">
       <Filter>forces Corps Rigide</Filter>
     </ClCompile>
+    <ClCompile Include="SpringForceGenerator.cpp">
+      <Filter>forces Corps Rigide</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -156,6 +159,9 @@
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
     <ClInclude Include="DragForceGenerator.h">
+      <Filter>forces Corps Rigide</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringForceGenerator.h">
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
   </ItemGroup>

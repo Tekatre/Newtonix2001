@@ -1,17 +1,18 @@
 #include "AnchorForceGenerator.h"
 
-AnchorForceGenerator::AnchorForceGenerator(Vecteur3D anchor, float k, float lzero)
+AnchorForceGenerator::AnchorForceGenerator(Vecteur3D anchor, Vecteur3D bodyAnchor, float k, float lzero)
 {
 	this->anchor = anchor;
+	this->bodyAnchor = bodyAnchor;
 	this->k = k;
 	this->lzero = lzero;
 }
 
 
-void AnchorForceGenerator::updateForce(RigidBody* rigidBody, int type, Vecteur3D point)
+void AnchorForceGenerator::updateForce(RigidBody* rigidBody)
 {
 	
-		Vecteur3D d = (rigidBody->getTransformMatrix() * point - anchor);
+		Vecteur3D d = (rigidBody->getTransformMatrix() * bodyAnchor - anchor);
 		if (d.norme() == 0) {
 			return;
 		}
@@ -19,12 +20,12 @@ void AnchorForceGenerator::updateForce(RigidBody* rigidBody, int type, Vecteur3D
 		Vecteur3D force = dir.mul((-k * rigidBody->getInverseMass()) * (d.norme() - lzero));
 		
 	
+	
+		rigidBody->addForceAtBodyPoint(force, bodyAnchor);
 		
-		
-		if (type == 0) {
-			rigidBody->addForce(force);
-		}
-		if (type == 2) {
-			rigidBody->addForceAtBodyPoint(force, point);
-		}
+}
+
+Vecteur3D AnchorForceGenerator::getBodyAnchor()
+{
+	return bodyAnchor;
 }

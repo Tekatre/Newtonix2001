@@ -25,6 +25,7 @@
 #include "../GravityForceGenerator.h"
 #include "../AnchorForceGenerator.h"
 #include "../DragForceGenerator.h"
+#include "../SpringForceGenerator.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -52,7 +53,7 @@ public:
 	ofTexture texture;
 	ofLight light;
 
-
+	vector<Particule> particulesAnchor;
 
 
 	Collision collisionDetector;
