@@ -240,7 +240,9 @@ void RigidBody::calculateDerivedData()
 	this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
 	//std::cout << "41+1";
 
-	
+	//get the 3x3 of transform matrix
+	Matrix33 orientationMatrix = this->transformMatrix.getOrientation();
+	InverseInertiaTensor = InverseInertiaTensor * orientationMatrix;
 	
 
 }

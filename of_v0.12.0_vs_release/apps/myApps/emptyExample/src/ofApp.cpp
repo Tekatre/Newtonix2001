@@ -98,24 +98,24 @@ void ofApp::initializeParticles() {
 	RigidBody * rb1 = new RigidBody();
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.5);
-	rb1->setPosition(Vecteur3D(0, 50, 0));
-	rb1->setVelocity(Vecteur3D(0, 1, 0));
+	rb1->setPosition(Vecteur3D(-100, 0, 0));
+	rb1->setVelocity(Vecteur3D(0.1, 0, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
-	rb1->setShape(2);
+	rb1->setShape(1);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
-	rb1->setRotation(Vecteur3D(0,5, 0));
+	rb1->setRotation(Vecteur3D(0,0, 0));
 	Matrix34 tr;
 	tr.setOrientationAndPosition(q, rb1->getPosition());
 	rb1->setTransformMatrix(tr);
 
-	Particule* particuletest = new Particule(numberOfParticles, rb1->getTransformMatrix()*Vecteur3D(0,30,40), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0), 5, 1, ofColor::yellow);
+	Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
 	listParticules.push_back(particuletest);
 	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 100, 0), Vecteur3D(0,30,40), 1, 50);
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(25,0,0), 1, 50);
 	DragForceGenerator* dragForce = new DragForceGenerator();
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
@@ -259,7 +259,7 @@ void ofApp::setup() {
 
 //--------------------------------------------------------------
 void ofApp::update() {
-	if (paused) {
+	if (!paused) {
 		return;
 	}
 	t = ofGetLastFrameTime();
@@ -280,25 +280,27 @@ void ofApp::update() {
 			particulesAnchor.push_back(p);
 		}
 	}
+	if (listParticules.size() != 0) {
+		for (int m = 0; m < listParticules.size() - 1; m++) {
+			for (int n = m + 1; n < listParticules.size(); n++) {
+				if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
 
-	for (int m = 0; m < listParticules.size() - 1; m++) {
-		for (int n = m + 1; n < listParticules.size(); n++) {
-			if (collisionDetector.checkCollision(listParticules[m], listParticules[n])) {
-
-				ParticleContact sphereContact;
-				sphereContact.particle[0] = listParticules[m];
-				sphereContact.particle[1] = listParticules[n];
-				sphereContact.restitution = 0.8;
-				sphereContact.penetration = listParticules[m]->getRayon() + listParticules[n]->getRayon() - (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme();
-				sphereContact.contactNormal = (listParticules[m]->getPosition() - listParticules[n]->getPosition()) * (1 / (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme());
-				//add sphereContact to contacts (contacts is not a vector)
-				if (numberOfContacts < maxCollisions) {
-					contacts[numberOfContacts] = sphereContact;
-					numberOfContacts++;
+					ParticleContact sphereContact;
+					sphereContact.particle[0] = listParticules[m];
+					sphereContact.particle[1] = listParticules[n];
+					sphereContact.restitution = 0.8;
+					sphereContact.penetration = listParticules[m]->getRayon() + listParticules[n]->getRayon() - (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme();
+					sphereContact.contactNormal = (listParticules[m]->getPosition() - listParticules[n]->getPosition()) * (1 / (listParticules[m]->getPosition() - listParticules[n]->getPosition()).norme());
+					//add sphereContact to contacts (contacts is not a vector)
+					if (numberOfContacts < maxCollisions) {
+						contacts[numberOfContacts] = sphereContact;
+						numberOfContacts++;
+					}
 				}
 			}
 		}
 	}
+	
 
 	for (int k = 0; k < numberOfCables; k++) {
 		//addcontact
