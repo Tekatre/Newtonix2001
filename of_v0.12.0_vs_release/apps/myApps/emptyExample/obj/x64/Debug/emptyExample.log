@@ -1,16 +1,191 @@
-﻿  ofApp.cpp
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(326,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(331,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(912,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(913,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(914,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(915,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données
+﻿  AnchorForceGenerator.cpp
+  Collision.cpp
+  DragForceGenerator.cpp
+  ForceGenerator.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\AnchorForceGenerator.cpp(19,30): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\DragForceGenerator.h(6,13): warning C4305: 'initialisation' : troncation de 'double' à 'float' (compilation du fichier source DragForceGenerator.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\DragForceGenerator.h(7,13): warning C4305: 'initialisation' : troncation de 'double' à 'float' (compilation du fichier source DragForceGenerator.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\DragForceGenerator.cpp(5,14): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\DragForceGenerator.cpp(6,12): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\DragForceGenerator.cpp(7,87): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Collision.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source Collision.cpp)
+  GravityForceGenerator.cpp
+  Ground.cpp
+  Integrateur.cpp
+  Matrix33.cpp
+  Matrix34.cpp
+  ParticleAnchorSpring.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Integrateur.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source Integrateur.cpp)
+  ParticleCable.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleAnchorSpring.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleAnchorSpring.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleAnchorSpring.cpp(12,29): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(27,10): warning C4244: 'initialisation' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(26,5): message : pendant la compilation de la fonction membre classe modèle 'ofColor_<unsigned char>::ofColor_(void)' (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\graphics\ofGraphicsBaseTypes.h(54,10): message : voir la première référence à « ofColor_<unsigned char>::ofColor_ » dans « ofStyle::ofStyle » (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(691,1): message : voir la référence à l'instanciation classe modèle 'ofColor_<unsigned char>' en cours de compilation (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(28,10): warning C4244: 'initialisation' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(29,10): warning C4244: 'initialisation' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Ground.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(30,10): warning C4244: 'initialisation' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Ground.cpp)
+  ParticleContact.cpp
+  ParticleContactGenerator.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleCable.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleCable.cpp)
+  ParticleContactResolver.cpp
+  ParticleDrag.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleContact.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleContact.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleContactGenerator.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleContactGenerator.cpp)
+  ParticleForceGenerator.cpp
+  ParticleForceRegistry.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleContactResolver.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleContactResolver.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleDrag.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleDrag.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleDrag.h(7,13): warning C4305: 'initialisation' : troncation de 'double' à 'float' (compilation du fichier source ParticleDrag.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleDrag.h(8,13): warning C4305: 'initialisation' : troncation de 'double' à 'float' (compilation du fichier source ParticleDrag.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleDrag.cpp(5,14): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleDrag.cpp(6,12): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+  ParticleGravity.cpp
+  ParticleLink.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleForceGenerator.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleForceGenerator.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleForceRegistry.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleForceRegistry.cpp)
+  ParticleRod.cpp
+  ParticleSpring.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleGravity.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleGravity.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleLink.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleLink.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleLink.cpp(9,26): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  Particule.cpp
+  Quaternion.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleRod.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleRod.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source ParticleSpring.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source ParticleSpring.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\ParticleSpring.cpp(12,29): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  RigidBody.cpp
+  RigidForceRegistry.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\types\ofColor.h(708,6): warning C4244: '=' : conversion de 'float' en 'PixelType', perte possible de données
+          with
+          [
+              PixelType=unsigned char
+          ] (compilation du fichier source Particule.cpp)
+  SpringForceGenerator.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Particule.h(23,11): warning C4244: 'argument' : conversion de 'int' en 'float', perte possible de données (compilation du fichier source Particule.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(127,53): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(133,50): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(137,38): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(137,81): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(139,40): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\RigidBody.cpp(139,92): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+  Vecteur3D.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\SpringForceGenerator.cpp(20,29): warning C4244: 'argument' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Vecteur3D.cpp(120,13): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Vecteur3D.cpp(188,37): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+  main.cpp
+  ofApp.cpp
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(326,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(331,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(326,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(331,20): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(912,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(913,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(914,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(915,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\main.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(912,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(913,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(914,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
+D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\openFrameworks\math\ofMatrix4x4.h(915,11): warning C4267: 'argument' : conversion de 'size_t' en 'int', perte possible de données (compilation du fichier source src\ofApp.cpp)
 LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/FORCE'
-  emptyExample.vcxproj -> D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\emptyExample_debug.exe
+  emptyExample.vcxproj -> D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\emptyExample_debug.exe
   
-  	                   2	D:\Newtonix2001\of_v0.12.0_vs_release\libs\fmod\lib\vs\x64\
-  	  *Fichier SUPPL.		 6942208	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\FreeImage.dll
+  	                   2	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\fmod\lib\vs\x64\
+  	  *Fichier SUPPL.		 6942208	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\FreeImage.dll
   
-  	                   1	D:\Newtonix2001\of_v0.12.0_vs_release\libs\FreeImage\lib\vs\x64\
-  	  *Fichier SUPPL.		 1826304	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmod.dll
-  	  *Fichier SUPPL.		 2041856	D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmodL.dll
+  	                   1	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\libs\FreeImage\lib\vs\x64\
+  	  *Fichier SUPPL.		 1826304	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmod.dll
+  	  *Fichier SUPPL.		 2041856	D:\UQAC\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\fmodL.dll
