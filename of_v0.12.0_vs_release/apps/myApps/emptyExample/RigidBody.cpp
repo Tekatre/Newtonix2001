@@ -10,15 +10,7 @@ RigidBody::~RigidBody()
 }
 
 
-void RigidBody::setShape(int shape)
-{
-	this->shape = shape;
-}
 
-int RigidBody::getShape()
-{
-	return this->shape;
-}
 
 double RigidBody::getInverseMass()
 {
@@ -182,15 +174,8 @@ void RigidBody::calculateDerivedData()
 
 	//this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
 
-	//calculate the intertia matrix for a cylinder
-	double mass = 1.0f / this->inverseMass;
-	double radius = 50.0f;
-	double height = 50.0f;
-	//create a matrix with the inertia tensor values
 
-	int shape = this->getShape();
-
-	switch (shape)
+	/*switch (shape)
 	{
 		case 0:
 		
@@ -227,7 +212,7 @@ void RigidBody::calculateDerivedData()
 				0, 0, 0.4f * mass * radius * radius);
 			InverseInertiaTensor = SphereInertiaTensor2.Inverse();
 		
-	}
+	}*/
 
 
 
@@ -245,6 +230,16 @@ void RigidBody::calculateDerivedData()
 	InverseInertiaTensor = InverseInertiaTensor * orientationMatrix;
 	
 
+}
+
+Matrix33 RigidBody::getInverseInertiaTensor()
+{
+	return this->InverseInertiaTensor;
+}
+
+void RigidBody::setInverseInertiaTensor(Matrix33 matrix)
+{
+	this->InverseInertiaTensor = matrix;
 }
 
 

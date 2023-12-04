@@ -26,6 +26,7 @@
 #include "../AnchorForceGenerator.h"
 #include "../DragForceGenerator.h"
 #include "../SpringForceGenerator.h"
+#include "../BoxRigidBody.h"
 
 class ofApp : public ofBaseApp {
 public:

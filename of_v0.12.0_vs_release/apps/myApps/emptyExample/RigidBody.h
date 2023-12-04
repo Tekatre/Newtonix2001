@@ -6,11 +6,11 @@
 #include "Matrix33.h"
 #include <glm/fwd.hpp>
 
+
 class RigidBody 
 {
 private:
 
-	int shape; // 0 Sphere, 1 Cube, 3 Cylindre
 
 	double inverseMass;
 	double linearDamping;
@@ -50,9 +50,9 @@ public :
 	void setRotation(Vecteur3D rot);
 	Matrix34 getTransformMatrix();
 	void setTransformMatrix(Matrix34 matrix);
+	Matrix33 getInverseInertiaTensor();
+	void setInverseInertiaTensor(Matrix33 matrix);
 
-	void setShape(int shape);
-	int getShape();
 
 
 	void addForce(const Vecteur3D& force);
@@ -61,6 +61,6 @@ public :
 	void clearAccumulator();
 
 private:
-	void calculateDerivedData();
+	virtual void calculateDerivedData();
 };
 

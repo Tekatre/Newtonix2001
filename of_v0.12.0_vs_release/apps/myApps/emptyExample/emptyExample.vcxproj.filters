@@ -76,6 +76,7 @@
     <ClCompile Include="SpringForceGenerator.cpp">
       <Filter>forces Corps Rigide</Filter>
     </ClCompile>
+    <ClCompile Include="BoxRigidBody.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -164,6 +165,7 @@
     <ClInclude Include="SpringForceGenerator.h">
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
+    <ClInclude Include="BoxRigidBody.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

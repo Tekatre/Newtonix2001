@@ -95,7 +95,7 @@ void ofApp::initializeParticles() {
 	////trails.push_back(p11);
 
 
-	RigidBody * rb1 = new RigidBody();
+	BoxRigidBody * rb1 = new BoxRigidBody();
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.5);
 	rb1->setPosition(Vecteur3D(-100, 0, 0));
@@ -103,7 +103,9 @@ void ofApp::initializeParticles() {
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
-	rb1->setShape(1);
+	rb1->setDepth(300);
+	rb1->setHeight(50);
+	rb1->setWidth(50);
 	Quaternion q = Quaternion(1, 0, 0, 0);
 	q.Normalized();
 	rb1->setOrientation(q);
@@ -126,7 +128,7 @@ void ofApp::initializeParticles() {
 
 
 
-	RigidBody* rb2 = new RigidBody();
+	/*BoxRigidBody* rb2 = new BoxRigidBody();
 	rb2->setInverseMass(1);
 	rb2->setLinearDamping(0.95);
 	rb2->setAngularDamping(0.5);
@@ -135,7 +137,9 @@ void ofApp::initializeParticles() {
 	rb2->setForceAccum(Vecteur3D(0, 0, 0));
 	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb2->setInverseMass(1);
-	rb2->setShape(1);
+	rb2->setDepth(50);
+	rb2->setHeight(50);
+	rb2->setWidth(50);
 	Quaternion q2 = Quaternion(1, 0, 0, 0);
 	q2.Normalized();
 	rb2->setOrientation(q2);
@@ -144,7 +148,7 @@ void ofApp::initializeParticles() {
 	tr.setOrientationAndPosition(q2, rb2->getPosition());
 	rb2->setTransformMatrix(tr);
 
-	RigidBody* rb3 = new RigidBody();
+	BoxRigidBody* rb3 = new BoxRigidBody();
 	rb3->setInverseMass(1);
 	rb3->setLinearDamping(0.95);
 	rb3->setAngularDamping(0.5);
@@ -153,7 +157,9 @@ void ofApp::initializeParticles() {
 	rb3->setForceAccum(Vecteur3D(0, 0, 0));
 	rb3->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb3->setInverseMass(1);
-	rb3->setShape(1);
+	rb3->setDepth(50);
+	rb3->setHeight(50);
+	rb3->setWidth(50);
 	Quaternion q3 = Quaternion(1, 0, 0, 0);
 	q3.Normalized();
 	rb3->setOrientation(q3);
@@ -171,7 +177,7 @@ void ofApp::initializeParticles() {
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,anchor2 });
 
 
-	RigidBody* rb4 = new RigidBody();
+	BoxRigidBody* rb4 = new BoxRigidBody();
 	rb4->setLinearDamping(0.95);
 	rb4->setAngularDamping(0.5);
 	rb4->setPosition(Vecteur3D(0, 0, -150));
@@ -179,7 +185,9 @@ void ofApp::initializeParticles() {
 	rb4->setForceAccum(Vecteur3D(0, 0, 0));
 	rb4->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb4->setInverseMass(1);
-	rb4->setShape(0);
+	rb4->setDepth(50);
+	rb4->setHeight(50);
+	rb4->setWidth(50);
 	Quaternion q4 = Quaternion(1, 0, 0, 0);
 	q4.Normalized();
 	rb4->setOrientation(q4);
@@ -188,7 +196,7 @@ void ofApp::initializeParticles() {
 	tr.setOrientationAndPosition(q4, rb4->getPosition());
 	rb4->setTransformMatrix(tr);
 
-	RigidBody* rb5 = new RigidBody();
+	BoxRigidBody* rb5 = new BoxRigidBody();
 	rb5->setLinearDamping(0.95);
 	rb5->setAngularDamping(0.5);
 	rb5->setPosition(Vecteur3D(0, 0, -200));
@@ -196,7 +204,9 @@ void ofApp::initializeParticles() {
 	rb5->setForceAccum(Vecteur3D(0, 0, 0));
 	rb5->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb5->setInverseMass(1);
-	rb5->setShape(0);
+	rb5->setDepth(50);
+	rb5->setHeight(50);
+	rb5->setWidth(50);
 	Quaternion q5 = Quaternion(1, 0, 0, 0);
 	q5.Normalized();
 	rb5->setOrientation(q5);
@@ -208,14 +218,14 @@ void ofApp::initializeParticles() {
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb5,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb5,dragForce });
+	rigidRegistry->my_RigidRegistry.push_back({ rb5,dragForce });*/
 	
 	//anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
-	listRigidBodies.push_back(rb2);
+	/*listRigidBodies.push_back(rb2);
 	listRigidBodies.push_back(rb3);
 	listRigidBodies.push_back(rb4);
-	listRigidBodies.push_back(rb5);
+	listRigidBodies.push_back(rb5);*/
 
 	
 }
@@ -390,8 +400,46 @@ void ofApp::draw() {
 	
 	for (int i = 0; i < listRigidBodies.size(); i++) {
 		ofSetColor(255, 255, 255);
-		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive
-		if (listRigidBodies[i]->getShape() == 1) {
+		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive*
+
+		//if listrigidbody[i] is a type BoxRigidBody
+
+		if (static_cast<BoxRigidBody*>(listRigidBodies[i])) {
+			BoxRigidBody* box = static_cast<BoxRigidBody*>(listRigidBodies[i]);
+			ofBoxPrimitive boxPrimitive;
+			boxPrimitive.setHeight(box->getHeight());
+			boxPrimitive.setWidth(box->getWidth());
+			boxPrimitive.setDepth(box->getDepth());
+			boxPrimitive.setPosition(box->getPosition().getX(), box->getPosition().getY(), box->getPosition().getZ());
+			boxPrimitive.setOrientation(glm::quat(box->getOrientation().getW(), box->getOrientation().getX(), box->getOrientation().getY(), box->getOrientation().getZ()));
+			boxPrimitive.draw();
+		}
+		/*else if (static_cast<SphereRigidBody*>(listRigidBodies[i])) {
+			SphereRigidBody* sphere = static_cast<SphereRigidBody*>(listRigidBodies[i]);
+			ofSpherePrimitive spherePrimitive;
+			spherePrimitive.setRadius(sphere->getOuterRadius());
+			spherePrimitive.setPosition(sphere->getPosition().getX(), sphere->getPosition().getY(), sphere->getPosition().getZ());
+			spherePrimitive.setOrientation(glm::quat(sphere->getOrientation().getW(), sphere->getOrientation().getX(), sphere->getOrientation().getY(), sphere->getOrientation().getZ()));
+			spherePrimitive.draw();
+		}
+		else if (static_cast<CylinderRigidBody*>(listRigidBodies[i])) {
+			CylinderRigidBody* cylinder = static_cast<CylinderRigidBody*>(listRigidBodies[i]);
+			ofCylinderPrimitive cylinderPrimitive;
+			cylinderPrimitive.setResolution(50, 50, 50);
+			cylinderPrimitive.setRadius(cylinder->getOuterRadius());
+			cylinderPrimitive.setHeight(cylinder->getHeight());
+			cylinderPrimitive.setResolutionCap(50);
+			cylinderPrimitive.setPosition(cylinder->getPosition().getX(), cylinder->getPosition().getY(), cylinder->getPosition().getZ());
+			cylinderPrimitive.setOrientation(glm::quat(cylinder->getOrientation().getW(), cylinder->getOrientation().getX(), cylinder->getOrientation().getY(), cylinder->getOrientation().getZ()));
+			cylinderPrimitive.draw();
+		}*/
+		else {
+			//do nothing
+		}
+
+
+
+		/*if (listRigidBodies[i]->getShape() == 1) {
 			ofBoxPrimitive box;
 			box.setHeight(50);
 			box.setWidth(50);
@@ -400,7 +448,7 @@ void ofApp::draw() {
 			box.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
 			box.draw();
 		}
-		else if (listRigidBodies[i]->getShape() ==2) {
+		else if (listRigidBodies[i]->getShape() == 2) {
 			ofCylinderPrimitive cylindre;
 			cylindre.setResolution(50, 50, 50);
 
@@ -417,7 +465,10 @@ void ofApp::draw() {
 			sphere.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
 			sphere.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
 			sphere.draw();
-		}
+		}*/
+
+
+		
 		
 		
 
