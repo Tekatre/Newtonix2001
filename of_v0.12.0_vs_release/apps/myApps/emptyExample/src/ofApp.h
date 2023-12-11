@@ -28,7 +28,7 @@
 #include "../SpringForceGenerator.h"
 #include "../BoxRigidBody.h"
 
-#include "../Octree.h"
+#include "../BSP.h"
 
 class ofApp : public ofBaseApp {
 public:

@@ -41,4 +41,5 @@ public:
 	Vecteur3D normalize();
 	float ProduitScalaire(Vecteur3D q);
 	bool operator==(const Vecteur3D& v) const;
+	float distance(Vecteur3D q);
 };

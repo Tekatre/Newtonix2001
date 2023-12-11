@@ -204,3 +204,9 @@ bool Vecteur3D::operator==(const Vecteur3D& v) const
 	// Comparaison de deux vecteurs
 	return (x == v.x && y == v.y && z == v.z);
 }
+
+float Vecteur3D::distance(Vecteur3D q)
+{
+	// Distance entre deux vecteurs
+	return sqrt(pow(x - q.getX(), 2) + pow(y - q.getY(), 2) + pow(z - q.getZ(), 2));
+}

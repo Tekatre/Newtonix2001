@@ -76,11 +76,16 @@
     <ClCompile Include="SpringForceGenerator.cpp">
       <Filter>forces Corps Rigide</Filter>
     </ClCompile>
-    <ClCompile Include="BoxRigidBody.cpp" />
-    <ClCompile Include="Octree.cpp">
+    <ClCompile Include="BoxRigidBody.cpp">
       <Filter>collision Rigid</Filter>
     </ClCompile>
-    <ClCompile Include="Arbre.cpp">
+    <ClCompile Include="CylinderRigidBody.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereRigidBody.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="BSP.cpp">
       <Filter>collision Rigid</Filter>
     </ClCompile>
   </ItemGroup>
@@ -174,11 +179,16 @@
     <ClInclude Include="SpringForceGenerator.h">
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
-    <ClInclude Include="BoxRigidBody.h" />
-    <ClInclude Include="Octree.h">
+    <ClInclude Include="BoxRigidBody.h">
       <Filter>collision Rigid</Filter>
     </ClInclude>
-    <ClInclude Include="Arbre.h">
+    <ClInclude Include="CylinderRigidBody.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereRigidBody.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="BSP.h">
       <Filter>collision Rigid</Filter>
     </ClInclude>
   </ItemGroup>

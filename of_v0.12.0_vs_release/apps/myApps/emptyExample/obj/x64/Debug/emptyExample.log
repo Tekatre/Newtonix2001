@@ -1,10 +1,6 @@
-﻿  Octree.cpp
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(39,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(43,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(47,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(51,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(55,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
-D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\Octree.cpp(59,44): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+﻿  BSP.cpp
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\BSP.cpp(17,25): warning C4267: '=' : conversion de 'size_t' en 'int', perte possible de données
+D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\BSP.cpp(21,28): warning C4267: '=' : conversion de 'size_t' en 'int', perte possible de données
 LINK : warning LNK4075: ' /INCREMENTAL' ignoré à cause de la spécification '/FORCE'
   emptyExample.vcxproj -> D:\Newtonix2001\of_v0.12.0_vs_release\apps\myApps\emptyExample\bin\emptyExample_debug.exe
   

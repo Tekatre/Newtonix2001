@@ -103,7 +103,7 @@ void ofApp::initializeParticles() {
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
-	rb1->setDepth(300);
+	rb1->setDepth(50);
 	rb1->setHeight(50);
 	rb1->setWidth(50);
 	Quaternion q = Quaternion(1, 0, 0, 0);
@@ -128,7 +128,7 @@ void ofApp::initializeParticles() {
 
 
 
-	/*BoxRigidBody* rb2 = new BoxRigidBody();
+	BoxRigidBody* rb2 = new BoxRigidBody();
 	rb2->setInverseMass(1);
 	rb2->setLinearDamping(0.95);
 	rb2->setAngularDamping(0.5);
@@ -148,6 +148,8 @@ void ofApp::initializeParticles() {
 	tr.setOrientationAndPosition(q2, rb2->getPosition());
 	rb2->setTransformMatrix(tr);
 
+	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
+	/*
 	BoxRigidBody* rb3 = new BoxRigidBody();
 	rb3->setInverseMass(1);
 	rb3->setLinearDamping(0.95);
@@ -170,7 +172,7 @@ void ofApp::initializeParticles() {
 	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(30,0,0),rb3, Vecteur3D(0, 0, 0), 1, 100);
 	SpringForceGenerator* springForce3 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(30, 0, 0), 1, 100);
 	AnchorForceGenerator* anchor2 = new AnchorForceGenerator(Vecteur3D(0, 10, 0), Vecteur3D(20, 0, 0), 1, 100);
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity});
+	
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb3,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb3,springForce3 });
@@ -222,7 +224,8 @@ void ofApp::initializeParticles() {
 	
 	//anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
-	/*listRigidBodies.push_back(rb2);
+	listRigidBodies.push_back(rb2);
+	/*
 	listRigidBodies.push_back(rb3);
 	listRigidBodies.push_back(rb4);
 	listRigidBodies.push_back(rb5);*/
@@ -327,8 +330,8 @@ void ofApp::update() {
 	
 
 
-	/*Octree* octree = new Octree();
-	octree->GenerateOctree(listRigidBodies);*/
+	BSP* bsp = new BSP();
+	bsp->GenerateBSP(listRigidBodies);
 
 
 

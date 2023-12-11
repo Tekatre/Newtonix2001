@@ -105,9 +105,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnchorForceGenerator.cpp" />
-    <ClCompile Include="Arbre.cpp" />
     <ClCompile Include="BoxRigidBody.cpp" />
+    <ClCompile Include="BSP.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CylinderRigidBody.cpp" />
     <ClCompile Include="DragForceGenerator.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
     <ClCompile Include="GravityForceGenerator.cpp" />
@@ -115,7 +116,6 @@
     <ClCompile Include="Integrateur.cpp" />
     <ClCompile Include="Matrix33.cpp" />
     <ClCompile Include="Matrix34.cpp" />
-    <ClCompile Include="Octree.cpp" />
     <ClCompile Include="ParticleAnchorSpring.cpp" />
     <ClCompile Include="ParticleCable.cpp" />
     <ClCompile Include="ParticleContact.cpp" />
@@ -132,6 +132,7 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidForceRegistry.cpp" />
+    <ClCompile Include="SphereRigidBody.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
@@ -139,9 +140,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnchorForceGenerator.h" />
-    <ClInclude Include="Arbre.h" />
     <ClInclude Include="BoxRigidBody.h" />
+    <ClInclude Include="BSP.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CylinderRigidBody.h" />
     <ClInclude Include="DragForceGenerator.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="GravityForceGenerator.h" />
@@ -149,7 +151,6 @@
     <ClInclude Include="Integrateur.h" />
     <ClInclude Include="Matrix33.h" />
     <ClInclude Include="Matrix34.h" />
-    <ClInclude Include="Octree.h" />
     <ClInclude Include="ParticleAnchorSpring.h" />
     <ClInclude Include="ParticleCable.h" />
     <ClInclude Include="ParticleContact.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RigidForceRegistry.h" />
+    <ClInclude Include="SphereRigidBody.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="Vecteur3D.h" />
