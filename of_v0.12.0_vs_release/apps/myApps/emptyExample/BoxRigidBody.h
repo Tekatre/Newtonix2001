@@ -21,8 +21,10 @@ public:
 	float getDepth();
     void setDepth(float Depth);
 
-    float getOuterRadius();
+    float getOuterRadius() override;
 private:
 	void calculateDerivedData() override;
+	
+	
 };
 

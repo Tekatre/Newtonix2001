@@ -105,6 +105,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnchorForceGenerator.cpp" />
+    <ClCompile Include="Arbre.cpp" />
     <ClCompile Include="BoxRigidBody.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="DragForceGenerator.cpp" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Integrateur.cpp" />
     <ClCompile Include="Matrix33.cpp" />
     <ClCompile Include="Matrix34.cpp" />
+    <ClCompile Include="Octree.cpp" />
     <ClCompile Include="ParticleAnchorSpring.cpp" />
     <ClCompile Include="ParticleCable.cpp" />
     <ClCompile Include="ParticleContact.cpp" />
@@ -137,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnchorForceGenerator.h" />
+    <ClInclude Include="Arbre.h" />
     <ClInclude Include="BoxRigidBody.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DragForceGenerator.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="Integrateur.h" />
     <ClInclude Include="Matrix33.h" />
     <ClInclude Include="Matrix34.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="ParticleAnchorSpring.h" />
     <ClInclude Include="ParticleCable.h" />
     <ClInclude Include="ParticleContact.h" />

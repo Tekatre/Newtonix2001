@@ -21,6 +21,9 @@ private:
 	Vecteur3D forceAccum;
 	Vecteur3D torqueAccum;
 
+
+
+
 	Quaternion orientation;
 	Vecteur3D rotation;
 	Matrix34 transformMatrix;
@@ -52,6 +55,7 @@ public :
 	void setTransformMatrix(Matrix34 matrix);
 	Matrix33 getInverseInertiaTensor();
 	void setInverseInertiaTensor(Matrix33 matrix);
+	virtual float getOuterRadius();
 
 
 

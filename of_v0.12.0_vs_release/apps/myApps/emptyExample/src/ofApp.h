@@ -28,6 +28,8 @@
 #include "../SpringForceGenerator.h"
 #include "../BoxRigidBody.h"
 
+#include "../Octree.h"
+
 class ofApp : public ofBaseApp {
 public:
 

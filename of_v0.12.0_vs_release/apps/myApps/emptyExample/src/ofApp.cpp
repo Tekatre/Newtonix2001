@@ -248,9 +248,6 @@ void ofApp::setup() {
 	light.setPosition(ofVec3f(100, 100, 200));
 	light.lookAt(ofVec3f(0, 0, 0));
 
-	/*ofDisableArbTex();
-	ofLoadImage(texture, "D:\\Newtonix2001\\of_v0.12.0_vs_release\\apps\\myApps\\emptyExample\\choc.png");*/
-
 	//gui.setup();
 	//modify gui size
 	/*gui.setSize(300, 300);
@@ -328,6 +325,13 @@ void ofApp::update() {
 	numberOfContacts = 0;
 
 	
+
+
+	/*Octree* octree = new Octree();
+	octree->GenerateOctree(listRigidBodies);*/
+
+
+
 
 
 	i = Integrateur();

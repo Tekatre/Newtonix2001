@@ -77,6 +77,12 @@
       <Filter>forces Corps Rigide</Filter>
     </ClCompile>
     <ClCompile Include="BoxRigidBody.cpp" />
+    <ClCompile Include="Octree.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="Arbre.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -90,6 +96,9 @@
     </Filter>
     <Filter Include="forces Corps Rigide">
       <UniqueIdentifier>{c88d060f-73f7-4c63-ae0a-dc7a694b24aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="collision Rigid">
+      <UniqueIdentifier>{4828a7cd-e912-4b01-a13c-e848294f9b85}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +175,12 @@
       <Filter>forces Corps Rigide</Filter>
     </ClInclude>
     <ClInclude Include="BoxRigidBody.h" />
+    <ClInclude Include="Octree.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="Arbre.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

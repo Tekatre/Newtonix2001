@@ -43,8 +43,10 @@ void BoxRigidBody::setDepth(float depth)
 
 float BoxRigidBody::getOuterRadius()
 {
-	float diag = sqrt(pow(this->width/2, 2) + pow(this->height/2, 2));
-    return sqrt(pow(diag, 2) + pow(this->depth/2, 2));
+	Vecteur3D rad = Vecteur3D(this->width / 2, this->height / 2, this->depth / 2);
+	return rad.norme();
+	/*float diag = sqrt(pow(this->width/2, 2) + pow(this->height/2, 2));
+    return sqrt(pow(diag, 2) + pow(this->depth/2, 2));*/
 }
 
 void BoxRigidBody::calculateDerivedData()
@@ -74,3 +76,5 @@ void BoxRigidBody::calculateDerivedData()
 
 	this->setInverseInertiaTensor(getInverseInertiaTensor()* orientationMatrix);
 }
+
+

@@ -251,5 +251,10 @@ void RigidBody::clearAccumulator()
 
 }
 
+float RigidBody::getOuterRadius()
+{
+	return 0;
+}
+
 
 
