@@ -88,6 +88,10 @@
     <ClCompile Include="BSP.cpp">
       <Filter>collision Rigid</Filter>
     </ClCompile>
+    <ClCompile Include="RigidContactGenerator.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidContact.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -191,6 +195,10 @@
     <ClInclude Include="BSP.h">
       <Filter>collision Rigid</Filter>
     </ClInclude>
+    <ClInclude Include="RigidContactGenerator.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidContact.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

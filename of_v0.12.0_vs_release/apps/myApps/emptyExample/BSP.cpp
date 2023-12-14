@@ -32,6 +32,7 @@ void BSP:: GenerateBSPIteration(int depth)
 {
 	if (depth <= 0)
 	{
+		
 		return;
 	}
 	else
@@ -120,4 +121,16 @@ void BSP::addBodyInRightChild(RigidBody* body)
 	
 	right->bodies.push_back(body);
 
+}
+
+bool BSP::isLeaf()
+{
+	if (bodies.size() != 0 || bodies.size()!=0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

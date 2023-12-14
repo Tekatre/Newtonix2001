@@ -27,6 +27,7 @@
 #include "../DragForceGenerator.h"
 #include "../SpringForceGenerator.h"
 #include "../BoxRigidBody.h"
+#include "../RigidContactGenerator.h"
 
 #include "../BSP.h"
 
@@ -41,6 +42,9 @@ public:
 
 	ParticleForceRegistry* registry = new ParticleForceRegistry;
 	RigidForceRegistry* rigidRegistry = new RigidForceRegistry;
+	RigidContactGenerator* rigidContactGenerator = new RigidContactGenerator();
+
+
 	
 	vector<Particule*> listParticules;
 	vector<RigidBody*> listRigidBodies;

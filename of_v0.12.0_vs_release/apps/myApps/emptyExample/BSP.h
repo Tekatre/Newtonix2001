@@ -10,18 +10,20 @@ class BSP
 		Vecteur3D normal;
 	};
 
-
-	BSP* left;
-	BSP* right;
-	vector<RigidBody*> bodies;
+	
 	private:
 		void GenerateBSPIteration(int depth);
 		void addBodyInLeftChild(RigidBody* body);
 		void addBodyInRightChild(RigidBody* body);
+
+		
 		
 	public:
 		void GenerateBSP(vector<RigidBody*> bodies);
-
+		BSP* left;
+		BSP* right;
+		vector<RigidBody*> bodies;
+		bool isLeaf();
 
 
 
