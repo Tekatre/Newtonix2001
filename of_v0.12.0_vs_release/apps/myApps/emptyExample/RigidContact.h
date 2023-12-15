@@ -10,12 +10,14 @@ class RigidContact
 	float restitution;
 	float friction;
 
+	bool InterpenetrationResolved = false;
 
 
 	RigidContact();
 	~RigidContact();
 
 	void resolve(float duration);
+	void resolveInterpenetration(float duration);
 
 };
 

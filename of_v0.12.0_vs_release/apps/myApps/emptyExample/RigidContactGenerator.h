@@ -9,11 +9,14 @@ class RigidContactGenerator
 	RigidContactGenerator();
 	~RigidContactGenerator();
 
-	RigidContact* contacts = new RigidContact();
+	//RigidContact** contacts = new RigidContact*[1000];
+	vector<RigidContact*> contacts;
 	int contactsCount = 0;
 
 	void CreateContact(BSP* bsp);
 	void CreateContactIteration(BSP* bsp);
-	RigidContact* getContacts();
+	//RigidContact** getContacts();
+	vector<RigidContact*> getContacts();
+	void addContact(RigidContact* contact);
 };
 

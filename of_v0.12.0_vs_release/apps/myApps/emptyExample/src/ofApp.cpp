@@ -120,8 +120,8 @@ void ofApp::initializeParticles() {
 	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(25,0,0), 1, 50);
 	DragForceGenerator* dragForce = new DragForceGenerator();
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
 
 	
 
@@ -144,12 +144,11 @@ void ofApp::initializeParticles() {
 	q2.Normalized();
 	rb2->setOrientation(q2);
 	rb2->setRotation(Vecteur3D(0, 0, 0));
-	rb2->setTransformMatrix(Matrix34());
 	tr.setOrientationAndPosition(q2, rb2->getPosition());
 	rb2->setTransformMatrix(tr);
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
-	/*
+	
 	BoxRigidBody* rb3 = new BoxRigidBody();
 	rb3->setInverseMass(1);
 	rb3->setLinearDamping(0.95);
@@ -169,20 +168,15 @@ void ofApp::initializeParticles() {
 	tr.setOrientationAndPosition(q3, rb3->getPosition());
 	rb3->setTransformMatrix(tr);
 
-	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(30,0,0),rb3, Vecteur3D(0, 0, 0), 1, 100);
-	SpringForceGenerator* springForce3 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(30, 0, 0), 1, 100);
-	AnchorForceGenerator* anchor2 = new AnchorForceGenerator(Vecteur3D(0, 10, 0), Vecteur3D(20, 0, 0), 1, 100);
 	
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb3,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb3,springForce3 });
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,anchor2 });
+
 
 
 	BoxRigidBody* rb4 = new BoxRigidBody();
 	rb4->setLinearDamping(0.95);
 	rb4->setAngularDamping(0.5);
-	rb4->setPosition(Vecteur3D(0, 0, -150));
+	rb4->setPosition(Vecteur3D(100, 50, 50));
 	rb4->setVelocity(Vecteur3D(50, 50, 0));
 	rb4->setForceAccum(Vecteur3D(0, 0, 0));
 	rb4->setTorqueAccum(Vecteur3D(0, 0, 0));
@@ -194,10 +188,13 @@ void ofApp::initializeParticles() {
 	q4.Normalized();
 	rb4->setOrientation(q4);
 	rb4->setRotation(Vecteur3D(0, 0, 0));
-	rb4->setTransformMatrix(Matrix34());
 	tr.setOrientationAndPosition(q4, rb4->getPosition());
 	rb4->setTransformMatrix(tr);
 
+
+	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });
+
+	/*
 	BoxRigidBody* rb5 = new BoxRigidBody();
 	rb5->setLinearDamping(0.95);
 	rb5->setAngularDamping(0.5);
@@ -218,17 +215,16 @@ void ofApp::initializeParticles() {
 	rb5->setTransformMatrix(tr);
 
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb5,rggravity });
 	rigidRegistry->my_RigidRegistry.push_back({ rb5,dragForce });*/
 	
 	//anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
-	/*
+
 	listRigidBodies.push_back(rb3);
 	listRigidBodies.push_back(rb4);
-	listRigidBodies.push_back(rb5);*/
+	//listRigidBodies.push_back(rb5);
 
 	
 }
@@ -333,9 +329,13 @@ void ofApp::update() {
 	BSP* bsp = new BSP();
 	bsp->GenerateBSP(listRigidBodies);
 	
-	RigidContact* rigidContacts = new RigidContact();
+	vector<RigidContact*> rigidContacts;
 	rigidContactGenerator->CreateContact(bsp);
 	rigidContacts = rigidContactGenerator->getContacts();
+	numberOfRigidContacts=rigidContacts.size();
+	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t);
+	
+
 
 
 

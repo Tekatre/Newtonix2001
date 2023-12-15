@@ -35,7 +35,8 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp)
 					contact->contactNormal.normalize();
 					contact->penetration = bsp->bodies[i]->getPosition().distance(bsp->bodies[j]->getPosition());
 					contact->restitution = 0.5f;
-					contacts[contactsCount] = *contact;
+					//addContact(contact);
+					contacts.push_back(contact);
 				}
 			}
 		}
@@ -46,8 +47,19 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp)
 	}
 
 }
+//
+//RigidContact** RigidContactGenerator::getContacts()
+//{
+//	return contacts;
+//}
 
-RigidContact* RigidContactGenerator::getContacts()
+vector<RigidContact*> RigidContactGenerator::getContacts()
 {
 	return contacts;
+}
+void RigidContactGenerator::addContact(RigidContact* contact)
+{
+	contacts[contactsCount] = contact;
+	contacts[2] = contact;
+	contactsCount++;
 }

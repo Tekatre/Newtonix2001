@@ -9,6 +9,7 @@ private:
 public:
 	Matrix33 operator*(const Matrix33& other) const;
 	Vecteur3D operator*(const Vecteur3D& vector) const;
+	Matrix33 operator+(const Matrix33& other) const;
 	Matrix33 Inverse();
 	Matrix33 Transpose();
 	void setOrientation(const Quaternion& q);

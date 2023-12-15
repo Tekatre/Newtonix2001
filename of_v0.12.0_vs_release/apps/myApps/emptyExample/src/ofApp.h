@@ -28,7 +28,7 @@
 #include "../SpringForceGenerator.h"
 #include "../BoxRigidBody.h"
 #include "../RigidContactGenerator.h"
-
+#include "../RigidContactResolver.h"
 #include "../BSP.h"
 
 class ofApp : public ofBaseApp {
@@ -40,17 +40,31 @@ public:
 	//list of particles
 	const int maxCollisions = 100;
 
-	ParticleForceRegistry* registry = new ParticleForceRegistry;
-	RigidForceRegistry* rigidRegistry = new RigidForceRegistry;
-	RigidContactGenerator* rigidContactGenerator = new RigidContactGenerator();
+
+
 
 
 	
 	vector<Particule*> listParticules;
-	vector<RigidBody*> listRigidBodies;
-	int* numberOfParticles= new int(0);
-	vector<Particule> trails;
+	int* numberOfParticles = new int(0);
+	ParticleForceRegistry* registry = new ParticleForceRegistry;
 	ParticleContactResolver* resolver = new ParticleContactResolver();
+	vector<Particule> trails;
+	int numberOfContacts = 0;
+
+
+
+	vector<RigidBody*> listRigidBodies;
+	RigidForceRegistry* rigidRegistry = new RigidForceRegistry;
+	RigidContactGenerator* rigidContactGenerator = new RigidContactGenerator();
+	RigidContactResolver* rigidResolver = new RigidContactResolver();
+	int numberOfRigidContacts = 0;
+
+
+
+
+
+
 
 	Vecteur3D gravite;
 	double t;
@@ -72,7 +86,7 @@ public:
 
 
 	vector<ParticleSpring> springs;
-	int numberOfContacts = 0;
+
 
 	int numberOfRods = 0;
 	int numberOfSprings = 0;

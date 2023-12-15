@@ -133,6 +133,7 @@
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidContact.cpp" />
     <ClCompile Include="RigidContactGenerator.cpp" />
+    <ClCompile Include="RigidContactResolver.cpp" />
     <ClCompile Include="RigidForceRegistry.cpp" />
     <ClCompile Include="SphereRigidBody.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RigidContact.h" />
     <ClInclude Include="RigidContactGenerator.h" />
+    <ClInclude Include="RigidContactResolver.h" />
     <ClInclude Include="RigidForceRegistry.h" />
     <ClInclude Include="SphereRigidBody.h" />
     <ClInclude Include="SpringForceGenerator.h" />

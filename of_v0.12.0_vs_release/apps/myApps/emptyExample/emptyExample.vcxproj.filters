@@ -91,7 +91,12 @@
     <ClCompile Include="RigidContactGenerator.cpp">
       <Filter>collision Rigid</Filter>
     </ClCompile>
-    <ClCompile Include="RigidContact.cpp" />
+    <ClCompile Include="RigidContactResolver.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidContact.cpp">
+      <Filter>collision Rigid</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -198,7 +203,12 @@
     <ClInclude Include="RigidContactGenerator.h">
       <Filter>collision Rigid</Filter>
     </ClInclude>
-    <ClInclude Include="RigidContact.h" />
+    <ClInclude Include="RigidContactResolver.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidContact.h">
+      <Filter>collision Rigid</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

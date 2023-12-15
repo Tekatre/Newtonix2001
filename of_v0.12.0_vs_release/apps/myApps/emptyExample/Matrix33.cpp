@@ -96,3 +96,18 @@ double Matrix33::getValue(int pos)
 {
 	return values[pos];
 }
+
+Matrix33 Matrix33::operator+(const Matrix33& other) const
+{
+	Matrix33 result;
+	result.values[0] = values[0] + other.values[0];
+	result.values[1] = values[1] + other.values[1];
+	result.values[2] = values[2] + other.values[2];
+	result.values[3] = values[3] + other.values[3];
+	result.values[4] = values[4] + other.values[4];
+	result.values[5] = values[5] + other.values[5];
+	result.values[6] = values[6] + other.values[6];
+	result.values[7] = values[7] + other.values[7];
+	result.values[8] = values[8] + other.values[8];
+	return result;
+}

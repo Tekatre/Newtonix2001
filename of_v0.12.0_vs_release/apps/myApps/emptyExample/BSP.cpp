@@ -23,7 +23,7 @@ void BSP::GenerateBSP(vector<RigidBody*> Bodies)
 	
 
 	GenerateBSPIteration(depth);
-	cout << "BSP generated" << endl;
+	//cout << "BSP generated" << endl;
 	
 	
 }
