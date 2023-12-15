@@ -99,7 +99,7 @@ void ofApp::initializeParticles() {
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.5);
 	rb1->setPosition(Vecteur3D(-100, 0, 0));
-	rb1->setVelocity(Vecteur3D(0.1, 0, 0));
+	rb1->setVelocity(Vecteur3D(0, 0, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
@@ -133,7 +133,7 @@ void ofApp::initializeParticles() {
 	rb2->setLinearDamping(0.95);
 	rb2->setAngularDamping(0.5);
 	rb2->setPosition(Vecteur3D(-100, 0, 30));
-	rb2->setVelocity(Vecteur3D(-50, 50, 0));
+	rb2->setVelocity(Vecteur3D(50, 50, 0));
 	rb2->setForceAccum(Vecteur3D(0, 0, 0));
 	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb2->setInverseMass(1);
