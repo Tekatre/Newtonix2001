@@ -1,12 +1,8 @@
 #include "BoxRigidBody.h"
 
 
-//BoxRigidBody::BoxRigidBody()
-//{
-//	
-//}
-//
-//
+
+
 BoxRigidBody::~BoxRigidBody()
 {
 }
@@ -79,3 +75,7 @@ void BoxRigidBody::calculateDerivedData()
 }
 
 
+int BoxRigidBody::getShapeID()
+{
+	return this->shapeID;
+}

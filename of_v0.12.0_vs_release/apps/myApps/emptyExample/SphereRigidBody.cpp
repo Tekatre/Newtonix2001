@@ -38,3 +38,8 @@ void SphereRigidBody::calculateDerivedData()
 
 	this->setInverseInertiaTensor(getInverseInertiaTensor() * orientationMatrix);
 }
+
+int SphereRigidBody::getShapeID()
+{
+	return shapeID;
+}

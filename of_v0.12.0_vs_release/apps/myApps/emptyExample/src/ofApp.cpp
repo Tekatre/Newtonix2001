@@ -7,92 +7,6 @@ void ofApp::initializeParticles() {
 	gravite = Vecteur3D(0, -9.8, 0);
 	ParticleGravity* Pgravity = new ParticleGravity();
 	ParticleDrag* Pdrag = new ParticleDrag();
-	//Collisions classiques entre deux particules
-	//*numberOfParticles = 0;
-
-
-	//Particule* p1 = new Particule(numberOfParticles,Vecteur3D(50, 0, 0), Vecteur3D(-70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
-	//Particule* p2 = new Particule(numberOfParticles,Vecteur3D(0, 0, 0), Vecteur3D(70, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue);
-	//Particule* p3 = new Particule(numberOfParticles,Vecteur3D(0, 0, 100), Vecteur3D(70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p4
-	//Particule* p4 = new Particule(numberOfParticles,Vecteur3D(0, 0, 150), Vecteur3D(-70, -20, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::yellow); //spring avec p3
-	//Particule* p5 = new Particule(numberOfParticles,Vecteur3D(-50, 0, 0), Vecteur3D(30, 70, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::blue); //anchor en 0 0 0
-
-	//Particule* p6 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -100), Vecteur3D(-70, 40, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
-	//Particule* p7 = new Particule(numberOfParticles,Vecteur3D(30, 0, -100), Vecteur3D(60, 80, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::red);
-
-	//Particule* p8 = new Particule(numberOfParticles,Vecteur3D(-30, 0, -150), Vecteur3D(-70, 30, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
-	//Particule* p9 = new Particule(numberOfParticles,Vecteur3D(30, 0, -150), Vecteur3D(60, 100, 0), Vecteur3D(0, 0, 0), 10, 1, ofColor::purple);
-	//
-
-
-	//ParticleCable* cable = new ParticleCable();
-
-	//cable->particle[0] = p6;
-	//cable->particle[1] = p7;
-	//cable->maxLength = 200;
-	//cable->restitution = 0.5;
-	//cables[numberOfCables] = cable;
-	//numberOfCables++;
-
-	//ParticleRod* rod = new ParticleRod();
-	//rod->particle[0] = p8;
-	//rod->particle[1] = p9;
-	//rod->length = 60;
-	//rods[numberOfRods]=rod;
-	//numberOfRods++;
-
-
-
-
-	//ParticleSpring* Pspring4 = new ParticleSpring(p4, 1, 30);
-	//ParticleSpring* Pspring3 = new ParticleSpring(p3, 1, 30);
-	//ParticleSpring* Pspring8 = new ParticleSpring(p8, 1, 50);
-	//ParticleSpring* Pspring7 = new ParticleSpring(p7, 1, 50);
-	//ParticleAnchorSpring* anchor = new ParticleAnchorSpring(Vecteur3D(0, 0, 0), 1, 60);
-
-	//registry->my_registry.push_back({p1,Pgravity});
-	//registry->my_registry.push_back({ p1,Pdrag });
-	//registry->my_registry.push_back({ p2,Pgravity });
-	//registry->my_registry.push_back({ p3,Pgravity });
-	//registry->my_registry.push_back({ p4,Pgravity });
-	//registry->my_registry.push_back({ p3,Pspring4 });
-	//registry->my_registry.push_back({ p4,Pspring3 });
-	//registry->my_registry.push_back({ p5,Pgravity });
-	//registry->my_registry.push_back({ p5,Pdrag });
-	//registry->my_registry.push_back({ p5,anchor });
-	//registry->my_registry.push_back({ p6,Pgravity });
-	//registry->my_registry.push_back({ p7,Pgravity });
-	//registry->my_registry.push_back({ p7,Pspring8 });
-	//registry->my_registry.push_back({ p8, Pgravity });
-	//registry->my_registry.push_back({ p8, Pspring7 });
-	//registry->my_registry.push_back({ p9, Pgravity });
-
-
-
-	//listParticules.push_back(p1);
-	//listParticules.push_back(p2);
-	//listParticules.push_back(p3);
-	//listParticules.push_back(p4);
-	//listParticules.push_back(p5);
-	//listParticules.push_back(p6);
-	//listParticules.push_back(p7);
-	//listParticules.push_back(p8);
-	//listParticules.push_back(p9);
-	////listParticules.push_back(p10);
-	////listParticules.push_back(p11);
-
-	//
-	//trails.push_back(*p1);
-	//trails.push_back(*p2);
-	//trails.push_back(*p3);
-	//trails.push_back(*p4);
-	//trails.push_back(*p5);
-	//trails.push_back(*p6);
-	//trails.push_back(*p7);
-	//trails.push_back(*p8);
-	//trails.push_back(*p9);
-	////trails.push_back(p10)
-	////trails.push_back(p11);
 
 
 	BoxRigidBody * rb1 = new BoxRigidBody();
@@ -115,14 +29,14 @@ void ofApp::initializeParticles() {
 	rb1->setTransformMatrix(tr);
 	
 
-	Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
-	listParticules.push_back(particuletest);
+	/*Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
+	listParticules.push_back(particuletest);*/
 	GravityGenerator* rggravity = new GravityGenerator();
-	//AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(25,0,0), 1, 50);
-	//DragForceGenerator* dragForce = new DragForceGenerator();
+	AnchorForceGenerator* rganchor = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(0,0,0),1,300);
+
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	//rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
-	//rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
+
 
 	
 
@@ -150,87 +64,17 @@ void ofApp::initializeParticles() {
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
 
-	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 50);
-	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(20,25, 15), 1, 50);
+
+	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 100);
+	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb1, Vecteur3D(20,25, 15),1 , 100);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	
-	/*BoxRigidBody* rb3 = new BoxRigidBody();
-	rb3->setInverseMass(1);
-	rb3->setLinearDamping(0.95);
-	rb3->setAngularDamping(0.5);
-	rb3->setPosition(Vecteur3D(100, 50, 100));
-	rb3->setVelocity(Vecteur3D(50, 70, 0));
-	rb3->setForceAccum(Vecteur3D(0, 0, 0));
-	rb3->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb3->setInverseMass(1);
-	rb3->setDepth(50);
-	rb3->setHeight(50);
-	rb3->setWidth(50);
-	Quaternion q3 = Quaternion(1, 0, 0, 0);
-	q3.Normalized();
-	rb3->setOrientation(q3);
-	rb3->setRotation(Vecteur3D(0, 0, 0));
-	tr.setOrientationAndPosition(q3, rb3->getPosition());
-	rb3->setTransformMatrix(tr);
-
 	
-	rigidRegistry->my_RigidRegistry.push_back({ rb3,rggravity });
-
-
-
-	BoxRigidBody* rb4 = new BoxRigidBody();
-	rb4->setLinearDamping(0.95);
-	rb4->setAngularDamping(0.5);
-	rb4->setPosition(Vecteur3D(100, 50, 50));
-	rb4->setVelocity(Vecteur3D(50, 50, 0));
-	rb4->setForceAccum(Vecteur3D(0, 0, 0));
-	rb4->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb4->setInverseMass(1);
-	rb4->setDepth(50);
-	rb4->setHeight(50);
-	rb4->setWidth(50);
-	Quaternion q4 = Quaternion(1, 0, 0, 0);
-	q4.Normalized();
-	rb4->setOrientation(q4);
-	rb4->setRotation(Vecteur3D(0, 0, 0));
-	tr.setOrientationAndPosition(q4, rb4->getPosition());
-	rb4->setTransformMatrix(tr);
-
-
-	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });*/
-
-	/*
-	BoxRigidBody* rb5 = new BoxRigidBody();
-	rb5->setLinearDamping(0.95);
-	rb5->setAngularDamping(0.5);
-	rb5->setPosition(Vecteur3D(0, 0, -200));
-	rb5->setVelocity(Vecteur3D(50, 50, 0));
-	rb5->setForceAccum(Vecteur3D(0, 0, 0));
-	rb5->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb5->setInverseMass(1);
-	rb5->setDepth(50);
-	rb5->setHeight(50);
-	rb5->setWidth(50);
-	Quaternion q5 = Quaternion(1, 0, 0, 0);
-	q5.Normalized();
-	rb5->setOrientation(q5);
-	rb5->setRotation(Vecteur3D(0, 0, 0));
-	rb5->setTransformMatrix(Matrix34());
-	tr.setOrientationAndPosition(q5, rb5->getPosition());
-	rb5->setTransformMatrix(tr);
-
-
-	rigidRegistry->my_RigidRegistry.push_back({ rb5,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb5,dragForce });*/
-	
-	//anchorsLinkRigid.push_back({ rb1,Vecteur3D(0,0,0) });
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
 
-	/*listRigidBodies.push_back(rb3);
-	listRigidBodies.push_back(rb4);*/
-	//listRigidBodies.push_back(rb5);
+
 
 	
 }
@@ -274,7 +118,7 @@ void ofApp::update() {
 	if (!paused) {
 		return;
 	}
-	t = ofGetLastFrameTime();
+	t = ofGetLastFrameTime()*accelerator;
 
 	//cout << "Number of particles : " << listParticules.size() << endl;
 
@@ -339,8 +183,8 @@ void ofApp::update() {
 	rigidContactGenerator->CreateContact(bsp);
 	rigidContacts = rigidContactGenerator->getContacts();
 	numberOfRigidContacts=rigidContacts.size();
- 	if (numberOfRigidContacts != 0) {
-	//	paused = !paused;
+ 	if (pauseAtCollision && numberOfRigidContacts != 0) {
+		paused = !paused;
 	}
 	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t);
 
@@ -428,7 +272,7 @@ void ofApp::draw() {
 
 		//if listrigidbody[i] is a type BoxRigidBody
 
-		if (static_cast<BoxRigidBody*>(listRigidBodies[i])) {
+		if (listRigidBodies[i]->getShapeID() == 1) {
 			BoxRigidBody* box = static_cast<BoxRigidBody*>(listRigidBodies[i]);
 			ofBoxPrimitive boxPrimitive;
 			boxPrimitive.setHeight(box->getHeight());
@@ -438,7 +282,7 @@ void ofApp::draw() {
 			boxPrimitive.setOrientation(glm::quat(box->getOrientation().getW(), box->getOrientation().getX(), box->getOrientation().getY(), box->getOrientation().getZ()));
 			boxPrimitive.draw();
 		}
-		/*else if (static_cast<SphereRigidBody*>(listRigidBodies[i])) {
+		else if (listRigidBodies[i]->getShapeID() == 3) {
 			SphereRigidBody* sphere = static_cast<SphereRigidBody*>(listRigidBodies[i]);
 			ofSpherePrimitive spherePrimitive;
 			spherePrimitive.setRadius(sphere->getOuterRadius());
@@ -446,7 +290,7 @@ void ofApp::draw() {
 			spherePrimitive.setOrientation(glm::quat(sphere->getOrientation().getW(), sphere->getOrientation().getX(), sphere->getOrientation().getY(), sphere->getOrientation().getZ()));
 			spherePrimitive.draw();
 		}
-		else if (static_cast<CylinderRigidBody*>(listRigidBodies[i])) {
+		else if (listRigidBodies[i]->getShapeID()== 2) {
 			CylinderRigidBody* cylinder = static_cast<CylinderRigidBody*>(listRigidBodies[i]);
 			ofCylinderPrimitive cylinderPrimitive;
 			cylinderPrimitive.setResolution(50, 50, 50);
@@ -456,40 +300,13 @@ void ofApp::draw() {
 			cylinderPrimitive.setPosition(cylinder->getPosition().getX(), cylinder->getPosition().getY(), cylinder->getPosition().getZ());
 			cylinderPrimitive.setOrientation(glm::quat(cylinder->getOrientation().getW(), cylinder->getOrientation().getX(), cylinder->getOrientation().getY(), cylinder->getOrientation().getZ()));
 			cylinderPrimitive.draw();
-		}*/
+		}
 		else {
 			//do nothing
 		}
 
 
 
-		/*if (listRigidBodies[i]->getShape() == 1) {
-			ofBoxPrimitive box;
-			box.setHeight(50);
-			box.setWidth(50);
-			box.setDepth(50);
-			box.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
-			box.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
-			box.draw();
-		}
-		else if (listRigidBodies[i]->getShape() == 2) {
-			ofCylinderPrimitive cylindre;
-			cylindre.setResolution(50, 50, 50);
-
-			cylindre.setRadius(50);
-			cylindre.setHeight(50);
-			cylindre.setResolutionCap(50);
-			cylindre.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
-			cylindre.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
-			cylindre.draw();
-		}
-		else {
-			ofSpherePrimitive sphere;
-			sphere.setRadius(50);
-			sphere.setPosition(listRigidBodies[i]->getPosition().getX(), listRigidBodies[i]->getPosition().getY(), listRigidBodies[i]->getPosition().getZ());
-			sphere.setOrientation(glm::quat(listRigidBodies[i]->getOrientation().getW(), listRigidBodies[i]->getOrientation().getX(), listRigidBodies[i]->getOrientation().getY(), listRigidBodies[i]->getOrientation().getZ()));
-			sphere.draw();
-		}*/
 
 
 		
@@ -557,28 +374,92 @@ ofDrawLine(rod->particle[0]->getPosition().getX(), rod->particle[0]->getPosition
 
 
 void ofApp::addRigidBody() {
-	BoxRigidBody* rb = new BoxRigidBody();
-	rb->setLinearDamping(0.95);
-	rb->setAngularDamping(0.5);
-	rb->setPosition(Vecteur3D("random"));
-	rb->setVelocity(Vecteur3D("petit"));
-	rb->setForceAccum(Vecteur3D(0,0,0));
-	rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb->setInverseMass(rand() % 100 + 1);
-	rb->setDepth(rand() % 100 + 1);
-	rb->setHeight(rand() % 100 + 1);
-	rb->setWidth(rand() % 100 + 1);
-	Quaternion q = Quaternion(1, 0, 0, 0);
-	q.Normalized();
-	rb->setOrientation(q);
-	rb->setRotation(Vecteur3D("petit"));
-	Matrix34 tr;
-	tr.setOrientationAndPosition(q, rb->getPosition());
-	rb->setTransformMatrix(tr);
 
-	GravityGenerator* rggravity = new GravityGenerator();
-	rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
-	listRigidBodies.push_back(rb);
+	int randshape = rand() % 3 + 1;
+	if (randshape == 1) {
+		BoxRigidBody* rb = new BoxRigidBody();
+		rb->setLinearDamping(0.95);
+		rb->setAngularDamping(0.5);
+		rb->setPosition(Vecteur3D("random"));
+		rb->setVelocity(Vecteur3D("random"));
+		rb->setForceAccum(Vecteur3D(0, 0, 0));
+		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
+		float mass = rand() % 5 + 1;
+		rb->setInverseMass(1 / mass);
+		rb->setDepth(rand() % 100 + 1);
+		rb->setHeight(rand() % 100 + 1);
+		rb->setWidth(rand() % 100 + 1);
+		Quaternion q = Quaternion(1, 0, 0, 0);
+		q.Normalized();
+		rb->setOrientation(q);
+		rb->setRotation(Vecteur3D("petit"));
+		Matrix34 tr;
+		tr.setOrientationAndPosition(q, rb->getPosition());
+		rb->setTransformMatrix(tr);
+
+		cout << "Mass : " << rb->getInverseMass() << endl;
+
+		GravityGenerator* rggravity = new GravityGenerator();
+		DragForceGenerator* rgdrag = new DragForceGenerator();
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		listRigidBodies.push_back(rb);
+	}
+	else if (randshape == 2) {
+		CylinderRigidBody* rb = new CylinderRigidBody();
+		rb->setLinearDamping(0.95);
+		rb->setAngularDamping(0.5);
+		rb->setPosition(Vecteur3D("random"));
+		rb->setVelocity(Vecteur3D("random"));
+		rb->setForceAccum(Vecteur3D(0, 0, 0));
+		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
+		float mass = rand() % 5 + 1;
+		rb->setInverseMass(1 / mass);
+		rb->setRadius(rand() % 100 + 1);
+		rb->setHeight(rand() % 100 + 1);
+		
+		Quaternion q = Quaternion(1, 0, 0, 0);
+		q.Normalized();
+		rb->setOrientation(q);
+		rb->setRotation(Vecteur3D("petit"));
+		Matrix34 tr;
+		tr.setOrientationAndPosition(q, rb->getPosition());
+		rb->setTransformMatrix(tr);
+
+		cout << "Mass : " << rb->getInverseMass() << endl;
+
+		GravityGenerator* rggravity = new GravityGenerator();
+		DragForceGenerator* rgdrag = new DragForceGenerator();
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		listRigidBodies.push_back(rb);
+	}
+	else {
+		SphereRigidBody* rb = new SphereRigidBody();
+		rb->setLinearDamping(0.95);
+		rb->setAngularDamping(0.5);
+		rb->setPosition(Vecteur3D("random"));
+		rb->setVelocity(Vecteur3D("random"));
+		rb->setForceAccum(Vecteur3D(0, 0, 0));
+		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
+		float mass = rand() % 5 + 1;
+		rb->setInverseMass(1 / mass);
+		rb->setRadius(rand() % 100 + 1);
+		Quaternion q = Quaternion(1, 0, 0, 0);
+		q.Normalized();
+		rb->setOrientation(q);
+		rb->setRotation(Vecteur3D("petit"));
+		Matrix34 tr;
+		tr.setOrientationAndPosition(q, rb->getPosition());
+		rb->setTransformMatrix(tr);
+
+		cout << "Mass : " << rb->getInverseMass() << endl;
+
+		GravityGenerator* rggravity = new GravityGenerator();
+		DragForceGenerator* rgdrag = new DragForceGenerator();
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		listRigidBodies.push_back(rb);
+	}
+
+	
 
 }
 
@@ -594,17 +475,24 @@ void ofApp::keyPressed(int key) {
 		addRigidBody();
 	}
 
+	if (key == 'e') {
+		pauseAtCollision = !pauseAtCollision;
+		if (pauseAtCollision) {
+			ofBackground(230, 230, 250);
+		}
+		else {
+			ofBackground(230, 150, 200);
+		}
+
+	}
+
 
 	if (key == OF_KEY_UP) {
-		for (int i = 0; i < listParticules.size(); i++) {
-			listParticules[i]->setVelocite(listParticules[i]->getVelocite() + Vecteur3D(0, 50, 0));
-		}
+		accelerator++;
 	}
 
 	if (key == OF_KEY_DOWN) {
-		for (int i = 0; i < listParticules.size(); i++) {
-			listParticules[i]->setVelocite(listParticules[i]->getVelocite() + Vecteur3D(0, -50, 0));
-		}
+		accelerator--;
 	}
 
 	if (key == OF_KEY_LEFT) {

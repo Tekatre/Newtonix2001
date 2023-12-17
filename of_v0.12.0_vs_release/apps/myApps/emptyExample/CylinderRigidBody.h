@@ -5,6 +5,7 @@ class CylinderRigidBody : public RigidBody
 private :
 	float radius = 1.0;
 	float height = 1.0;
+	int shapeID = 2;
 
 	void calculateDerivedData() override;
 	public:
@@ -18,5 +19,6 @@ private :
 		float getHeight();
 		void setHeight(float Height);
 		float getOuterRadius() override;
+		int getShapeID() override;
 };
 

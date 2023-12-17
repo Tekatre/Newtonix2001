@@ -12,6 +12,8 @@ class RigidBody
 private:
 
 
+	int shapeID = 0;
+
 	double inverseMass;
 	double linearDamping;
 	double angularDamping;
@@ -31,6 +33,7 @@ private:
 	Matrix33 InverseInertiaTensorWorld;
 
 public :
+
 	RigidBody();
 	~RigidBody();
 	void integrate(double duration);
@@ -62,8 +65,7 @@ public :
 	Matrix33 getInverseInertiaTensorWorld();
 	void setInverseInertiaTensorWorld(Matrix33 matrix);
 
-
-
+	virtual int getShapeID();
 
 	void addForce(const Vecteur3D& force);
 	void addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point);

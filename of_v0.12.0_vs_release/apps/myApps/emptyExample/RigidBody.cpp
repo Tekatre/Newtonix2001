@@ -268,4 +268,8 @@ void RigidBody::setInverseInertiaTensorWorld(Matrix33 matrix)
 	this->InverseInertiaTensorWorld = matrix;
 }
 
+int RigidBody::getShapeID()
+{
+	return this->shapeID;
+}
 

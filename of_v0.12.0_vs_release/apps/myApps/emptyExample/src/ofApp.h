@@ -27,6 +27,8 @@
 #include "../DragForceGenerator.h"
 #include "../SpringForceGenerator.h"
 #include "../BoxRigidBody.h"
+#include "../SphereRigidBody.h"
+#include "../CylinderRigidBody.h"
 #include "../RigidContactGenerator.h"
 #include "../RigidContactResolver.h"
 #include "../BSP.h"
@@ -36,6 +38,9 @@ public:
 
 
 	bool paused = false ;
+	bool pauseAtCollision = true;
+	int accelerator = 1;
+
 
 	//list of particles
 	const int maxCollisions = 100;

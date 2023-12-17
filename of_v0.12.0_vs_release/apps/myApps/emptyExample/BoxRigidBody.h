@@ -4,6 +4,7 @@
 class BoxRigidBody : public RigidBody
 {
 private:
+	int shapeID = 1;
 	float width=1.0;
 	float height=1.0;
 	float depth=1.0;
@@ -22,6 +23,7 @@ public:
     void setDepth(float Depth);
 
     float getOuterRadius() override;
+	int getShapeID() override;
 private:
 	void calculateDerivedData() override;
 	

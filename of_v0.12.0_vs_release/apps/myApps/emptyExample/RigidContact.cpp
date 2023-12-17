@@ -79,10 +79,10 @@ void RigidContact::resolveVelocity(float duration) {
 
 	if (rotation1.norme() >= rotation2.norme()) {
 		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) + body[1]->getRotation()*restitution);
-		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) + body[0]->getRotation()*restitution);
+		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) - body[0]->getRotation()*restitution);
 	}
 	else {
-		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) + body[1]->getRotation()*restitution);
+		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) - body[1]->getRotation()*restitution);
 		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) + body[0]->getRotation()*restitution);
 	}
 

@@ -1,6 +1,9 @@
 #include "CylinderRigidBody.h"
 
 
+
+
+
 float CylinderRigidBody::getRadius()
 {
 	return radius;
@@ -47,6 +50,11 @@ void CylinderRigidBody::calculateDerivedData()
 	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
 
 	this->setInverseInertiaTensor(getInverseInertiaTensor() * orientationMatrix);
+}
+
+int CylinderRigidBody::getShapeID()
+{
+	return shapeID;
 }
 
 

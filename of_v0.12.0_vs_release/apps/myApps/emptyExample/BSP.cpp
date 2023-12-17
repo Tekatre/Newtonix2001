@@ -12,7 +12,7 @@ void BSP::GenerateBSP(vector<RigidBody*> Bodies)
 {
 	this->bodies = Bodies;
 	int depth;
-	if (bodies.size() % 2 == 0)
+ 	if (bodies.size() % 2 == 0)
 	{
 		depth = bodies.size() / 2;
 	}

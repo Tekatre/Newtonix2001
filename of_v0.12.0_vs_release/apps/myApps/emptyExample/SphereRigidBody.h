@@ -5,7 +5,7 @@ class SphereRigidBody : public RigidBody
 {
 private :
 	float radius = 1.0;
-
+	int shapeID = 3;
 	void calculateDerivedData() override;
 	public:
 		SphereRigidBody()
@@ -16,5 +16,6 @@ private :
 		float getRadius();
 		void setRadius(float Radius);
 		float getOuterRadius() override;
+		int getShapeID() override;
 };
 
