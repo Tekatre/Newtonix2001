@@ -87,6 +87,4 @@ void RigidContact::resolveVelocity(float duration) {
 	}
 
 
-	
-	cout << "k : " << endl;
 }
