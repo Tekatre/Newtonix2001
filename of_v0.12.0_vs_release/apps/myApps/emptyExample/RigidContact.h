@@ -1,5 +1,6 @@
 #pragma once
 #include "RigidBody.h"
+using namespace std;
 class RigidContact
 {
 	public:
@@ -11,13 +12,15 @@ class RigidContact
 	float friction;
 
 	bool InterpenetrationResolved = false;
+	bool VelocityResolved = false;
 
 
 	RigidContact();
 	~RigidContact();
 
-	void resolve(float duration);
 	void resolveInterpenetration(float duration);
+	void resolveVelocity(float duration);
+	float calculateSeparatingVelocity();
 
 };
 

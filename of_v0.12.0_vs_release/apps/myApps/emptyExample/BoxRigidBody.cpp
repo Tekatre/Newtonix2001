@@ -75,6 +75,7 @@ void BoxRigidBody::calculateDerivedData()
 	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
 
 	this->setInverseInertiaTensor(getInverseInertiaTensor()* orientationMatrix);
+	this->setInverseInertiaTensorWorld(this->getTransformMatrix().getOrientation() * this->getInverseInertiaTensor() * this->getTransformMatrix().getOrientation().Inverse());
 }
 
 

@@ -96,3 +96,20 @@ const double Quaternion::getZ() const
 	// Accesseur
 	return values[3];
 }
+
+Quaternion Quaternion::getConjugate()
+{
+	Quaternion result;
+	result.values[0] = values[0];
+	result.values[1] = -values[1];
+	result.values[2] = -values[2];
+	result.values[3] = -values[3];
+	return result;
+}
+
+void Quaternion::RotateByVector(const Vecteur3D& vector)
+{
+	Quaternion q(0, vector.getX(), vector.getY(), vector.getZ());
+	(*this) = (*this) + (q * (*this));
+}
+

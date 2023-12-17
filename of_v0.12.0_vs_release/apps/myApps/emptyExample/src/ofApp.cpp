@@ -99,7 +99,7 @@ void ofApp::initializeParticles() {
 	rb1->setLinearDamping(0.95);
 	rb1->setAngularDamping(0.5);
 	rb1->setPosition(Vecteur3D(-100, 0, 0));
-	rb1->setVelocity(Vecteur3D(0, 0, 0));
+	rb1->setVelocity(Vecteur3D(-10, 0, 0));
 	rb1->setForceAccum(Vecteur3D(0, 0, 0));
 	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb1->setInverseMass(1);
@@ -113,6 +113,7 @@ void ofApp::initializeParticles() {
 	Matrix34 tr;
 	tr.setOrientationAndPosition(q, rb1->getPosition());
 	rb1->setTransformMatrix(tr);
+	
 
 	Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
 	listParticules.push_back(particuletest);
@@ -132,8 +133,8 @@ void ofApp::initializeParticles() {
 	rb2->setInverseMass(1);
 	rb2->setLinearDamping(0.95);
 	rb2->setAngularDamping(0.5);
-	rb2->setPosition(Vecteur3D(-100, 0, 30));
-	rb2->setVelocity(Vecteur3D(50, 50, 0));
+	rb2->setPosition(Vecteur3D(-250, 0, 0));
+	rb2->setVelocity(Vecteur3D(10, 0, 0));
 	rb2->setForceAccum(Vecteur3D(0, 0, 0));
 	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
 	rb2->setInverseMass(1);
@@ -149,7 +150,7 @@ void ofApp::initializeParticles() {
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
 	
-	BoxRigidBody* rb3 = new BoxRigidBody();
+	/*BoxRigidBody* rb3 = new BoxRigidBody();
 	rb3->setInverseMass(1);
 	rb3->setLinearDamping(0.95);
 	rb3->setAngularDamping(0.5);
@@ -192,7 +193,7 @@ void ofApp::initializeParticles() {
 	rb4->setTransformMatrix(tr);
 
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });
+	rigidRegistry->my_RigidRegistry.push_back({ rb4,rggravity });*/
 
 	/*
 	BoxRigidBody* rb5 = new BoxRigidBody();
@@ -222,8 +223,8 @@ void ofApp::initializeParticles() {
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
 
-	listRigidBodies.push_back(rb3);
-	listRigidBodies.push_back(rb4);
+	/*listRigidBodies.push_back(rb3);
+	listRigidBodies.push_back(rb4);*/
 	//listRigidBodies.push_back(rb5);
 
 	

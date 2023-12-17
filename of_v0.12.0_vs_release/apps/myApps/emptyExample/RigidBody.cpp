@@ -228,7 +228,9 @@ void RigidBody::calculateDerivedData()
 	//get the 3x3 of transform matrix
 	Matrix33 orientationMatrix = this->transformMatrix.getOrientation();
 	InverseInertiaTensor = InverseInertiaTensor * orientationMatrix;
+	this->InverseInertiaTensorWorld = this->transformMatrix.getOrientation() * this->InverseInertiaTensor * this->transformMatrix.getOrientation().Inverse();
 	
+
 
 }
 
@@ -256,5 +258,14 @@ float RigidBody::getOuterRadius()
 	return 0;
 }
 
+Matrix33 RigidBody::getInverseInertiaTensorWorld()
+{
+	return this->InverseInertiaTensorWorld;
+}
+
+void RigidBody::setInverseInertiaTensorWorld(Matrix33 matrix)
+{
+	this->InverseInertiaTensorWorld = matrix;
+}
 
 

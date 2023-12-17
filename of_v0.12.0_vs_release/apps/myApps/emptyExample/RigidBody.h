@@ -28,6 +28,7 @@ private:
 	Vecteur3D rotation;
 	Matrix34 transformMatrix;
 	Matrix33 InverseInertiaTensor;
+	Matrix33 InverseInertiaTensorWorld;
 
 public :
 	RigidBody();
@@ -55,7 +56,12 @@ public :
 	void setTransformMatrix(Matrix34 matrix);
 	Matrix33 getInverseInertiaTensor();
 	void setInverseInertiaTensor(Matrix33 matrix);
+
 	virtual float getOuterRadius();
+
+	Matrix33 getInverseInertiaTensorWorld();
+	void setInverseInertiaTensorWorld(Matrix33 matrix);
+
 
 
 

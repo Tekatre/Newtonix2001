@@ -11,6 +11,7 @@ private:
 		void Normalized();
 		Quaternion operator*(const Quaternion& other) const;
 		Quaternion operator+(const Quaternion& other) const;
+		Vecteur3D operator*(const Vecteur3D& other) const;
 		void RotateByVector(const Vecteur3D& vector);
 		void UpdateByAngularVelocity(const Vecteur3D& angularVelocity, double duration);
 		const double Quaternion::getW() const;
@@ -18,5 +19,7 @@ private:
 		const double Quaternion::getY() const;
 		const double Quaternion::getZ() const;
 		Quaternion operator*(double other);
+
+		Quaternion getConjugate();
 };
 
