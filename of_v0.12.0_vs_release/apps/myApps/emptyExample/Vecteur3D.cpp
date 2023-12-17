@@ -17,6 +17,28 @@ Vecteur3D::Vecteur3D(double x, double y, double z)
 	this->z = z;
 }
 
+Vecteur3D::Vecteur3D(string sexy)
+{
+	//create random vector
+	random_device rd;
+	mt19937 gen(rd());
+	if (sexy.compare("petit") == 0){
+		uniform_real_distribution<> dis(-10, 10);
+		this->x = dis(gen);
+		this->y = dis(gen);
+		this->z = dis(gen);
+	}
+	else {
+		uniform_real_distribution<> dis(-30, 30);
+		this->x = dis(gen);
+		this->y = dis(gen);
+		this->z = dis(gen);
+	}
+	
+	
+
+}
+
 Vecteur3D::~Vecteur3D()
 {
 	// Destructeur

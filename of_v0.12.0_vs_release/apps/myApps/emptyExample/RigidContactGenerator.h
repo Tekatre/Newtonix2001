@@ -18,5 +18,6 @@ class RigidContactGenerator
 	//RigidContact** getContacts();
 	vector<RigidContact*> getContacts();
 	void addContact(RigidContact* contact);
+	void clearContacts();
 };
 

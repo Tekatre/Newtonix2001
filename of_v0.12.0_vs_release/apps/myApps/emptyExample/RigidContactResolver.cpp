@@ -4,6 +4,9 @@ void RigidContactResolver::resolveContacts(vector<RigidContact*> contactArray, u
 {
 	resolveInterpenetrationIteration(contactArray, numContacts, numContacts, duration);
 	resolveVelocityIteration(contactArray, numContacts, numContacts, duration);
+
+	
+	
 }
 
 void RigidContactResolver::resolveInterpenetrationIteration(vector<RigidContact*> contactArray, unsigned int numContacts, int contactsLeft, float duration)

@@ -150,8 +150,8 @@ void ofApp::initializeParticles() {
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
 
-	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(0,25,0), rb2, Vecteur3D(0, 0, 0), 1, 50);
-	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(0,25, 0), 1, 50);
+	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 50);
+	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(20,25, 15), 1, 50);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	
@@ -339,8 +339,14 @@ void ofApp::update() {
 	rigidContactGenerator->CreateContact(bsp);
 	rigidContacts = rigidContactGenerator->getContacts();
 	numberOfRigidContacts=rigidContacts.size();
+ 	if (numberOfRigidContacts != 0) {
+	//	paused = !paused;
+	}
 	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t);
-	
+
+	numberOfRigidContacts = 0;
+	rigidContactGenerator->clearContacts();
+	rigidContacts.clear(); 
 
 
 
@@ -549,12 +555,43 @@ ofDrawLine(rod->particle[0]->getPosition().getX(), rod->particle[0]->getPosition
 	//gui.draw();
 }
 
+
+void ofApp::addRigidBody() {
+	BoxRigidBody* rb = new BoxRigidBody();
+	rb->setLinearDamping(0.95);
+	rb->setAngularDamping(0.5);
+	rb->setPosition(Vecteur3D("random"));
+	rb->setVelocity(Vecteur3D("petit"));
+	rb->setForceAccum(Vecteur3D(0,0,0));
+	rb->setTorqueAccum(Vecteur3D(0, 0, 0));
+	rb->setInverseMass(rand() % 100 + 1);
+	rb->setDepth(rand() % 100 + 1);
+	rb->setHeight(rand() % 100 + 1);
+	rb->setWidth(rand() % 100 + 1);
+	Quaternion q = Quaternion(1, 0, 0, 0);
+	q.Normalized();
+	rb->setOrientation(q);
+	rb->setRotation(Vecteur3D("petit"));
+	Matrix34 tr;
+	tr.setOrientationAndPosition(q, rb->getPosition());
+	rb->setTransformMatrix(tr);
+
+	GravityGenerator* rggravity = new GravityGenerator();
+	rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+	listRigidBodies.push_back(rb);
+
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key) {
 	
 	//quand on appuie sur espace, mets un pause la boucle
 	if (key == ' ') {
 		paused = !paused;
+	}
+
+	if (key == 'a') {
+		addRigidBody();
 	}
 
 

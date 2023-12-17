@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
 #include <math.h>
+
+#include <random>
+using namespace std;
+
 class Vecteur3D
 {
 	// Attributs
@@ -13,6 +17,7 @@ public:
 	// Constructeurs
 	Vecteur3D();
 	Vecteur3D(double x, double y, double z);
+	Vecteur3D(string sexy);
 	// Destructeur
 	~Vecteur3D();
 	// Accesseurs

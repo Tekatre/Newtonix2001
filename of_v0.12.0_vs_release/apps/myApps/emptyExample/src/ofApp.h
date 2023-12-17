@@ -118,9 +118,7 @@ public:
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
 	void restartButtonPressed();
-	void addParticleButtonPressed();
-	void addCableButtonPressed();
-	void addRodButtonPressed();
+	void addRigidBody();
 
 
 
