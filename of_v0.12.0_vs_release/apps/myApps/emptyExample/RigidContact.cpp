@@ -63,7 +63,30 @@ float RigidContact::calculateSeparatingVelocity() {
 
 
 void RigidContact::resolveVelocity(float duration) {
-	float k = -(1 + restitution) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (body[0]->getInverseMass() + body[1]->getInverseMass());
-	body[0]->setVelocity(body[0]->getVelocity() + contactNormal.mul(k * body[0]->getInverseMass()));
-	body[1]->setVelocity(body[1]->getVelocity() - contactNormal.mul(k * body[1]->getInverseMass()));
+	Vecteur3D r1 = worldContactPoint - body[0]->getPosition();
+	Vecteur3D r2 = worldContactPoint - body[1]->getPosition();
+	float kpasbien = -(1 + restitution) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (body[0]->getInverseMass() + body[1]->getInverseMass());
+	float k = (restitution + 1) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (contactNormal * (body[0]->getInverseMass() + body[1]->getInverseMass()) + (body[0]->getInverseInertiaTensorWorld()*((r1 ^ contactNormal) ^ r1) + (body[1]->getInverseInertiaTensorWorld()*(r2 ^ contactNormal)) ^ r2)).ProduitScalaire(contactNormal);
+
+	/*body[0]->setRotation(body[0]->getRotation() + body[0]->getInverseInertiaTensorWorld() * (r1 ^ contactNormal * k));
+	body[1]->setRotation(body[1]->getRotation() - body[1]->getInverseInertiaTensorWorld() * (r2 ^ contactNormal * k));*/
+
+	body[0]->setVelocity(body[0]->getVelocity() + contactNormal.mul(kpasbien * body[0]->getInverseMass()));
+	body[1]->setVelocity(body[1]->getVelocity() - contactNormal.mul(kpasbien * body[1]->getInverseMass()));
+
+	Vecteur3D rotation1 = body[0]->getRotation();
+	Vecteur3D rotation2 = body[1]->getRotation();
+
+	if (rotation1.norme() >= rotation2.norme()) {
+		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) + body[1]->getRotation()*restitution);
+		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) + body[0]->getRotation()*restitution);
+	}
+	else {
+		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) + body[1]->getRotation()*restitution);
+		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) + body[0]->getRotation()*restitution);
+	}
+
+
+	
+	cout << "k : " << endl;
 }

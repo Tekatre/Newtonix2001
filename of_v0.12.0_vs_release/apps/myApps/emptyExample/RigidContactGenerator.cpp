@@ -34,9 +34,9 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp)
 					contact->contactNormal = (bsp->bodies[i]->getPosition() - bsp->bodies[j]->getPosition()).normalize();
 	
 					contact->penetration = bsp->bodies[i]->getOuterRadius() + bsp->bodies[j]->getOuterRadius() - (bsp->bodies[i]->getPosition().distance(bsp->bodies[j]->getPosition()));
-					contact->restitution = 0.5f;
+					contact->restitution = 0.7f;
 					contact->friction = 0.5f;
-					contact->worldContactPoint = bsp->bodies[i]->getPosition() - contact->contactNormal * contact->penetration / 2;
+					contact->worldContactPoint = (bsp->bodies[i]->getPosition() + bsp->bodies[j]->getPosition())/2;
 					//addContact(contact);
 					contacts.push_back(contact);
 				}

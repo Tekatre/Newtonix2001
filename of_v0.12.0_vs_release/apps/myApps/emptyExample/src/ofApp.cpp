@@ -118,8 +118,8 @@ void ofApp::initializeParticles() {
 	Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
 	listParticules.push_back(particuletest);
 	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(25,0,0), 1, 50);
-	DragForceGenerator* dragForce = new DragForceGenerator();
+	//AnchorForceGenerator* anchorForce = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(25,0,0), 1, 50);
+	//DragForceGenerator* dragForce = new DragForceGenerator();
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
 	//rigidRegistry->my_RigidRegistry.push_back({ rb1,dragForce });
 	//rigidRegistry->my_RigidRegistry.push_back({ rb1,anchorForce });
@@ -149,6 +149,11 @@ void ofApp::initializeParticles() {
 	rb2->setTransformMatrix(tr);
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
+
+	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(0,25,0), rb2, Vecteur3D(0, 0, 0), 1, 50);
+	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb2, Vecteur3D(0,25, 0), 1, 50);
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
+	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	
 	/*BoxRigidBody* rb3 = new BoxRigidBody();
 	rb3->setInverseMass(1);
