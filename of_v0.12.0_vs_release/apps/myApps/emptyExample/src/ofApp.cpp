@@ -166,16 +166,7 @@ void ofApp::update() {
 	registry->updateForces(t);
 	rigidRegistry->updateForces(t);
 	particulesAnchor.clear();
-	for each ( auto ele in rigidRegistry->my_RigidRegistry)
-	{
-		RigidBody*rb = ele.rigidBody;
-		Vecteur3D bdAnchor = ele.fg->getBodyAnchor();
-		//si bdAnchor n'est pas null
-		if (bdAnchor.getX() == NULL) {
-			Particule p = Particule(numberOfParticles, rb->getTransformMatrix()*bdAnchor, Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0), 5, 1, ofColor::yellow);
-			particulesAnchor.push_back(p);
-		}
-	}
+	
 	if (listParticules.size() != 0) {
 		for (int m = 0; m < listParticules.size() - 1; m++) {
 			for (int n = m + 1; n < listParticules.size(); n++) {
@@ -226,7 +217,7 @@ void ofApp::update() {
  	if (pauseAtCollision && numberOfRigidContacts != 0) {
 		paused = !paused;
 	}
-	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t);
+	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t, pauseAtCollision);
 
 	numberOfRigidContacts = 0;
 	rigidContactGenerator->clearContacts();

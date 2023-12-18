@@ -6,7 +6,7 @@ using namespace std;
 class RigidContactResolver
 {
 	public:
-		void resolveContacts(vector<RigidContact*> contactArray, unsigned int numContacts, float duration);
+		void resolveContacts(vector<RigidContact*> contactArray, unsigned int numContacts, float duration, bool displayData);
 private :
 	void resolveInterpenetrationIteration(vector<RigidContact*> contactArray, unsigned int numContacts,int contactsLeft,float duration);
 	void resolveVelocityIteration(vector<RigidContact*> contactArray, unsigned int numContacts, int contactsLeft, float duration);
