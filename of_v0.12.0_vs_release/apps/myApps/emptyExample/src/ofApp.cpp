@@ -74,9 +74,49 @@ void ofApp::initializeParticles() {
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
 
+	CylinderRigidBody* dragRB = new CylinderRigidBody();
+	dragRB->setInverseMass(0.05f);
+	dragRB->setLinearDamping(0.95);
+	dragRB->setAngularDamping(0.5);
+	dragRB->setPosition(Vecteur3D(400, 0, 0));
+	dragRB->setVelocity(Vecteur3D(50, 50, 0));
+	dragRB->setForceAccum(Vecteur3D(0, 0, 0));
+	dragRB->setTorqueAccum(Vecteur3D(0, 0, 0));
+	dragRB->setRadius(20);
+	dragRB->setHeight(50);
+	Quaternion q3 = Quaternion(1, 0, 0, 0);
+	q3.Normalized();
+	dragRB->setOrientation(q3);
+	dragRB->setRotation(Vecteur3D(0, 0, 0));
+	tr.setOrientationAndPosition(q3, dragRB->getPosition());
+	dragRB->setTransformMatrix(tr);
+
+	rigidRegistry->my_RigidRegistry.push_back({ dragRB,rggravity });
+
+	DragForceGenerator* dragForce = new DragForceGenerator();
+	rigidRegistry->my_RigidRegistry.push_back({ dragRB,dragForce });
+
+	listRigidBodies.push_back(dragRB);
 
 
-	
+	CylinderRigidBody* notDragRB = new CylinderRigidBody();
+	notDragRB->setInverseMass(0.05f);
+	notDragRB->setLinearDamping(0.95);
+	notDragRB->setAngularDamping(0.5);
+	notDragRB->setPosition(Vecteur3D(400, 0, 100));
+	notDragRB->setVelocity(Vecteur3D(50, 50, 0));
+	notDragRB->setForceAccum(Vecteur3D(0, 0, 0));
+	notDragRB->setTorqueAccum(Vecteur3D(0, 0, 0));
+	notDragRB->setRadius(20);
+	notDragRB->setHeight(50);
+	notDragRB->setOrientation(q3);
+	notDragRB->setRotation(Vecteur3D(0, 0, 0));
+	tr.setOrientationAndPosition(q3, notDragRB->getPosition());
+	notDragRB->setTransformMatrix(tr);
+
+	rigidRegistry->my_RigidRegistry.push_back({ notDragRB,rggravity });
+
+	listRigidBodies.push_back(notDragRB);
 }
 
 
@@ -384,11 +424,11 @@ void ofApp::addRigidBody() {
 		rb->setVelocity(Vecteur3D("random"));
 		rb->setForceAccum(Vecteur3D(0, 0, 0));
 		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 1;
+		float mass = rand() % 5 + 10;
 		rb->setInverseMass(1 / mass);
-		rb->setDepth(rand() % 100 + 1);
-		rb->setHeight(rand() % 100 + 1);
-		rb->setWidth(rand() % 100 + 1);
+		rb->setDepth(rand() % 50 + 10);
+		rb->setHeight(rand() % 50 + 10);
+		rb->setWidth(rand() % 50 + 10);
 		Quaternion q = Quaternion(1, 0, 0, 0);
 		q.Normalized();
 		rb->setOrientation(q);
@@ -397,11 +437,12 @@ void ofApp::addRigidBody() {
 		tr.setOrientationAndPosition(q, rb->getPosition());
 		rb->setTransformMatrix(tr);
 
-		cout << "Mass : " << rb->getInverseMass() << endl;
+		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
 
 		GravityGenerator* rggravity = new GravityGenerator();
 		DragForceGenerator* rgdrag = new DragForceGenerator();
 		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
 		listRigidBodies.push_back(rb);
 	}
 	else if (randshape == 2) {
@@ -412,10 +453,10 @@ void ofApp::addRigidBody() {
 		rb->setVelocity(Vecteur3D("random"));
 		rb->setForceAccum(Vecteur3D(0, 0, 0));
 		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 1;
+		float mass = rand() % 5 + 10;
 		rb->setInverseMass(1 / mass);
-		rb->setRadius(rand() % 100 + 1);
-		rb->setHeight(rand() % 100 + 1);
+		rb->setRadius(rand() % 20 + 15);
+		rb->setHeight(rand() % 40 + 20);
 		
 		Quaternion q = Quaternion(1, 0, 0, 0);
 		q.Normalized();
@@ -425,11 +466,12 @@ void ofApp::addRigidBody() {
 		tr.setOrientationAndPosition(q, rb->getPosition());
 		rb->setTransformMatrix(tr);
 
-		cout << "Mass : " << rb->getInverseMass() << endl;
+		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
 
 		GravityGenerator* rggravity = new GravityGenerator();
 		DragForceGenerator* rgdrag = new DragForceGenerator();
 		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
 		listRigidBodies.push_back(rb);
 	}
 	else {
@@ -440,9 +482,9 @@ void ofApp::addRigidBody() {
 		rb->setVelocity(Vecteur3D("random"));
 		rb->setForceAccum(Vecteur3D(0, 0, 0));
 		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 1;
+		float mass = rand() % 5 + 10;
 		rb->setInverseMass(1 / mass);
-		rb->setRadius(rand() % 100 + 1);
+		rb->setRadius(rand() % 30 + 10);
 		Quaternion q = Quaternion(1, 0, 0, 0);
 		q.Normalized();
 		rb->setOrientation(q);
@@ -451,11 +493,12 @@ void ofApp::addRigidBody() {
 		tr.setOrientationAndPosition(q, rb->getPosition());
 		rb->setTransformMatrix(tr);
 
-		cout << "Mass : " << rb->getInverseMass() << endl;
+		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
 
 		GravityGenerator* rggravity = new GravityGenerator();
 		DragForceGenerator* rgdrag = new DragForceGenerator();
 		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
+		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
 		listRigidBodies.push_back(rb);
 	}
 
