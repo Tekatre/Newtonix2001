@@ -93,19 +93,19 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 vector<RigidContact*> RigidContactGenerator::getContacts()
 {
 
-	////faire en sorte qu'il n'y ai pas de double (deux couple comportant bodyA et bodyB)
-	//for (int i = 0; i < contacts.size(); i++)
-	//{
-	//	for (int j = i + 1; j < contacts.size(); j++)
-	//	{
-	//		if (contacts[i]->body[0] == contacts[j]->body[0] && contacts[i]->body[1] == contacts[j]->body[1]) {
-	//			contacts.erase(contacts.begin() + j);
-	//		}
-	//		else if (contacts[i]->body[0] == contacts[j]->body[1] && contacts[i]->body[1] == contacts[j]->body[0]) {
-	//			contacts.erase(contacts.begin() + j);
-	//		}
-	//	}
-	//}
+	//faire en sorte qu'il n'y ai pas de double (deux couple comportant bodyA et bodyB)
+	for (int i = 0; i < data->contacts.size(); i++)
+	{
+		for (int j = i + 1; j < data->contacts.size(); j++)
+		{
+			if (data->contacts[i]->body[0] == data->contacts[j]->body[0] && data->contacts[i]->body[1] == data->contacts[j]->body[1]) {
+				data->contacts.erase(data->contacts.begin() + j);
+			}
+			else if (data->contacts[i]->body[0] == data->contacts[j]->body[1] && data->contacts[i]->body[1] == data->contacts[j]->body[0]) {
+				data->contacts.erase(data->contacts.begin() + j);
+			}
+		}
+	}
 
 	return data->contacts;
 }
@@ -121,6 +121,8 @@ void RigidContactGenerator::clearContacts()
 {
 	contacts.clear();
 	contactsCount = 0;
+	data->contacts.clear();
+	data->contactsLeft = 1000;
 }
 
 
@@ -135,6 +137,9 @@ void RigidContactGenerator::generateContacts( Primitive& firstPrimitive,  Primit
 	else if(firstPrimitive.body->getShapeID() == 3 && secondPrimitive.body->getShapeID() == 1) { //Sphere Box
 			generateContacts((Box&)secondPrimitive, (Sphere&)firstPrimitive, data);
 		}
+	else if(firstPrimitive.body->getShapeID() == 1 && secondPrimitive.body->getShapeID() == 1) { //Box Box
+				generateContacts((Box&)firstPrimitive, (Box&)secondPrimitive, data);
+			}
 	else {
 		return;
 	}
@@ -191,6 +196,7 @@ void RigidContactGenerator::generateContacts(Box& box, Sphere& sphere, Collision
 	if (dist < -box.halfSize.getY()) dist = -box.halfSize.getY();
 	closestPoint.setY(dist);
 
+
 	dist = relCenter.getZ();
 	if (dist > box.halfSize.getZ()) dist = box.halfSize.getZ();
 	if (dist < -box.halfSize.getZ()) dist = -box.halfSize.getZ();
@@ -233,6 +239,161 @@ void RigidContactGenerator::generateContacts(Box& one, Box& two, CollisionData* 
 	if (data->contactsLeft <= 0) return;
 
 	float bestOverlap = FLT_MAX;
-	unsigned bestCase;
+	unsigned bestCase = 0;
 
+	Vecteur3D axes[15];
+	axes[0] = one.getAxis(0);
+	axes[1] = one.getAxis(1);
+	axes[2] = one.getAxis(2);
+
+	axes[3] = two.getAxis(0);
+	axes[4] = two.getAxis(1);
+	axes[5] = two.getAxis(2);
+
+	axes[6] = one.getAxis(0)^two.getAxis(0);
+	axes[7] = one.getAxis(0)^two.getAxis(1);
+	axes[8] = one.getAxis(0)^two.getAxis(2);
+	axes[9] = one.getAxis(1)^two.getAxis(0);
+	axes[10] = one.getAxis(1)^two.getAxis(1);
+	axes[11] = one.getAxis(1)^two.getAxis(2);
+	axes[12] = one.getAxis(2)^two.getAxis(0);
+	axes[13] = one.getAxis(2)^two.getAxis(1);
+	axes[14] = one.getAxis(2)^two.getAxis(2);
+
+	for (unsigned index = 0; index < 15; index++) {
+		Vecteur3D axis = axes[index];
+		if (axis.norme() < 0.0001) continue;
+		axis.normalize();
+		Vecteur3D toCenter = two.getAxis(3) - one.getAxis(3);
+		float overlap = penetrationOnAxis(one, two, axis, toCenter );
+		if (overlap < 0) return;
+		if (overlap < bestOverlap) {
+			bestOverlap = overlap;
+			bestCase = index;
+		}
+	}
+
+	Vecteur3D bestAxis = axes[bestCase];
+
+	if (bestCase >= 6 && bestCase <= 14) {
+
+		Vecteur3D ptOnEdgeOne = one.halfSize;
+		Vecteur3D ptOnEdgeTwo = two.halfSize;
+		int oneAxisIndex = 0;
+		int twoAxisIndex = 0;
+		#pragma region calcul One/TwoAxisIndex
+		if (bestCase == 6) {
+			oneAxisIndex = 0;
+			twoAxisIndex = 0;
+		}
+		else if (bestCase == 7) {
+			oneAxisIndex = 0;
+			twoAxisIndex = 1;
+		}
+		else if (bestCase == 8) {
+			oneAxisIndex = 0;
+			twoAxisIndex = 2;
+
+		}
+		else if (bestCase == 9) {
+			oneAxisIndex = 1;
+			twoAxisIndex = 0;
+
+		}
+		else if (bestCase == 10) {
+			oneAxisIndex = 1;
+			twoAxisIndex = 1;
+
+		}
+		else if (bestCase == 11) {
+			oneAxisIndex = 1;
+			twoAxisIndex = 2;
+
+		}
+		else if (bestCase == 12) {
+			oneAxisIndex = 2;
+			twoAxisIndex = 0;
+
+		}
+		else if (bestCase == 13) {
+			oneAxisIndex = 2;
+			twoAxisIndex = 1;
+
+		}
+		else if (bestCase == 14) {
+			oneAxisIndex = 2;
+			twoAxisIndex = 2;
+		}
+
+		#pragma endregion
+
+		for (int i = 0; i < 3;i++) {
+			if (i == oneAxisIndex) ptOnEdgeOne.setIndex(i, 0);
+			else if (one.getAxis(i).ProduitScalaire(bestAxis) > 0) ptOnEdgeOne.setIndex(i, -ptOnEdgeOne.getIndex(i));
+			if (i == twoAxisIndex) ptOnEdgeTwo.setIndex(i, 0);
+			else if (two.getAxis(i).ProduitScalaire(bestAxis) < 0) ptOnEdgeTwo.setIndex(i, -ptOnEdgeTwo.getIndex(i));
+		}
+
+		ptOnEdgeOne = one.transform.TransformPosition(ptOnEdgeOne);
+		ptOnEdgeTwo = two.transform.TransformPosition(ptOnEdgeTwo);
+
+		RigidContact *contact = new RigidContact();
+		contact->contactNormal = bestAxis;
+		contact->penetration = bestOverlap;
+		contact->worldContactPoint = getContactPoint(one.getAxis(oneAxisIndex), two.getAxis(twoAxisIndex), ptOnEdgeOne, ptOnEdgeTwo);
+		contact->setBodyData(one.body, two.body, data->friction, data->restitution);
+		data->addContacts(1, contact);
+	}
+	else {
+		//Face to face contact
+		Vecteur3D normal = bestAxis;
+		if (bestAxis.ProduitScalaire(two.getAxis(3) - one.getAxis(3)) > 0) {
+			normal = normal * -1;
+		}
+		//Which vertex is in contact (in two's coordinate)?
+		Vecteur3D vertex = two.halfSize;
+		if (two.getAxis(0).ProduitScalaire(normal) < 0) vertex.setX(-vertex.getX());
+		if (two.getAxis(1).ProduitScalaire(normal) < 0) vertex.setY(-vertex.getY());
+		if (two.getAxis(2).ProduitScalaire(normal) < 0) vertex.setZ(-vertex.getZ());
+		
+		//Convert to work coordinates
+		//vertex = two.transform.TransformPosition(vertex);
+		if (bestCase <3) {
+			vertex = two.transform * vertex;
+		}
+		else {
+			vertex = one.transform * vertex;
+		}
+
+		//create the contact data
+		RigidContact* contact = new RigidContact();
+		contact->contactNormal = normal;
+		contact->penetration = bestOverlap;
+		contact->worldContactPoint = vertex;
+		contact->setBodyData(one.body, two.body, data->friction, data->restitution);
+		data->addContacts(1, contact);
+		
+
+	}
+	return;
+
+}
+
+Vecteur3D RigidContactGenerator::getContactPoint(Vecteur3D& axisOne, Vecteur3D& axisTwo, Vecteur3D& ptOnEdgeOne, Vecteur3D& ptOnEdgeTwo)
+{
+	Vecteur3D toSt = ptOnEdgeOne - ptOnEdgeTwo;
+	float dpStaOne = axisOne.ProduitScalaire(toSt);
+	float dpStaTwo = axisTwo.ProduitScalaire(toSt);
+
+	float smOne = axisOne.norme();
+	float smTwo = axisTwo.norme();
+	float dotProductEdges = axisTwo.ProduitScalaire(axisOne);
+	float denom = smOne * smTwo - dotProductEdges * dotProductEdges;
+	float a = (dotProductEdges * dpStaTwo - smTwo * dpStaOne) / denom;
+	float b = (smOne * dpStaTwo - dotProductEdges * dpStaOne) / denom;
+
+	Vecteur3D nearestPointOne = ptOnEdgeOne + axisOne * a;
+	Vecteur3D nearestPointTwo = ptOnEdgeTwo + axisTwo * b;
+
+	return nearestPointOne * 0.5 + nearestPointTwo * 0.5;
 }

@@ -43,6 +43,7 @@ class RigidContactGenerator
 	void generateContacts( Box &firstPrimitive,  Sphere &secondPrimitive, CollisionData *data);
 	void generateContacts( Box &firstPrimitive,  Box &secondPrimitive, CollisionData *data);
 	static inline float penetrationOnAxis(Box &one, Box &two, Vecteur3D &axis, Vecteur3D &toCenter);
+	Vecteur3D getContactPoint(Vecteur3D &axisOne, Vecteur3D &axisTwo, Vecteur3D &ptOnEdgeOne, Vecteur3D &ptOnEdgeTwo);
 
 	static float transformToAxis(Box &box, Vecteur3D &axis);
 

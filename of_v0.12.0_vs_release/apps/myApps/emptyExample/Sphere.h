@@ -6,7 +6,6 @@ class Sphere : public Primitive
 public :
 	float radius;
 
-	Vecteur3D getAxis(int index) override;
 	Sphere(RigidBody *body);
 
 };

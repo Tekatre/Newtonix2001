@@ -232,3 +232,48 @@ float Vecteur3D::distance(Vecteur3D q)
 	// Distance entre deux vecteurs
 	return sqrt(pow(x - q.getX(), 2) + pow(y - q.getY(), 2) + pow(z - q.getZ(), 2));
 }
+
+
+void Vecteur3D::setIndex(int index, float value)
+{
+	// Set value of vector at index
+	if (index == 0)
+	{
+		x = value;
+	}
+	else if (index == 1)
+	{
+		y = value;
+	}
+	else if (index == 2)
+	{
+		z = value;
+	}
+	else
+	{
+		cout << "Error: index out of range" << endl;
+	}
+	return;
+}
+
+float Vecteur3D::getIndex(int index)
+{
+	// Get value of vector at index
+	if (index == 0)
+	{
+		return x;
+	}
+	else if (index == 1)
+	{
+		return y;
+	}
+	else if (index == 2)
+	{
+		return z;
+	}
+	else
+	{
+		cout << "Error: index out of range" << endl;
+		return 0;
+	}
+}

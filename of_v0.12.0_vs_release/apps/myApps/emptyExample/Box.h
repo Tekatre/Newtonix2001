@@ -16,7 +16,6 @@ public:
 		};
 	Box(Vecteur3D halfsize);
 	Box(RigidBody *body);
-	Vecteur3D getAxis(int index) override;
 	
 
 

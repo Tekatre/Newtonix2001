@@ -19,6 +19,3 @@ Box::Box(RigidBody* body) : Primitive(body)
 
 }
 
-Vecteur3D Box::getAxis(int index) {
-	return this->body->getPosition();
-}

@@ -1,10 +1,6 @@
 #include "Sphere.h"
 
-Vecteur3D Sphere::getAxis(int index)
-{
-	return this->body->getPosition();
 
-}
 
 Sphere::Sphere(RigidBody* body) : Primitive(body)
 {

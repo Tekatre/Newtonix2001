@@ -113,3 +113,4 @@ void Quaternion::RotateByVector(const Vecteur3D& vector)
 	(*this) = (*this) + (q * (*this));
 }
 
+

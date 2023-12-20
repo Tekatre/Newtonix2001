@@ -79,6 +79,7 @@ Vecteur3D Matrix34::TransformPosition(const Vecteur3D& vector)
 	return result;
 }	
 
+
 Vecteur3D Matrix34::TransformDirection(const Vecteur3D& vector)
 {
 	//ignore the translation part of the matrix

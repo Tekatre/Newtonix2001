@@ -47,4 +47,8 @@ public:
 	float ProduitScalaire(Vecteur3D q);
 	bool operator==(const Vecteur3D& v) const;
 	float distance(Vecteur3D q);
+
+	void setIndex(int index, float value);
+	float getIndex(int index);
+
 };

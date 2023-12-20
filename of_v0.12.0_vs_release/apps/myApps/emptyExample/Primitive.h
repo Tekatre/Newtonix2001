@@ -13,7 +13,7 @@ public :
 	Primitive(RigidBody *body);
 	~Primitive();
 
-	virtual Vecteur3D getAxis(int index) = 0;
+	Vecteur3D getAxis(int index);
 	
 };
 
