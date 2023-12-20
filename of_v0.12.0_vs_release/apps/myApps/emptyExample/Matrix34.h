@@ -15,5 +15,6 @@ public:
 	Vecteur3D TransformPosition(const Vecteur3D& vector);
 	Vecteur3D TransformDirection(const Vecteur3D& vector);
 	Matrix33 getOrientation();
+	Vecteur3D transformInverse(const Vecteur3D& vector) const;
 };
 

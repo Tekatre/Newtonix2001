@@ -41,11 +41,6 @@ void RigidContact::resolveInterpenetration(float duration) {
 	body[1]->setPosition(body[1]->getPosition() + contactNormal * linearMove[1]);
 
 	//TODO ANGULAIRE
-
-
-
-
-
 }
 
 
@@ -68,23 +63,30 @@ void RigidContact::resolveVelocity(float duration) {
 	float kpasbien = -(1 + restitution) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (body[0]->getInverseMass() + body[1]->getInverseMass());
 	float k = (restitution + 1) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (contactNormal * (body[0]->getInverseMass() + body[1]->getInverseMass()) + (body[0]->getInverseInertiaTensorWorld()*((r1 ^ contactNormal) ^ r1) + (body[1]->getInverseInertiaTensorWorld()*(r2 ^ contactNormal)) ^ r2)).ProduitScalaire(contactNormal);
 
-	/*body[0]->setRotation(body[0]->getRotation() + body[0]->getInverseInertiaTensorWorld() * (r1 ^ contactNormal * k));
-	body[1]->setRotation(body[1]->getRotation() - body[1]->getInverseInertiaTensorWorld() * (r2 ^ contactNormal * k));*/
+	body[0]->setRotation(body[0]->getRotation() - body[0]->getInverseInertiaTensorWorld() * (r1 ^ (contactNormal * k)));
+	body[1]->setRotation(body[1]->getRotation() + body[1]->getInverseInertiaTensorWorld() * (r2 ^ (contactNormal * k)));
 
 	body[0]->setVelocity(body[0]->getVelocity() + contactNormal.mul(kpasbien * body[0]->getInverseMass()));
 	body[1]->setVelocity(body[1]->getVelocity() - contactNormal.mul(kpasbien * body[1]->getInverseMass()));
 
-	Vecteur3D rotation1 = body[0]->getRotation();
+	/*Vecteur3D rotation1 = body[0]->getRotation();
 	Vecteur3D rotation2 = body[1]->getRotation();
 
-	if (rotation1.norme() >= rotation2.norme()) {
+*	if (rotation1.norme() >= rotation2.norme()) {
 		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) + body[1]->getRotation()*restitution);
 		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) - body[0]->getRotation()*restitution);
 	}
 	else {
 		body[0]->setRotation(body[0]->getRotation() * (1 - restitution) - body[1]->getRotation()*restitution);
 		body[1]->setRotation(body[1]->getRotation() * (1 - restitution) + body[0]->getRotation()*restitution);
-	}
+	}*/
 
 
+}
+
+void RigidContact::setBodyData(RigidBody* one, RigidBody* two, float friction, float restitution) {
+	RigidContact::body[0] = one;
+	RigidContact::body[1] = two;
+	RigidContact::friction = friction;
+	RigidContact::restitution = restitution;
 }

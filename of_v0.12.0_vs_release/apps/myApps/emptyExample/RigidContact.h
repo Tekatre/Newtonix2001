@@ -21,6 +21,7 @@ class RigidContact
 	void resolveInterpenetration(float duration);
 	void resolveVelocity(float duration);
 	float calculateSeparatingVelocity();
+	void setBodyData(RigidBody* one, RigidBody* two, float friction, float restitution);
 
 };
 

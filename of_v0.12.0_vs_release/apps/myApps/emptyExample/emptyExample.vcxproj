@@ -105,6 +105,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnchorForceGenerator.cpp" />
+    <ClCompile Include="Box.cpp" />
     <ClCompile Include="BoxRigidBody.cpp" />
     <ClCompile Include="BSP.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -129,12 +130,14 @@
     <ClCompile Include="ParticleRod.cpp" />
     <ClCompile Include="ParticleSpring.cpp" />
     <ClCompile Include="Particule.cpp" />
+    <ClCompile Include="Primitive.cpp" />
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidContact.cpp" />
     <ClCompile Include="RigidContactGenerator.cpp" />
     <ClCompile Include="RigidContactResolver.cpp" />
     <ClCompile Include="RigidForceRegistry.cpp" />
+    <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SphereRigidBody.cpp" />
     <ClCompile Include="SpringForceGenerator.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -143,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnchorForceGenerator.h" />
+    <ClInclude Include="Box.h" />
     <ClInclude Include="BoxRigidBody.h" />
     <ClInclude Include="BSP.h" />
     <ClInclude Include="Collision.h" />
@@ -167,12 +171,14 @@
     <ClInclude Include="ParticleRod.h" />
     <ClInclude Include="ParticleSpring.h" />
     <ClInclude Include="Particule.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RigidBody.h" />
     <ClInclude Include="RigidContact.h" />
     <ClInclude Include="RigidContactGenerator.h" />
     <ClInclude Include="RigidContactResolver.h" />
     <ClInclude Include="RigidForceRegistry.h" />
+    <ClInclude Include="Sphere.h" />
     <ClInclude Include="SphereRigidBody.h" />
     <ClInclude Include="SpringForceGenerator.h" />
     <ClInclude Include="src\ofApp.h" />

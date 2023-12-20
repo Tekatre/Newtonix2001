@@ -34,8 +34,8 @@ void ofApp::initializeParticles() {
 	GravityGenerator* rggravity = new GravityGenerator();
 	AnchorForceGenerator* rganchor = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(0,0,0),1,300);
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
 
 
 	
@@ -43,18 +43,16 @@ void ofApp::initializeParticles() {
 
 
 
-	BoxRigidBody* rb2 = new BoxRigidBody();
+	SphereRigidBody* rb2 = new SphereRigidBody();
 	rb2->setInverseMass(1);
 	rb2->setLinearDamping(0.95);
 	rb2->setAngularDamping(0.5);
-	rb2->setPosition(Vecteur3D(-250, 0, 0));
-	rb2->setVelocity(Vecteur3D(10, 0, 0));
+	rb2->setPosition(Vecteur3D(-250, -25, 0));
+	rb2->setVelocity(Vecteur3D(30, 0, 0));
 	rb2->setForceAccum(Vecteur3D(0, 0, 0));
 	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb2->setInverseMass(1);
-	rb2->setDepth(50);
-	rb2->setHeight(50);
-	rb2->setWidth(50);
+	rb2->setInverseMass(0.5);
+	rb2->setRadius(50);
 	Quaternion q2 = Quaternion(1, 0, 0, 0);
 	q2.Normalized();
 	rb2->setOrientation(q2);
@@ -62,19 +60,19 @@ void ofApp::initializeParticles() {
 	tr.setOrientationAndPosition(q2, rb2->getPosition());
 	rb2->setTransformMatrix(tr);
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
+	//rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
 
 
-	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 100);
+	/*SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 100);
 	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb1, Vecteur3D(20,25, 15),1 , 100);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
-	
+	*/
 	
 	listRigidBodies.push_back(rb1);
 	listRigidBodies.push_back(rb2);
 
-	CylinderRigidBody* dragRB = new CylinderRigidBody();
+	/*CylinderRigidBody* dragRB = new CylinderRigidBody();
 	dragRB->setInverseMass(0.05f);
 	dragRB->setLinearDamping(0.95);
 	dragRB->setAngularDamping(0.5);
@@ -116,7 +114,7 @@ void ofApp::initializeParticles() {
 
 	rigidRegistry->my_RigidRegistry.push_back({ notDragRB,rggravity });
 
-	listRigidBodies.push_back(notDragRB);
+	listRigidBodies.push_back(notDragRB);*/
 }
 
 

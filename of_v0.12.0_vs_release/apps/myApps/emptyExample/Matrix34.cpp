@@ -96,3 +96,16 @@ Matrix33 Matrix34::getOrientation()
 	result.setValues(values[0],values[1],values[2],values[4],values[5],values[6],values[8],values[9],values[10]);
 	return result;
 }
+
+Vecteur3D Matrix34::transformInverse(const Vecteur3D& vector) const
+{
+	Vecteur3D tmp = vector;
+	tmp.setX(tmp.getX() - values[3]);
+	tmp.setY(tmp.getY() - values[7]);
+	tmp.setZ(tmp.getZ() - values[11]);
+	return Vecteur3D(
+		tmp.getX() * values[0] + tmp.getY() * values[4] + tmp.getZ() * values[8],
+		tmp.getX() * values[1] + tmp.getY() * values[5] + tmp.getZ() * values[9],
+		tmp.getX() * values[2] + tmp.getY() * values[6] + tmp.getZ() * values[10]
+	);
+}
