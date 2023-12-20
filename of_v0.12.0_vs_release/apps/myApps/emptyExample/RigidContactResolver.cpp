@@ -47,7 +47,7 @@ void RigidContactResolver::resolveContacts(vector<RigidContact*> contactArray, u
 }
 
 void RigidContactResolver::resolveInterpenetrationIteration(vector<RigidContact*> contactArray, unsigned int numContacts, int contactsLeft, float duration)
-{
+ {
 	if (contactsLeft == 0) {
 		return;
 	}
@@ -75,7 +75,7 @@ void RigidContactResolver::resolveVelocityIteration(vector<RigidContact*> contac
 		return;
 	}
 	//calculate separating velocity for each contact
-	float maxSeparatingVelocity = 0;
+ 	float maxSeparatingVelocity = 0;
 	int maxIndex = 0;
 	for (unsigned int i = 0; i < numContacts; i++) {
 		if (contactArray[i]->calculateSeparatingVelocity() < maxSeparatingVelocity && !contactArray[i]->VelocityResolved) {

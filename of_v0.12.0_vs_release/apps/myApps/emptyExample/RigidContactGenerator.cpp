@@ -49,10 +49,10 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 					if (bsp->bodies[j]->getShapeID() == 3) {
 						prim2 = new Sphere(bsp->bodies[j]);
 					}
-					if (bsp->bodies[i]->getShapeID() == 1) {
+					if (bsp->bodies[i]->getShapeID() <= 2) {
 						prim1 = new Box(bsp->bodies[i]);
 					}
-					if (bsp->bodies[j]->getShapeID() == 1) {
+					if (bsp->bodies[j]->getShapeID() <= 2) {
 						prim2 = new Box(bsp->bodies[j]);
 					}
 					if (prim1 && prim2) {
@@ -131,13 +131,13 @@ void RigidContactGenerator::generateContacts( Primitive& firstPrimitive,  Primit
 	if (firstPrimitive.body->getShapeID() == 3 && secondPrimitive.body->getShapeID() == 3) {  //Sphere Sphere
 		generateContacts((Sphere&)firstPrimitive, (Sphere&)secondPrimitive, data);
 	}
-	else if(firstPrimitive.body->getShapeID() == 1 && secondPrimitive.body->getShapeID() == 3) { //Box Sphere
+	else if (firstPrimitive.body->getShapeID() <= 2 && secondPrimitive.body->getShapeID() == 3) { //Box Sphere
 			generateContacts((Box&)firstPrimitive, (Sphere&)secondPrimitive, data);
 		}
-	else if(firstPrimitive.body->getShapeID() == 3 && secondPrimitive.body->getShapeID() == 1) { //Sphere Box
+	else if(firstPrimitive.body->getShapeID() == 3 && secondPrimitive.body->getShapeID() <= 2) { //Sphere Box
 			generateContacts((Box&)secondPrimitive, (Sphere&)firstPrimitive, data);
 		}
-	else if(firstPrimitive.body->getShapeID() == 1 && secondPrimitive.body->getShapeID() == 1) { //Box Box
+	else if(firstPrimitive.body->getShapeID() <= 2 && secondPrimitive.body->getShapeID() <= 2) { //Box Box
 				generateContacts((Box&)firstPrimitive, (Box&)secondPrimitive, data);
 			}
 	else {

@@ -50,6 +50,8 @@ void CylinderRigidBody::calculateDerivedData()
 	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
 
 	this->setInverseInertiaTensor(getInverseInertiaTensor() * orientationMatrix);
+	this->setInverseInertiaTensorWorld(this->getTransformMatrix().getOrientation() * this->getInverseInertiaTensor() * this->getTransformMatrix().getOrientation().Inverse());
+
 }
 
 int CylinderRigidBody::getShapeID()

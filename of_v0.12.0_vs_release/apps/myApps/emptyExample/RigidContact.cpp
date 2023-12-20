@@ -14,13 +14,14 @@ void RigidContact::resolveInterpenetration(float duration) {
 
 	float totalInertia = 0;
 	float linearInertia[2];
-	float angularInertia[2];
+	double angularInertia[2];
 	//calcul de l'inertie linéaire et angulaire
 	linearInertia[0] = body[0]->getInverseMass();
 	linearInertia[1] = body[1]->getInverseMass();
 
 	Vecteur3D u = (worldContactPoint - body[0]->getPosition())^contactNormal;
 	Vecteur3D accelangu1 = body[0]->getInverseInertiaTensorWorld() * u;
+	Matrix33 bloup = body[0]->getInverseInertiaTensorWorld();
 	angularInertia[0] = (accelangu1 ^ u).ProduitScalaire(contactNormal);
 
 	u = (worldContactPoint - body[1]->getPosition())^contactNormal;
@@ -29,7 +30,7 @@ void RigidContact::resolveInterpenetration(float duration) {
 
 	totalInertia = linearInertia[0] + linearInertia[1] + angularInertia[0] + angularInertia[1];
 
-	float inverseInertia = 1 / totalInertia;
+	float inverseInertia = 1.0 / totalInertia;
 	float linearMove[2];
 	float angularMove[2];
 	linearMove[0] = penetration * (linearInertia[0] * inverseInertia);
@@ -58,7 +59,7 @@ float RigidContact::calculateSeparatingVelocity() {
 
 
 void RigidContact::resolveVelocity(float duration) {
-	Vecteur3D r1 = worldContactPoint - body[0]->getPosition();
+ 	Vecteur3D r1 = worldContactPoint - body[0]->getPosition();
 	Vecteur3D r2 = worldContactPoint - body[1]->getPosition();
 	float kpasbien = -(1 + restitution) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (body[0]->getInverseMass() + body[1]->getInverseMass());
 	float k = (restitution + 1) * (body[0]->getVelocity() - body[1]->getVelocity()).ProduitScalaire(contactNormal) / (contactNormal * (body[0]->getInverseMass() + body[1]->getInverseMass()) + (body[0]->getInverseInertiaTensorWorld()*((r1 ^ contactNormal) ^ r1) + (body[1]->getInverseInertiaTensorWorld()*(r2 ^ contactNormal)) ^ r2)).ProduitScalaire(contactNormal);

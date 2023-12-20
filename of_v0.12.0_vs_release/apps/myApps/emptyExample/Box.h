@@ -1,6 +1,7 @@
 #pragma once
 #include "Primitive.h"
 #include "BoxRigidBody.h"
+#include "CylinderRigidBody.h"
 class Box : public Primitive
 {
 public:

@@ -15,7 +15,13 @@ Box::Box(Vecteur3D halfsize)
 Box::Box(RigidBody* body) : Primitive(body)
 {
 	this->body=body;
-	this->halfSize = Vecteur3D(((BoxRigidBody*)body)->getWidth() / 2, ((BoxRigidBody*)body)->getHeight() / 2, ((BoxRigidBody*)body)->getDepth() / 2);
+	if (body->getShapeID() == 2) {
+		this->halfSize = Vecteur3D(((CylinderRigidBody*)body)->getRadius(), ((CylinderRigidBody*)body)->getHeight(), ((CylinderRigidBody*)body)->getRadius());
+	}
+	else {
+		this->halfSize = Vecteur3D(((BoxRigidBody*)body)->getWidth() / 2, ((BoxRigidBody*)body)->getHeight() / 2, ((BoxRigidBody*)body)->getDepth() / 2);
+	}
+	
 
 }
 
