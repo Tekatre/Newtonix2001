@@ -32,10 +32,10 @@ void ofApp::initializeParticles() {
 	/*Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
 	listParticules.push_back(particuletest);*/
 	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* rganchor = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(0,0,0),3,100);
+	AnchorForceGenerator* rganchor = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(0,0,0),1,100);
 
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	//rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
+	rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
 
 
 	BoxRigidBody* rb2 = new BoxRigidBody();
@@ -60,8 +60,8 @@ void ofApp::initializeParticles() {
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
 
 
-	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 3, 100);
-	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb1, Vecteur3D(20,25, 15),3 , 100);
+	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 100);
+	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb1, Vecteur3D(20,25, 15),1 , 100);
 	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
 	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
 	
@@ -204,21 +204,7 @@ void ofApp::update() {
 	
 
 
-	BSP* bsp = new BSP();
-	bsp->GenerateBSP(listRigidBodies);
 	
-	vector<RigidContact*> rigidContacts;
-	rigidContactGenerator->CreateContact(bsp);
-	rigidContacts = rigidContactGenerator->getContacts();
-	numberOfRigidContacts=rigidContacts.size();
- 	if (pauseAtCollision && numberOfRigidContacts != 0) {
-		paused = !paused;
-	}
-	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t, pauseAtCollision);
-
-	numberOfRigidContacts = 0;
-	rigidContactGenerator->clearContacts();
-	rigidContacts.clear(); 
 
 
 
@@ -238,7 +224,21 @@ void ofApp::update() {
 
 	
 	
+	BSP* bsp = new BSP();
+	bsp->GenerateBSP(listRigidBodies);
 
+	vector<RigidContact*> rigidContacts;
+	rigidContactGenerator->CreateContact(bsp);
+	rigidContacts = rigidContactGenerator->getContacts();
+	numberOfRigidContacts = rigidContacts.size();
+	if (pauseAtCollision && numberOfRigidContacts != 0) {
+		paused = !paused;
+	}
+	rigidResolver->resolveContacts(rigidContacts, numberOfRigidContacts, t, pauseAtCollision);
+
+	numberOfRigidContacts = 0;
+	rigidContactGenerator->clearContacts();
+	rigidContacts.clear();
 
 
 
