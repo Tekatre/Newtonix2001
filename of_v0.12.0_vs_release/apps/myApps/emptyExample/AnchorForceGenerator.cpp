@@ -17,7 +17,8 @@ void AnchorForceGenerator::updateForce(RigidBody* rigidBody)
 			return;
 		}
 		Vecteur3D dir = d / d.norme();
-		Vecteur3D force = dir.mul((-k * rigidBody->getInverseMass()) * (d.norme() - lzero));
+		//F = -k * (l - l0) : c'est une force, la masse est prise en compte dans RigidBody::integrate
+		Vecteur3D force = dir.mul(-k * (d.norme() - lzero));
 		
 	
 	

@@ -3,25 +3,31 @@
 
 Quaternion::Quaternion()
 {
-	// Constructeur par défaut
-	values[0] = 0;
+	// Constructeur par défaut : quaternion identité
+	// Le stockage est (w, x, y, z) : values[0] est la partie réelle
+	values[0] = 1;
 	values[1] = 0;
 	values[2] = 0;
-	values[3] = 1;
+	values[3] = 0;
 }
 
-Quaternion::Quaternion(double x, double y, double z, double w)
+Quaternion::Quaternion(double w, double x, double y, double z)
 {
 	// Constructeur avec paramètres
-	values[0] = x;
-	values[1] = y;
-	values[2] = z;
-	values[3] = w;
+	values[0] = w;
+	values[1] = x;
+	values[2] = y;
+	values[3] = z;
 }
 
 void Quaternion::Normalized()
 {
 	double norm = sqrt(values[0] * values[0] + values[1] * values[1] + values[2] * values[2] + values[3] * values[3]);
+	if (norm == 0) {
+		// quaternion nul : on revient à l'identité plutôt que de diviser par 0
+		values[0] = 1;
+		return;
+	}
 
 	values[0] /= norm;
 	values[1] /= norm;

@@ -20,7 +20,8 @@ Box::Box(RigidBody* body) : Primitive(body)
 		
 	}
 	else {
-		this->halfSize = Vecteur3D(((CylinderRigidBody*)body)->getRadius(), ((CylinderRigidBody*)body)->getHeight(), ((CylinderRigidBody*)body)->getRadius());
+		//cylindre d'axe Y approxime par une boite : demi-hauteur = hauteur / 2
+		this->halfSize = Vecteur3D(((CylinderRigidBody*)body)->getRadius(), ((CylinderRigidBody*)body)->getHeight() / 2, ((CylinderRigidBody*)body)->getRadius());
 	}
 	
 

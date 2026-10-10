@@ -1,5 +1,12 @@
 #include "Matrix33.h"
 
+Matrix33::Matrix33()
+{
+	// Matrice identite (sinon les valeurs ne sont pas initialisees)
+	setValues(1, 0, 0,
+		0, 1, 0,
+		0, 0, 1);
+}
 
 Matrix33 Matrix33::operator*(const Matrix33& other) const
 {

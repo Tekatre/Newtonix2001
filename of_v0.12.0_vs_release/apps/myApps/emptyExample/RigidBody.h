@@ -14,9 +14,9 @@ private:
 
 	int shapeID = 0;
 
-	double inverseMass;
-	double linearDamping;
-	double angularDamping;
+	double inverseMass = 1;
+	double linearDamping = 1;
+	double angularDamping = 1;
 	Vecteur3D position;
 	Vecteur3D velocity;
 
@@ -35,7 +35,7 @@ private:
 public :
 
 	RigidBody();
-	~RigidBody();
+	virtual ~RigidBody();
 	void integrate(double duration);
 	double getInverseMass();
 	void setInverseMass(double mass);
@@ -72,7 +72,9 @@ public :
 	void addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point);
 	void clearAccumulator();
 
-private:
+protected:
+	// Met a jour la matrice de transformation et le tenseur d'inertie inverse en coordonnees monde
+	// a partir du tenseur local. Les classes filles definissent le tenseur local puis appellent cette methode.
 	virtual void calculateDerivedData();
 };
 

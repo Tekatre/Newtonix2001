@@ -146,9 +146,14 @@ Vecteur3D Vecteur3D::normalize()
 {
 	// Normalisation d'un vecteur
 	Vecteur3D r;
-	r.setX(x / norme());
-	r.setY(y / norme());
-	r.setZ(z / norme());
+	double n = norme();
+	if (n == 0) {
+		// vecteur nul : on renvoie le vecteur nul plutôt que des NaN
+		return r;
+	}
+	r.setX(x / n);
+	r.setY(y / n);
+	r.setZ(z / n);
 	return r;
 }
 

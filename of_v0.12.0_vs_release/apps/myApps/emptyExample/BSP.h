@@ -20,8 +20,8 @@ class BSP
 		
 	public:
 		void GenerateBSP(vector<RigidBody*> bodies);
-		BSP* left;
-		BSP* right;
+		BSP* left = nullptr;
+		BSP* right = nullptr;
 		vector<RigidBody*> bodies;
 		bool isLeaf();
 

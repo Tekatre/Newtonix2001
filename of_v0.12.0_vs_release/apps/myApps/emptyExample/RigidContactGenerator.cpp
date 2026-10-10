@@ -2,36 +2,32 @@
 
 RigidContactGenerator::RigidContactGenerator()
 {
+	data = new CollisionData();
+	data->contactsLeft = 1000;
+	data->friction = 0.5f;
+	data->restitution = 0.5f;
 }
 
 RigidContactGenerator::~RigidContactGenerator()
 {
+	clearContacts();
+	delete data;
 }
 
 void RigidContactGenerator::CreateContact(BSP* bsp)
 {
 	//parcourir l'arbre, regarder si une feuille contient 2 bodies
-
-	
-
-	data = new CollisionData();
 	data->contactsLeft = 1000;
-	data->friction = 0.5f;
-	data->restitution = 0.5f;
 
-	if (!bsp->isLeaf()) {
-		CreateContactIteration(bsp, data);
-	}
-	
-
-	
-
-
-
+	//la racine peut elle-même être une feuille (corps tous regroupés)
+	CreateContactIteration(bsp, data);
 }
 
 void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 {
+	if (bsp == nullptr) {
+		return;
+	}
 	if (bsp->isLeaf()) {
 		if (bsp->bodies.size() > 1) {
 			//create every pair of contact
@@ -39,6 +35,12 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 			{
 				for (int j = i + 1; j < bsp->bodies.size(); j++)
 				{
+					//test rapide avec les sphères englobantes avant le test précis (et coûteux)
+					float maxDistance = bsp->bodies[i]->getOuterRadius() + bsp->bodies[j]->getOuterRadius();
+					Vecteur3D between = bsp->bodies[i]->getPosition() - bsp->bodies[j]->getPosition();
+					if (between.ProduitScalaire(between) > maxDistance * maxDistance) {
+						continue;
+					}
 				
 					Primitive* prim1 = nullptr;
 					Primitive* prim2 = nullptr; 
@@ -49,31 +51,18 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 					if (bsp->bodies[j]->getShapeID() == 3) {
 						prim2 = new Sphere(bsp->bodies[j]);
 					}
-					if (bsp->bodies[i]->getShapeID() <= 2) {
+					if (bsp->bodies[i]->getShapeID() == 1 || bsp->bodies[i]->getShapeID() == 2) {
 						prim1 = new Box(bsp->bodies[i]);
 					}
-					if (bsp->bodies[j]->getShapeID() <= 2) {
+					if (bsp->bodies[j]->getShapeID() == 1 || bsp->bodies[j]->getShapeID() == 2) {
 						prim2 = new Box(bsp->bodies[j]);
 					}
 					if (prim1 && prim2) {
 						generateContacts(*prim1, *prim2, cd);
 					}
-					
-
-
-
-						//RigidContact* contact = new RigidContact();
-						//contact->body[0] = bsp->bodies[i];
-						//contact->body[1] = bsp->bodies[j];
-						//contact->contactNormal = (bsp->bodies[i]->getPosition() - bsp->bodies[j]->getPosition()).normalize();
-						//contact->penetration = bsp->bodies[i]->getOuterRadius() + bsp->bodies[j]->getOuterRadius() - (bsp->bodies[i]->getPosition().distance(bsp->bodies[j]->getPosition()));
-						//contact->restitution = 0.5f;
-						//contact->friction = 0.5f;
-						//contact->worldContactPoint = (bsp->bodies[i]->getPosition() + bsp->bodies[j]->getPosition()) / 2;
-						////addContact(contact);
-						//contacts.push_back(contact);
-					
-					
+					//les primitives ne servent que pour la détection
+					delete prim1;
+					delete prim2;
 				}
 			}
 		}
@@ -84,47 +73,42 @@ void RigidContactGenerator::CreateContactIteration(BSP* bsp, CollisionData* cd)
 	}
 
 }
-//
-//RigidContact** RigidContactGenerator::getContacts()
-//{
-//	return contacts;
-//}
 
 vector<RigidContact*> RigidContactGenerator::getContacts()
 {
 
-	//faire en sorte qu'il n'y ai pas de double (deux couple comportant bodyA et bodyB)
+	//faire en sorte qu'il n'y ai pas de double (deux couple comportant bodyA et bodyB) :
+	//une même paire peut apparaître dans plusieurs feuilles du BSP
 	for (int i = 0; i < data->contacts.size(); i++)
 	{
-		for (int j = i + 1; j < data->contacts.size(); j++)
+		for (int j = i + 1; j < data->contacts.size(); )
 		{
-			if (data->contacts[i]->body[0] == data->contacts[j]->body[0] && data->contacts[i]->body[1] == data->contacts[j]->body[1]) {
+			bool sameBodies = data->contacts[i]->body[0] == data->contacts[j]->body[0] && data->contacts[i]->body[1] == data->contacts[j]->body[1];
+			bool swappedBodies = data->contacts[i]->body[0] == data->contacts[j]->body[1] && data->contacts[i]->body[1] == data->contacts[j]->body[0];
+			if (sameBodies || swappedBodies) {
+				delete data->contacts[j];
 				data->contacts.erase(data->contacts.begin() + j);
+				//ne pas incrémenter j : l'élément suivant a pris la place de celui supprimé
 			}
-			else if (data->contacts[i]->body[0] == data->contacts[j]->body[1] && data->contacts[i]->body[1] == data->contacts[j]->body[0]) {
-				data->contacts.erase(data->contacts.begin() + j);
+			else {
+				j++;
 			}
 		}
 	}
 
 	return data->contacts;
 }
-//void RigidContactGenerator::addContact(RigidContact* contact)
-//{
-//
-//	contacts[contactsCount] = contact;
-//	contacts[2] = contact;
-//	contactsCount++;
-//}
 
 void RigidContactGenerator::clearContacts()
 {
+	for (RigidContact* contact : data->contacts) {
+		delete contact;
+	}
 	contacts.clear();
 	contactsCount = 0;
 	data->contacts.clear();
 	data->contactsLeft = 1000;
 }
-
 
 void RigidContactGenerator::generateContacts( Primitive& firstPrimitive,  Primitive& secondPrimitive, CollisionData* data)
 {
@@ -178,7 +162,6 @@ void RigidContactGenerator::generateContacts(Box& box, Sphere& sphere, Collision
 	if (data->contactsLeft <= 0) return;
 	Vecteur3D center = sphere.getAxis(3);
 	Vecteur3D relCenter = box.transform.transformInverse(center);
-	float test = abs(relCenter.getX());
 	if (abs(relCenter.getX()) - sphere.radius > box.halfSize.getX() || abs(relCenter.getY()) - sphere.radius > box.halfSize.getY() || abs(relCenter.getZ()) - sphere.radius > box.halfSize.getZ()) {
 		return;
 	}
@@ -203,12 +186,19 @@ void RigidContactGenerator::generateContacts(Box& box, Sphere& sphere, Collision
 	closestPoint.setZ(dist);
 
 	dist = (closestPoint - relCenter).norme();
-	if (dist > sphere.radius) return;		//TODO sphere.radius² ?
+	if (dist > sphere.radius) return;
 	
 	Vecteur3D closestPointWorld = box.transform.TransformPosition(closestPoint);
 
 	RigidContact* contact = new RigidContact();
-	contact->contactNormal = (closestPointWorld - center).normalize();
+	if (dist > 0.0001) {
+		contact->contactNormal = (closestPointWorld - center).normalize();
+	}
+	else {
+		//le centre de la sphère est dans la boîte : la normale ne peut pas être calculée
+		//avec le point le plus proche, on utilise la direction entre les centres
+		contact->contactNormal = (box.getAxis(3) - center).normalize();
+	}
 	contact->worldContactPoint = closestPointWorld;
 	contact->penetration = sphere.radius - dist;
 	contact->setBodyData(box.body, sphere.body, data->friction, data->restitution);
@@ -234,12 +224,37 @@ float RigidContactGenerator::transformToAxis(Box& box, Vecteur3D& axis)
 		box.halfSize.getZ() * abs(axis.ProduitScalaire(box.getAxis(2)));
 }
 
+void RigidContactGenerator::fillPointFaceBoxBox(Box& one, Box& two, Vecteur3D& toCenter, CollisionData* data, int axisIndex, float penetration)
+{
+	//Contact entre une face de "one" (axe axisIndex) et un sommet de "two"
+	//La normale doit pointer de two vers one
+	Vecteur3D normal = one.getAxis(axisIndex);
+	if (normal.ProduitScalaire(toCenter) > 0) {
+		normal = normal * -1;
+	}
+	//Which vertex is in contact (in two's coordinate)?
+	Vecteur3D vertex = two.halfSize;
+	if (two.getAxis(0).ProduitScalaire(normal) < 0) vertex.setX(-vertex.getX());
+	if (two.getAxis(1).ProduitScalaire(normal) < 0) vertex.setY(-vertex.getY());
+	if (two.getAxis(2).ProduitScalaire(normal) < 0) vertex.setZ(-vertex.getZ());
+
+	//create the contact data (vertex converti en coordonnées monde avec la transformation de two)
+	RigidContact* contact = new RigidContact();
+	contact->contactNormal = normal;
+	contact->penetration = penetration;
+	contact->worldContactPoint = two.transform * vertex;
+	contact->setBodyData(one.body, two.body, data->friction, data->restitution);
+	data->addContacts(1, contact);
+}
+
 void RigidContactGenerator::generateContacts(Box& one, Box& two, CollisionData* data)
 {
 	if (data->contactsLeft <= 0) return;
 
 	float bestOverlap = FLT_MAX;
-	unsigned bestCase = 0;
+	int bestCase = -1;
+
+	Vecteur3D toCenter = two.getAxis(3) - one.getAxis(3);
 
 	Vecteur3D axes[15];
 	axes[0] = one.getAxis(0);
@@ -260,73 +275,45 @@ void RigidContactGenerator::generateContacts(Box& one, Box& two, CollisionData* 
 	axes[13] = one.getAxis(2)^two.getAxis(1);
 	axes[14] = one.getAxis(2)^two.getAxis(2);
 
-	for (unsigned index = 0; index < 15; index++) {
-		Vecteur3D axis = axes[index];
-		if (axis.norme() < 0.0001) continue;
-		axis.normalize();
-		Vecteur3D toCenter = two.getAxis(3) - one.getAxis(3);
-		float overlap = penetrationOnAxis(one, two, axis, toCenter );
+	for (int index = 0; index < 15; index++) {
+		//axes parallèles : le produit vectoriel est nul, l'axe n'est pas utilisable
+		if (axes[index].norme() < 0.0001) continue;
+		//normalize() renvoie un nouveau vecteur : il faut stocker le résultat
+		axes[index] = axes[index].normalize();
+		float overlap = penetrationOnAxis(one, two, axes[index], toCenter);
 		if (overlap < 0) return;
 		if (overlap < bestOverlap) {
 			bestOverlap = overlap;
 			bestCase = index;
 		}
 	}
+	if (bestCase < 0) return;
 
-	Vecteur3D bestAxis = axes[bestCase];
+	if (bestCase < 3) {
+		//une face de one contre un sommet de two
+		fillPointFaceBoxBox(one, two, toCenter, data, bestCase, bestOverlap);
+	}
+	else if (bestCase < 6) {
+		//une face de two contre un sommet de one : on inverse les rôles
+		Vecteur3D toCenterInverse = toCenter * -1;
+		fillPointFaceBoxBox(two, one, toCenterInverse, data, bestCase - 3, bestOverlap);
+	}
+	else {
+		//contact arête-arête
+		int oneAxisIndex = (bestCase - 6) / 3;
+		int twoAxisIndex = (bestCase - 6) % 3;
+		Vecteur3D oneAxis = one.getAxis(oneAxisIndex);
+		Vecteur3D twoAxis = two.getAxis(twoAxisIndex);
 
-	if (bestCase >= 6 && bestCase <= 14) {
+		//La normale doit pointer de two vers one
+		Vecteur3D bestAxis = axes[bestCase];
+		if (bestAxis.ProduitScalaire(toCenter) > 0) {
+			bestAxis = bestAxis * -1;
+		}
 
+		//point au milieu de l'arête en contact, pour chaque boîte
 		Vecteur3D ptOnEdgeOne = one.halfSize;
 		Vecteur3D ptOnEdgeTwo = two.halfSize;
-		int oneAxisIndex = 0;
-		int twoAxisIndex = 0;
-		#pragma region calcul One/TwoAxisIndex
-		if (bestCase == 6) {
-			oneAxisIndex = 0;
-			twoAxisIndex = 0;
-		}
-		else if (bestCase == 7) {
-			oneAxisIndex = 0;
-			twoAxisIndex = 1;
-		}
-		else if (bestCase == 8) {
-			oneAxisIndex = 0;
-			twoAxisIndex = 2;
-
-		}
-		else if (bestCase == 9) {
-			oneAxisIndex = 1;
-			twoAxisIndex = 0;
-
-		}
-		else if (bestCase == 10) {
-			oneAxisIndex = 1;
-			twoAxisIndex = 1;
-
-		}
-		else if (bestCase == 11) {
-			oneAxisIndex = 1;
-			twoAxisIndex = 2;
-
-		}
-		else if (bestCase == 12) {
-			oneAxisIndex = 2;
-			twoAxisIndex = 0;
-
-		}
-		else if (bestCase == 13) {
-			oneAxisIndex = 2;
-			twoAxisIndex = 1;
-
-		}
-		else if (bestCase == 14) {
-			oneAxisIndex = 2;
-			twoAxisIndex = 2;
-		}
-
-		#pragma endregion
-
 		for (int i = 0; i < 3;i++) {
 			if (i == oneAxisIndex) ptOnEdgeOne.setIndex(i, 0);
 			else if (one.getAxis(i).ProduitScalaire(bestAxis) > 0) ptOnEdgeOne.setIndex(i, -ptOnEdgeOne.getIndex(i));
@@ -340,40 +327,9 @@ void RigidContactGenerator::generateContacts(Box& one, Box& two, CollisionData* 
 		RigidContact *contact = new RigidContact();
 		contact->contactNormal = bestAxis;
 		contact->penetration = bestOverlap;
-		contact->worldContactPoint = getContactPoint(one.getAxis(oneAxisIndex), two.getAxis(twoAxisIndex), ptOnEdgeOne, ptOnEdgeTwo);
+		contact->worldContactPoint = getContactPoint(oneAxis, twoAxis, ptOnEdgeOne, ptOnEdgeTwo);
 		contact->setBodyData(one.body, two.body, data->friction, data->restitution);
 		data->addContacts(1, contact);
-	}
-	else {
-		//Face to face contact
-		Vecteur3D normal = bestAxis;
-		if (bestAxis.ProduitScalaire(two.getAxis(3) - one.getAxis(3)) > 0) {
-			normal = normal * -1;
-		}
-		//Which vertex is in contact (in two's coordinate)?
-		Vecteur3D vertex = two.halfSize;
-		if (two.getAxis(0).ProduitScalaire(normal) < 0) vertex.setX(-vertex.getX());
-		if (two.getAxis(1).ProduitScalaire(normal) < 0) vertex.setY(-vertex.getY());
-		if (two.getAxis(2).ProduitScalaire(normal) < 0) vertex.setZ(-vertex.getZ());
-		
-		//Convert to work coordinates
-		//vertex = two.transform.TransformPosition(vertex);
-		if (bestCase <3) {
-			vertex = two.transform * vertex;
-		}
-		else {
-			vertex = one.transform * vertex;
-		}
-
-		//create the contact data
-		RigidContact* contact = new RigidContact();
-		contact->contactNormal = normal;
-		contact->penetration = bestOverlap;
-		contact->worldContactPoint = vertex;
-		contact->setBodyData(one.body, two.body, data->friction, data->restitution);
-		data->addContacts(1, contact);
-		
-
 	}
 	return;
 
@@ -385,10 +341,15 @@ Vecteur3D RigidContactGenerator::getContactPoint(Vecteur3D& axisOne, Vecteur3D& 
 	float dpStaOne = axisOne.ProduitScalaire(toSt);
 	float dpStaTwo = axisTwo.ProduitScalaire(toSt);
 
-	float smOne = axisOne.norme();
-	float smTwo = axisTwo.norme();
+	//carrés des normes des directions des arêtes
+	float smOne = axisOne.ProduitScalaire(axisOne);
+	float smTwo = axisTwo.ProduitScalaire(axisTwo);
 	float dotProductEdges = axisTwo.ProduitScalaire(axisOne);
 	float denom = smOne * smTwo - dotProductEdges * dotProductEdges;
+	if (abs(denom) < 0.0001) {
+		//arêtes quasi parallèles
+		return ptOnEdgeOne * 0.5 + ptOnEdgeTwo * 0.5;
+	}
 	float a = (dotProductEdges * dpStaTwo - smTwo * dpStaOne) / denom;
 	float b = (smOne * dpStaTwo - dotProductEdges * dpStaOne) / denom;
 

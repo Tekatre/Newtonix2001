@@ -23,5 +23,8 @@ class RigidContact
 	float calculateSeparatingVelocity();
 	void setBodyData(RigidBody* one, RigidBody* two, float friction, float restitution);
 
+private:
+	void applyImpulse(Vecteur3D impulse, Vecteur3D r1, Vecteur3D r2);
+
 };
 

@@ -17,8 +17,12 @@ SpringForceGenerator::~SpringForceGenerator()
 void SpringForceGenerator::updateForce(RigidBody* rigidBody)
 {
 	Vecteur3D d = rigidBody->getTransformMatrix()* m_bodyAnchor - m_otherRigidBody->getTransformMatrix() * m_otherRigidBodyAnchor;
+	if (d.norme() == 0) {
+		return;
+	}
 	Vecteur3D dir = d / d.norme();
-	Vecteur3D force = dir.mul((-m_k * rigidBody->getInverseMass()) * (d.norme() - m_restLength));
+	//F = -k * (l - l0) : c'est une force, la masse est prise en compte dans RigidBody::integrate
+	Vecteur3D force = dir.mul(-m_k * (d.norme() - m_restLength));
 	rigidBody->addForceAtBodyPoint(force, m_bodyAnchor);
 	//rigidBody->addForce(force);
 }

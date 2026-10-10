@@ -6,6 +6,9 @@ BSP::BSP()
 
 BSP::~BSP()
 {
+	// les bodies n'appartiennent pas a l'arbre, seuls les noeuds enfants sont liberes
+	delete left;
+	delete right;
 }
 
 void BSP::GenerateBSP(vector<RigidBody*> Bodies)
@@ -30,7 +33,7 @@ void BSP::GenerateBSP(vector<RigidBody*> Bodies)
 
 void BSP:: GenerateBSPIteration(int depth)
 {
-	if (depth <= 0)
+	if (depth <= 0 || bodies.size() < 2)
 	{
 		
 		return;
@@ -89,16 +92,29 @@ void BSP:: GenerateBSPIteration(int depth)
 			}
 		}
 
-		bodies.clear();
+		//si tous les corps chevauchent le plan, la division ne separe rien :
+		//ce noeud reste une feuille (sinon on recopierait les memes corps a chaque niveau)
+		if (left->bodies.size() == bodies.size() && right->bodies.size() == bodies.size())
+		{
+			delete left;
+			delete right;
+			left = nullptr;
+			right = nullptr;
+			return;
+		}
 
-		if (left->bodies.size() > 1)
+		//un enfant qui contient tous les corps du parent retrouverait exactement le meme plan :
+		//on ne le subdivise que s'il contient strictement moins de corps
+		if (left->bodies.size() > 1 && left->bodies.size() < bodies.size())
 		{
 			left->GenerateBSPIteration(depth - 1);
 		}
-		if (right->bodies.size() > 1)
+		if (right->bodies.size() > 1 && right->bodies.size() < bodies.size())
 		{
 			right->GenerateBSPIteration(depth - 1);
 		}
+
+		bodies.clear();
 
 
 
@@ -125,12 +141,6 @@ void BSP::addBodyInRightChild(RigidBody* body)
 
 bool BSP::isLeaf()
 {
-	if (bodies.size() != 0 || bodies.size()!=0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	// une feuille est un noeud sans enfant (elle peut contenir 0, 1 ou plusieurs corps)
+	return left == nullptr && right == nullptr;
 }

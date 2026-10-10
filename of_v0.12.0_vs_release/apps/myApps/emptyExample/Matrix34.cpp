@@ -3,6 +3,17 @@
 #include "Quaternion.h"
 #include "Matrix33.h"
 
+Matrix34::Matrix34()
+{
+	// Matrice identite (sinon les valeurs ne sont pas initialisees)
+	for (int i = 0; i < 12; i++) {
+		values[i] = 0;
+	}
+	values[0] = 1;
+	values[5] = 1;
+	values[10] = 1;
+}
+
 Matrix34 Matrix34::operator*(const Matrix34& other) const
 {
 	Matrix34 result;
@@ -38,34 +49,38 @@ Matrix34 Matrix34::Inverse()
 	Matrix33 sub_matrix;
 	sub_matrix.setValues(values[0],values[1],values[2],values[4],values[5],values[6],values[8],values[9],values[10]);
 	Matrix33 sub_matrix_inverse = sub_matrix.Inverse();
+	// la translation inverse est -M^-1 * t (et non simplement -t)
+	Vecteur3D inverseTranslation = sub_matrix_inverse * Vecteur3D(-values[3], -values[7], -values[11]);
 	Matrix34 result;
 	result.values[0] = sub_matrix_inverse.getValue(0);
 	result.values[1] = sub_matrix_inverse.getValue(1);
 	result.values[2] = sub_matrix_inverse.getValue(2);
-	result.values[3] = -values[3];
+	result.values[3] = inverseTranslation.getX();
 	result.values[4] = sub_matrix_inverse.getValue(3);
 	result.values[5] = sub_matrix_inverse.getValue(4);
 	result.values[6] = sub_matrix_inverse.getValue(5);
-	result.values[7] = -values[7];
+	result.values[7] = inverseTranslation.getY();
 	result.values[8] = sub_matrix_inverse.getValue(6);
 	result.values[9] = sub_matrix_inverse.getValue(7);
 	result.values[10] = sub_matrix_inverse.getValue(8);
-	result.values[11] = -values[11];
+	result.values[11] = inverseTranslation.getZ();
 	return result;
 }
 
 void Matrix34::setOrientationAndPosition(const Quaternion& q, const Vecteur3D& pos)
 {
+	// Matrice de rotation standard associee au quaternion (meme convention que glm::quat
+	// utilise pour l'affichage et que Quaternion::UpdateByAngularVelocity)
 	values[0] = 1 - 2 * q.getY() * q.getY() - 2 * q.getZ() * q.getZ();
-	values[1] = 2 * q.getX() * q.getY() + 2 * q.getZ() * q.getW();
-	values[2] = 2 * q.getX() * q.getZ() - 2 * q.getY() * q.getW();
+	values[1] = 2 * q.getX() * q.getY() - 2 * q.getZ() * q.getW();
+	values[2] = 2 * q.getX() * q.getZ() + 2 * q.getY() * q.getW();
 	values[3] = pos.getX();
-	values[4] = 2 * q.getX() * q.getY() - 2 * q.getZ() * q.getW();
+	values[4] = 2 * q.getX() * q.getY() + 2 * q.getZ() * q.getW();
 	values[5] = 1 - 2 * q.getX() * q.getX() - 2 * q.getZ() * q.getZ();
-	values[6] = 2 * q.getY() * q.getZ() + 2 * q.getX() * q.getW();
+	values[6] = 2 * q.getY() * q.getZ() - 2 * q.getX() * q.getW();
 	values[7] = pos.getY();
-	values[8] = 2 * q.getX() * q.getZ() + 2 * q.getY() * q.getW();
-	values[9] = 2 * q.getY() * q.getZ() - 2 * q.getX() * q.getW();
+	values[8] = 2 * q.getX() * q.getZ() - 2 * q.getY() * q.getW();
+	values[9] = 2 * q.getY() * q.getZ() + 2 * q.getX() * q.getW();
 	values[10] = 1 - 2 * q.getX() * q.getX() - 2 * q.getY() * q.getY();
 	values[11] = pos.getZ();
 }	

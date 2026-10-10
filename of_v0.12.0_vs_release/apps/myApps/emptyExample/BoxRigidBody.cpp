@@ -47,31 +47,20 @@ float BoxRigidBody::getOuterRadius()
 
 void BoxRigidBody::calculateDerivedData()
 {
-	float mass = 1 / this -> getInverseMass();
+	//tenseur d'inertie inverse local d'un pavé : I = m/12 * (h²+d², w²+d², w²+h²)
+	//calculé directement avec l'inverse de la masse (évite 1/0 pour une masse infinie)
+	float inverseMass = this->getInverseMass();
 	float height = this->getHeight();
 	float width = this->getWidth();
 	float depth = this->getDepth();
-	Matrix33 CubeInertiaTensor;
-	CubeInertiaTensor.setValues(1.0f / 12.0f * mass * (height * height + depth * depth), 0, 0,
-		0, 1.0f / 12.0f * mass * (width * width + depth * depth), 0,
-		0, 0, 1.0f / 12.0f * mass * (width * width + height * height));
-	this->setInverseInertiaTensor(CubeInertiaTensor.Inverse());
+	Matrix33 CubeInverseInertiaTensor;
+	CubeInverseInertiaTensor.setValues(12.0f * inverseMass / (height * height + depth * depth), 0, 0,
+		0, 12.0f * inverseMass / (width * width + depth * depth), 0,
+		0, 0, 12.0f * inverseMass / (width * width + height * height));
+	this->setInverseInertiaTensor(CubeInverseInertiaTensor);
 
-	this->getOrientation().Normalized();
-
-	//calculate the transform matrix
-	Matrix34 transformMatrix = this->getTransformMatrix();
-
-
-	transformMatrix.setOrientationAndPosition(this->getOrientation(), this->getPosition());
-	this->setTransformMatrix(transformMatrix);
-	
-
-	//get the 3x3 of transform matrix
-	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
-
-	this->setInverseInertiaTensor(getInverseInertiaTensor()* orientationMatrix);
-	this->setInverseInertiaTensorWorld(this->getTransformMatrix().getOrientation() * this->getInverseInertiaTensor() * this->getTransformMatrix().getOrientation().Inverse());
+	//matrice de transformation et tenseur en coordonnées monde
+	RigidBody::calculateDerivedData();
 }
 
 

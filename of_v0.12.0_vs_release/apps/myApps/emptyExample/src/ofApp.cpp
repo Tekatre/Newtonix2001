@@ -4,116 +4,102 @@
 
 
 void ofApp::initializeParticles() {
-	gravite = Vecteur3D(0, -9.8, 0);
-	ParticleGravity* Pgravity = new ParticleGravity();
-	ParticleDrag* Pdrag = new ParticleDrag();
+	//Scene de depart pour bien voir les collisions (touche 'r' pour la relancer)
+	//Gravite de 100 unites/s^2 : avec 9.81 et des objets de 50 unites, tout semblait au ralenti
+	sceneGravity = new GravityGenerator(Vecteur3D(0, -100, 0));
+	ownedForceGenerators.push_back(sceneGravity);
 
+	//Sol : boite statique (masse infinie), dessus a y = -100
+	BoxRigidBody* floor = new BoxRigidBody();
+	floor->setWidth(1400);
+	floor->setHeight(20);
+	floor->setDepth(700);
+	setupRigidBody(floor, Vecteur3D(0, -110, 0), Vecteur3D(0, 0, 0), 0, ofColor(150, 150, 150));
 
-	BoxRigidBody * rb1 = new BoxRigidBody();
-	rb1->setLinearDamping(0.95);
-	rb1->setAngularDamping(0.5);
-	rb1->setPosition(Vecteur3D(-100, 0, 0));
-	rb1->setVelocity(Vecteur3D(-30, 0, 0));
-	rb1->setForceAccum(Vecteur3D(0, 0, 0));
-	rb1->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb1->setInverseMass(1);
-	rb1->setDepth(50);
-	rb1->setHeight(50);
-	rb1->setWidth(50);
-	Quaternion q = Quaternion(1, 0, 0, 0);
-	q.Normalized();
-	rb1->setOrientation(q);
-	rb1->setRotation(Vecteur3D(0,0, 0));
-	Matrix34 tr;
-	tr.setOrientationAndPosition(q, rb1->getPosition());
-	rb1->setTransformMatrix(tr);
-	
+	//A. Pendule de Newton : 3 spheres suspendues par des ressorts, la premiere est ecartee
+	double cradleX[3] = { -341, -300, -259 };
+	for (int i = 0; i < 3; i++) {
+		SphereRigidBody* sphere = new SphereRigidBody();
+		sphere->setRadius(20);
+		Vecteur3D anchor(cradleX[i], 200, 0);
+		//au repos le ressort est etire de m*g/k = 1*100/30 : y = 200 - 150 - 3.3
+		Vecteur3D position = (i == 0) ? Vecteur3D(cradleX[i] - 130, 125, 0) : Vecteur3D(cradleX[i], 46.7, 0);
+		setupRigidBody(sphere, position, Vecteur3D(0, 0, 0), 1, ofColor(60, 120, 220));
+		addAnchorLink(sphere, Vecteur3D(0, 0, 0), anchor, 30, 150);
+	}
 
-	/*Particule* particuletest = new Particule(numberOfParticles,Vecteur3D(-75,0,0), Vecteur3D(0, 0, 0), Vecteur3D(0, 0, 0),10, 1, ofColor::yellow);
-	listParticules.push_back(particuletest);*/
-	GravityGenerator* rggravity = new GravityGenerator();
-	AnchorForceGenerator* rganchor = new AnchorForceGenerator(Vecteur3D(0, 0, 0), Vecteur3D(0,0,0),1,100);
+	//B. Tour de 3 boites percutee par une sphere lancee
+	for (int i = 0; i < 3; i++) {
+		BoxRigidBody* box = new BoxRigidBody();
+		box->setWidth(50);
+		box->setHeight(50);
+		box->setDepth(50);
+		setupRigidBody(box, Vecteur3D(250, -74 + 51 * i, 0), Vecteur3D(0, 0, 0), 0.5, ofColor(240, 150, 40));
+	}
+	SphereRigidBody* projectile = new SphereRigidBody();
+	projectile->setRadius(15);
+	setupRigidBody(projectile, Vecteur3D(50, -20, 0), Vecteur3D(250, 60, 0), 0.5, ofColor(220, 40, 40));
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,rggravity });
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,rganchor });
+	//C. Deux boites reliees par un ressort accroche a leurs coins (ce qui les fait tourner)
+	BoxRigidBody* linkedA = new BoxRigidBody();
+	linkedA->setWidth(40);
+	linkedA->setHeight(40);
+	linkedA->setDepth(40);
+	setupRigidBody(linkedA, Vecteur3D(-80, 80, 150), Vecteur3D(0, 0, 0), 0.5, ofColor(60, 180, 90));
+	BoxRigidBody* linkedB = new BoxRigidBody();
+	linkedB->setWidth(40);
+	linkedB->setHeight(40);
+	linkedB->setDepth(40);
+	setupRigidBody(linkedB, Vecteur3D(80, 80, 150), Vecteur3D(0, 0, 0), 0.5, ofColor(60, 180, 90));
+	addSpringLink(linkedA, Vecteur3D(20, 20, 20), linkedB, Vecteur3D(-20, 20, 20), 2, 60);
 
+	//D. Pendule : cylindre accroche par le haut qui vient percuter une boite posee au sol
+	CylinderRigidBody* pendulum = new CylinderRigidBody();
+	pendulum->setRadius(15);
+	pendulum->setHeight(60);
+	setupRigidBody(pendulum, Vecteur3D(-200, 70, -150), Vecteur3D(0, 0, 0), 0.5, ofColor(150, 70, 200));
+	addAnchorLink(pendulum, Vecteur3D(0, 30, 0), Vecteur3D(0, 250, -150), 20, 250);
+	BoxRigidBody* target = new BoxRigidBody();
+	target->setWidth(50);
+	target->setHeight(50);
+	target->setDepth(50);
+	setupRigidBody(target, Vecteur3D(60, -74, -150), Vecteur3D(0, 0, 0), 0.5, ofColor(240, 210, 60));
+}
 
-	BoxRigidBody* rb2 = new BoxRigidBody();
-	rb2->setInverseMass(1);
-	rb2->setLinearDamping(0.95);
-	rb2->setAngularDamping(0.5);
-	rb2->setPosition(Vecteur3D(-250, 0, 0));
-	rb2->setVelocity(Vecteur3D(30, 0, 0));
-	rb2->setForceAccum(Vecteur3D(0, 0, 0));
-	rb2->setTorqueAccum(Vecteur3D(0, 0, 0));
-	rb2->setInverseMass(0.5);
-	rb2->setHeight(50);
-	rb2->setWidth(50);
-	rb2->setDepth(50);
-	Quaternion q2 = Quaternion(1, 0, 0, 0);
-	q2.Normalized();
-	rb2->setOrientation(q2);
-	rb2->setRotation(Vecteur3D(0, 2, 1));
-	tr.setOrientationAndPosition(q2, rb2->getPosition());
-	//rb2->setTransformMatrix(tr);
+void ofApp::setupRigidBody(RigidBody* rb, Vecteur3D position, Vecteur3D velocity, double inverseMass, ofColor color) {
+	rb->setPosition(position);
+	rb->setVelocity(velocity);
+	rb->setInverseMass(inverseMass);
+	rb->setLinearDamping(0.9);
+	rb->setAngularDamping(0.6);
+	rb->setOrientation(Quaternion());
+	rb->setRotation(Vecteur3D(0, 0, 0));
+	//pas de temps nul : calcule la matrice de transformation et le tenseur d'inertie avant la premiere frame
+	rb->integrate(0);
 
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,rggravity });
+	listRigidBodies.push_back(rb);
+	rigidBodyColors.push_back(color);
+	if (inverseMass != 0) {
+		rigidRegistry->my_RigidRegistry.push_back({ rb, sceneGravity });
+	}
+}
 
+void ofApp::addAnchorLink(RigidBody* rb, Vecteur3D bodyAnchor, Vecteur3D worldAnchor, float k, float restLength) {
+	AnchorForceGenerator* anchorForce = new AnchorForceGenerator(worldAnchor, bodyAnchor, k, restLength);
+	ownedForceGenerators.push_back(anchorForce);
+	rigidRegistry->my_RigidRegistry.push_back({ rb, anchorForce });
+	rigidLinks.push_back({ rb, bodyAnchor, nullptr, worldAnchor });
+}
 
-	SpringForceGenerator* springForce1 = new SpringForceGenerator(Vecteur3D(20,25,15), rb2, Vecteur3D(0, 0, 0), 1, 100);
-	SpringForceGenerator* springForce2 = new SpringForceGenerator(Vecteur3D(0, 0, 0), rb1, Vecteur3D(20,25, 15),1 , 100);
-	rigidRegistry->my_RigidRegistry.push_back({ rb1,springForce1 });
-	rigidRegistry->my_RigidRegistry.push_back({ rb2,springForce2 });
-	
-	
-	listRigidBodies.push_back(rb1);
-	listRigidBodies.push_back(rb2);
-
-	CylinderRigidBody* dragRB = new CylinderRigidBody();
-	dragRB->setInverseMass(0.05f);
-	dragRB->setLinearDamping(0.95);
-	dragRB->setAngularDamping(0.5);
-	dragRB->setPosition(Vecteur3D(200, 0, 0));
-	dragRB->setVelocity(Vecteur3D(0, 0, 20));
-	dragRB->setForceAccum(Vecteur3D(0, 0, 0));
-	dragRB->setTorqueAccum(Vecteur3D(0, 0, 0));
-	dragRB->setRadius(20);
-	dragRB->setHeight(50);
-	Quaternion q3 = Quaternion(1, 0.5, 0, 0);
-	q3.Normalized();
-	dragRB->setOrientation(q3);
-	dragRB->setRotation(Vecteur3D(0, 0, 0));
-	tr.setOrientationAndPosition(q3, dragRB->getPosition());
-	dragRB->setTransformMatrix(tr);
-
-	rigidRegistry->my_RigidRegistry.push_back({ dragRB,rggravity });
-
-	DragForceGenerator* dragForce = new DragForceGenerator();
-	rigidRegistry->my_RigidRegistry.push_back({ dragRB,dragForce });
-
-	listRigidBodies.push_back(dragRB);
-
-
-	CylinderRigidBody* notDragRB = new CylinderRigidBody();
-	notDragRB->setInverseMass(0.05f);
-	notDragRB->setLinearDamping(0.95);
-	notDragRB->setAngularDamping(0.5);
-	notDragRB->setPosition(Vecteur3D(200, 0, 100));
-	notDragRB->setVelocity(Vecteur3D(0, 0, -20));
-	notDragRB->setForceAccum(Vecteur3D(0, 0, 0));
-	notDragRB->setTorqueAccum(Vecteur3D(0, 0, 0));
-	notDragRB->setRadius(20);
-	notDragRB->setHeight(50);
-	Quaternion q4 = Quaternion(1, 0, 0, 0);
-	q4.Normalized();
-	notDragRB->setOrientation(q4);
-	notDragRB->setRotation(Vecteur3D(1, 0, 0));
-	tr.setOrientationAndPosition(q3, notDragRB->getPosition());
-	notDragRB->setTransformMatrix(tr);
-
-	rigidRegistry->my_RigidRegistry.push_back({ notDragRB,rggravity });
-
-	listRigidBodies.push_back(notDragRB);
+void ofApp::addSpringLink(RigidBody* a, Vecteur3D anchorA, RigidBody* b, Vecteur3D anchorB, float k, float restLength) {
+	//un generateur par corps : chacun subit la force du ressort
+	SpringForceGenerator* forceOnA = new SpringForceGenerator(anchorA, b, anchorB, k, restLength);
+	SpringForceGenerator* forceOnB = new SpringForceGenerator(anchorB, a, anchorA, k, restLength);
+	ownedForceGenerators.push_back(forceOnA);
+	ownedForceGenerators.push_back(forceOnB);
+	rigidRegistry->my_RigidRegistry.push_back({ a, forceOnA });
+	rigidRegistry->my_RigidRegistry.push_back({ b, forceOnB });
+	rigidLinks.push_back({ a, anchorA, b, anchorB });
 }
 
 
@@ -122,12 +108,20 @@ void ofApp::initializeParticles() {
 void ofApp::setup() {
 
 	ofSetFrameRate(60);
-	ofBackground(230, 230, 250);
+	//fond rose = pas de pause automatique a la collision (touche 'e' pour basculer)
+	ofBackground(230, 150, 200);
+	//resolutions des maillages en cache utilises par ofDrawSphere / ofDrawCylinder
+	ofSetSphereResolution(24);
+	ofSetCylinderResolution(32, 1, 1);
 	//restartButton.addListener(this, &ofApp::restartButtonPressed);
 	//addParticleButton.addListener(this, &ofApp::addParticleButtonPressed);
 	
 
 	initializeParticles();
+	//camera placee pour voir toute la scene (sol de 1400 x 700)
+	cam.setTarget(glm::vec3(0, 0, 0));
+	cam.setPosition(0, 450, 1000);
+	cam.lookAt(glm::vec3(0, 0, 0));
 	ofDisableAlphaBlending();
 	ofEnableDepthTest();
 	light.enable();
@@ -239,32 +233,28 @@ void ofApp::update() {
 	numberOfRigidContacts = 0;
 	rigidContactGenerator->clearContacts();
 	rigidContacts.clear();
+	delete bsp;
 
 
 
 }
 
 void ofApp::restartButtonPressed() {
+	//supprime tous les corps rigides, liens et generateurs, puis recree la scene de depart
+	rigidRegistry->my_RigidRegistry.clear();
+	for (RigidBody* rb : listRigidBodies) {
+		delete rb;
+	}
+	listRigidBodies.clear();
+	rigidBodyColors.clear();
+	rigidLinks.clear();
+	for (ForceGenerator* fg : ownedForceGenerators) {
+		delete fg;
+	}
+	ownedForceGenerators.clear();
+	sceneGravity = nullptr;
 
-
-	//listParticules.clear();
-	//trails.clear();
-	//numberOfContacts = 0;
-
-	//registry->my_registry.clear();
-	//springs.clear();
-	//anchorsLink.clear();
-	//numberOfParticles = 0;
-	//numberOfCables = 0;
-	//numberOfRods = 0;
-	//numberOfSprings = 0;
-
-	//initializeParticles();
-
-
-
-
-
+	initializeParticles();
 }
 
 
@@ -295,43 +285,36 @@ void ofApp::draw() {
 	//draw the rigid body
 	
 	for (int i = 0; i < listRigidBodies.size(); i++) {
-		ofSetColor(255, 255, 255);
+		ofSetColor(i < rigidBodyColors.size() ? rigidBodyColors[i] : ofColor::white);
 		//draw a box with the position and the ORIENTATION of the rigid body using ofBoxPrimitive*
 
 		//if listrigidbody[i] is a type BoxRigidBody
 
-		if (listRigidBodies[i]->getShapeID() == 1) {
-			BoxRigidBody* box = static_cast<BoxRigidBody*>(listRigidBodies[i]);
-			ofBoxPrimitive boxPrimitive;
-			boxPrimitive.setHeight(box->getHeight());
-			boxPrimitive.setWidth(box->getWidth());
-			boxPrimitive.setDepth(box->getDepth());
-			boxPrimitive.setPosition(box->getPosition().getX(), box->getPosition().getY(), box->getPosition().getZ());
-			boxPrimitive.setOrientation(glm::quat(box->getOrientation().getW(), box->getOrientation().getX(), box->getOrientation().getY(), box->getOrientation().getZ()));
-			boxPrimitive.draw();
+		//On place le repere du corps (position + orientation) puis on dessine avec ofDrawBox/Sphere/Cylinder,
+		//qui reutilisent un maillage en cache. Creer un ofXxxPrimitive a chaque image regenerait tout le
+		//maillage a chaque frame (tres couteux, surtout le cylindre en resolution 50x50x50).
+		RigidBody* body = listRigidBodies[i];
+		Quaternion q = body->getOrientation();
+		ofPushMatrix();
+		ofTranslate(body->getPosition().getX(), body->getPosition().getY(), body->getPosition().getZ());
+		ofMultMatrix(glm::mat4_cast(glm::quat(q.getW(), q.getX(), q.getY(), q.getZ())));
+
+		if (body->getShapeID() == 1) {
+			BoxRigidBody* box = static_cast<BoxRigidBody*>(body);
+			ofDrawBox(0, 0, 0, box->getWidth(), box->getHeight(), box->getDepth());
 		}
-		else if (listRigidBodies[i]->getShapeID() == 3) {
-			SphereRigidBody* sphere = static_cast<SphereRigidBody*>(listRigidBodies[i]);
-			ofSpherePrimitive spherePrimitive;
-			spherePrimitive.setRadius(sphere->getOuterRadius());
-			spherePrimitive.setPosition(sphere->getPosition().getX(), sphere->getPosition().getY(), sphere->getPosition().getZ());
-			spherePrimitive.setOrientation(glm::quat(sphere->getOrientation().getW(), sphere->getOrientation().getX(), sphere->getOrientation().getY(), sphere->getOrientation().getZ()));
-			spherePrimitive.draw();
+		else if (body->getShapeID() == 3) {
+			SphereRigidBody* sphere = static_cast<SphereRigidBody*>(body);
+			ofDrawSphere(0, 0, 0, sphere->getRadius());
 		}
-		else if (listRigidBodies[i]->getShapeID()== 2) {
-			CylinderRigidBody* cylinder = static_cast<CylinderRigidBody*>(listRigidBodies[i]);
-			ofCylinderPrimitive cylinderPrimitive;
-			cylinderPrimitive.setResolution(50, 50, 50);
-			cylinderPrimitive.setRadius(cylinder->getOuterRadius());
-			cylinderPrimitive.setHeight(cylinder->getHeight());
-			cylinderPrimitive.setResolutionCap(50);
-			cylinderPrimitive.setPosition(cylinder->getPosition().getX(), cylinder->getPosition().getY(), cylinder->getPosition().getZ());
-			cylinderPrimitive.setOrientation(glm::quat(cylinder->getOrientation().getW(), cylinder->getOrientation().getX(), cylinder->getOrientation().getY(), cylinder->getOrientation().getZ()));
-			cylinderPrimitive.draw();
+		else if (body->getShapeID()== 2) {
+			CylinderRigidBody* cylinder = static_cast<CylinderRigidBody*>(body);
+			ofDrawCylinder(0, 0, 0, cylinder->getRadius(), cylinder->getHeight());
 		}
 		else {
 			//do nothing
 		}
+		ofPopMatrix();
 
 
 
@@ -354,11 +337,20 @@ void ofApp::draw() {
 		ofDrawSphere(particulesAnchor[i].getPosition().getX(), particulesAnchor[i].getPosition().getY(), particulesAnchor[i].getPosition().getZ(), 2);
 	}
 
-	for (int k = 0; k < anchorsLinkRigid.size(); k++) {
-		ofSetColor(255, 255, 0);
-		Vecteur3D pos= listRigidBodies[0]->getTransformMatrix()* Vecteur3D(0, 30, 40);
-		ofDrawLine(pos.getX(), pos.getY(),pos.getZ(), anchorsLinkRigid[k].second.getX(), anchorsLinkRigid[k].second.getY(), anchorsLinkRigid[k].second.getZ());
-		
+	//draw the springs between the rigid bodies (or between a body and a fixed anchor)
+	for (int k = 0; k < rigidLinks.size(); k++) {
+		Vecteur3D pointA = rigidLinks[k].a->getTransformMatrix() * rigidLinks[k].anchorA;
+		Vecteur3D pointB = rigidLinks[k].anchorB;
+		if (rigidLinks[k].b != nullptr) {
+			pointB = rigidLinks[k].b->getTransformMatrix() * rigidLinks[k].anchorB;
+		}
+		else {
+			//point d'ancrage fixe
+			ofSetColor(40, 40, 40);
+			ofDrawBox(pointB.getX(), pointB.getY(), pointB.getZ(), 8);
+		}
+		ofSetColor(40, 40, 40);
+		ofDrawLine(pointA.getX(), pointA.getY(), pointA.getZ(), pointB.getX(), pointB.getY(), pointB.getZ());
 	}
 	
 
@@ -397,102 +389,48 @@ ofDrawLine(rod->particle[0]->getPosition().getX(), rod->particle[0]->getPosition
 
 	cam.end();
 
+	//affichage des performances
+	ofDisableDepthTest();
+	ofSetColor(0, 0, 0);
+	ofDrawBitmapString("FPS : " + ofToString(ofGetFrameRate(), 0) + "   Corps : " + ofToString(listRigidBodies.size()) + "   Vitesse : x" + ofToString(accelerator) + (paused ? "" : "   [EN PAUSE]"), 10, 20);
+	ofDrawBitmapString("Espace : lancer/pause   R : relancer la scene   A : ajouter un corps   E : pause a chaque collision   Haut/Bas : vitesse", 10, 38);
+	ofEnableDepthTest();
+
 	//gui.draw();
 }
 
 
 void ofApp::addRigidBody() {
-
+	//forme, taille et masse aleatoires, lachee au-dessus du centre de la scene
+	RigidBody* rb;
 	int randshape = rand() % 3 + 1;
-	//int randshape = 2;
 	if (randshape == 1) {
-		BoxRigidBody* rb = new BoxRigidBody();
-		rb->setLinearDamping(0.95);
-		rb->setAngularDamping(0.5);
-		rb->setPosition(Vecteur3D("random"));
-		rb->setVelocity(Vecteur3D("random"));
-		rb->setForceAccum(Vecteur3D(0, 0, 0));
-		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 10;
-		rb->setInverseMass(1 / mass);
-		rb->setDepth(rand() % 50 + 10);
-		rb->setHeight(rand() % 50 + 10);
-		rb->setWidth(rand() % 50 + 10);
-		Quaternion q = Quaternion(1, 0, 0, 0);
-		q.Normalized();
-		rb->setOrientation(q);
-		rb->setRotation(Vecteur3D("petit"));
-		Matrix34 tr;
-		tr.setOrientationAndPosition(q, rb->getPosition());
-		rb->setTransformMatrix(tr);
-
-		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
-
-		GravityGenerator* rggravity = new GravityGenerator();
-		DragForceGenerator* rgdrag = new DragForceGenerator();
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
-		listRigidBodies.push_back(rb);
+		BoxRigidBody* box = new BoxRigidBody();
+		box->setDepth(rand() % 50 + 10);
+		box->setHeight(rand() % 50 + 10);
+		box->setWidth(rand() % 50 + 10);
+		rb = box;
 	}
 	else if (randshape == 2) {
-		CylinderRigidBody* rb = new CylinderRigidBody();
-		rb->setLinearDamping(0.95);
-		rb->setAngularDamping(0.5);
-		rb->setPosition(Vecteur3D("random"));
-		rb->setVelocity(Vecteur3D("random"));
-		rb->setForceAccum(Vecteur3D(0, 0, 0));
-		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 10;
-		rb->setInverseMass(1 / mass);
-		rb->setRadius(rand() % 20 + 15);
-		rb->setHeight(rand() % 40 + 20);
-		
-		Quaternion q = Quaternion(1, 0, 0, 0);
-		q.Normalized();
-		rb->setOrientation(q);
-		rb->setRotation(Vecteur3D("petit"));
-		Matrix34 tr;
-		tr.setOrientationAndPosition(q, rb->getPosition());
-		rb->setTransformMatrix(tr);
-
-		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
-
-		GravityGenerator* rggravity = new GravityGenerator();
-		DragForceGenerator* rgdrag = new DragForceGenerator();
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
-		listRigidBodies.push_back(rb);
+		CylinderRigidBody* cylinder = new CylinderRigidBody();
+		cylinder->setRadius(rand() % 20 + 15);
+		cylinder->setHeight(rand() % 40 + 20);
+		rb = cylinder;
 	}
 	else {
-		SphereRigidBody* rb = new SphereRigidBody();
-		rb->setLinearDamping(0.95);
-		rb->setAngularDamping(0.5);
-		rb->setPosition(Vecteur3D("random"));
-		rb->setVelocity(Vecteur3D("random"));
-		rb->setForceAccum(Vecteur3D(0, 0, 0));
-		rb->setTorqueAccum(Vecteur3D(0, 0, 0));
-		float mass = rand() % 5 + 10;
-		rb->setInverseMass(1 / mass);
-		rb->setRadius(rand() % 30 + 10);
-		Quaternion q = Quaternion(1, 0, 0, 0);
-		q.Normalized();
-		rb->setOrientation(q);
-		rb->setRotation(Vecteur3D("petit"));
-		Matrix34 tr;
-		tr.setOrientationAndPosition(q, rb->getPosition());
-		rb->setTransformMatrix(tr);
-
-		cout << "Mass : " << 1.0f/rb->getInverseMass() << endl;
-
-		GravityGenerator* rggravity = new GravityGenerator();
-		DragForceGenerator* rgdrag = new DragForceGenerator();
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rggravity });
-		rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
-		listRigidBodies.push_back(rb);
+		SphereRigidBody* sphere = new SphereRigidBody();
+		sphere->setRadius(rand() % 30 + 10);
+		rb = sphere;
 	}
+	float mass = rand() % 5 + 10;
+	setupRigidBody(rb, Vecteur3D("random") + Vecteur3D(0, 150, 0), Vecteur3D("random"), 1 / mass, ofColor::fromHsb(rand() % 256, 160, 230));
+	rb->setRotation(Vecteur3D("petit"));
 
-	
+	DragForceGenerator* rgdrag = new DragForceGenerator();
+	ownedForceGenerators.push_back(rgdrag);
+	rigidRegistry->my_RigidRegistry.push_back({ rb,rgdrag });
 
+	cout << "Mass : " << mass << endl;
 }
 
 //--------------------------------------------------------------
@@ -523,7 +461,8 @@ void ofApp::keyPressed(int key) {
 		accelerator++;
 	}
 
-	if (key == OF_KEY_DOWN) {
+	if (key == OF_KEY_DOWN && accelerator > 1) {
+		//un accelerateur <= 0 donnerait un pas de temps nul ou negatif
 		accelerator--;
 	}
 
@@ -539,9 +478,9 @@ void ofApp::keyPressed(int key) {
 		}
 	}
 
-	/*if (key == 'r') {
+	if (key == 'r') {
 		restartButtonPressed();
-	}*/
+	}
 
 }
 

@@ -7,6 +7,7 @@ class Matrix33
 private: 
 	double values[9];
 public:
+	Matrix33();
 	Matrix33 operator*(const Matrix33& other) const;
 	Vecteur3D operator*(const Vecteur3D& vector) const;
 	Matrix33 operator+(const Matrix33& other) const;

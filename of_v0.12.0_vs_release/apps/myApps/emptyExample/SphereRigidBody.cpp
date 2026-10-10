@@ -21,22 +21,16 @@ float SphereRigidBody::getOuterRadius()
 
 void SphereRigidBody::calculateDerivedData()
 {
-	float mass = 1 / this->getInverseMass();
-	Matrix33 SphereInertiaTensor;
-	SphereInertiaTensor.setValues(2.0f / 5.0f * mass * radius * radius, 0, 0,
-				0, 2.0f / 5.0f * mass * radius * radius, 0,
-				0, 0, 2.0f / 5.0f * mass * radius * radius);
+	//tenseur d'inertie inverse local d'une sphère pleine : I = 2/5 * m * r²
+	float inverseMass = this->getInverseMass();
+	Matrix33 SphereInverseInertiaTensor;
+	SphereInverseInertiaTensor.setValues(5.0f * inverseMass / (2.0f * radius * radius), 0, 0,
+				0, 5.0f * inverseMass / (2.0f * radius * radius), 0,
+				0, 0, 5.0f * inverseMass / (2.0f * radius * radius));
+	this->setInverseInertiaTensor(SphereInverseInertiaTensor);
 
-	this->setInverseInertiaTensor(SphereInertiaTensor.Inverse());
-
-	this->getOrientation().Normalized();
-	Matrix34 transformMatrix = this->getTransformMatrix();
-	transformMatrix.setOrientationAndPosition(this->getOrientation(), this->getPosition());
-	this->setTransformMatrix(transformMatrix);
-	//get the 3x3 of transform matrix
-	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
-
-	this->setInverseInertiaTensor(getInverseInertiaTensor() * orientationMatrix);
+	//matrice de transformation et tenseur en coordonnées monde
+	RigidBody::calculateDerivedData();
 }
 
 int SphereRigidBody::getShapeID()

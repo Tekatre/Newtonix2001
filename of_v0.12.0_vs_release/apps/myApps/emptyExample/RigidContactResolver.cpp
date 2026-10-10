@@ -1,6 +1,6 @@
 #include "RigidContactResolver.h"
 
-void RigidContactResolver::resolveContacts(vector<RigidContact*> contactArray, unsigned int numContacts, float duration, bool displayData)
+void RigidContactResolver::resolveContacts(vector<RigidContact*>& contactArray, unsigned int numContacts, float duration, bool displayData)
 {
 	//Affichage des données
 	if (displayData) {
@@ -46,7 +46,7 @@ void RigidContactResolver::resolveContacts(vector<RigidContact*> contactArray, u
 	
 }
 
-void RigidContactResolver::resolveInterpenetrationIteration(vector<RigidContact*> contactArray, unsigned int numContacts, int contactsLeft, float duration)
+void RigidContactResolver::resolveInterpenetrationIteration(vector<RigidContact*>& contactArray, unsigned int numContacts, int contactsLeft, float duration)
  {
 	if (contactsLeft == 0) {
 		return;
@@ -69,7 +69,7 @@ void RigidContactResolver::resolveInterpenetrationIteration(vector<RigidContact*
 
 }
 
-void RigidContactResolver::resolveVelocityIteration(vector<RigidContact*> contactArray, unsigned int numContacts, int contactsLeft, float duration)
+void RigidContactResolver::resolveVelocityIteration(vector<RigidContact*>& contactArray, unsigned int numContacts, int contactsLeft, float duration)
 {
 	if (contactsLeft == 0) {
 		return;

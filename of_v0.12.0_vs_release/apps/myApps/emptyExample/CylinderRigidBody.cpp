@@ -26,32 +26,27 @@ void CylinderRigidBody::setHeight(float Height)
 
 float CylinderRigidBody::getOuterRadius()
 {
-	Vecteur3D rad = Vecteur3D(this->radius, this->height / 2, 0);
+	//le cylindre est traite comme une boite (r, h/2, r) pour les collisions :
+	//on renvoie le rayon de la sphere englobant cette boite, pour que le BSP soit coherent
+	Vecteur3D rad = Vecteur3D(this->radius, this->height / 2, this->radius);
 	return rad.norme();
 }
 
 void CylinderRigidBody::calculateDerivedData()
 {
-	float mass = 1 / this->getInverseMass();
+	//tenseur d'inertie inverse local d'un cylindre plein d'axe Y (comme ofCylinderPrimitive) :
+	//Ixx = Izz = m/12 * (3r² + h²), Iyy = m/2 * r²
+	float inverseMass = this->getInverseMass();
 	float height = this->getHeight();
 	float radius = this->getRadius();
-	Matrix33 CylinderInertiaTensor;
-	CylinderInertiaTensor.setValues(1.0f / 12.0f * mass * (3 * radius * radius + height * height), 0, 0,
-				0, 1.0f / 12.0f * mass * (3 * radius * radius + height * height), 0,
-				0, 0, 1.0f / 2.0f * mass * radius * radius);
+	Matrix33 CylinderInverseInertiaTensor;
+	CylinderInverseInertiaTensor.setValues(12.0f * inverseMass / (3 * radius * radius + height * height), 0, 0,
+				0, 2.0f * inverseMass / (radius * radius), 0,
+				0, 0, 12.0f * inverseMass / (3 * radius * radius + height * height));
+	this->setInverseInertiaTensor(CylinderInverseInertiaTensor);
 
-	this->setInverseInertiaTensor(CylinderInertiaTensor.Inverse());
-
-	this->getOrientation().Normalized();
-	Matrix34 transformMatrix = this->getTransformMatrix();
-	transformMatrix.setOrientationAndPosition(this->getOrientation(), this->getPosition());
-	this->setTransformMatrix(transformMatrix);
-	//get the 3x3 of transform matrix
-	Matrix33 orientationMatrix = this->getTransformMatrix().getOrientation();
-
-	this->setInverseInertiaTensor(getInverseInertiaTensor() * orientationMatrix);
-	this->setInverseInertiaTensorWorld(this->getTransformMatrix().getOrientation() * this->getInverseInertiaTensor() * this->getTransformMatrix().getOrientation().Inverse());
-
+	//matrice de transformation et tenseur en coordonnées monde
+	RigidBody::calculateDerivedData();
 }
 
 int CylinderRigidBody::getShapeID()

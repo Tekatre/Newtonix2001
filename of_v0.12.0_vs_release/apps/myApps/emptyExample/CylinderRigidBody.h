@@ -13,7 +13,7 @@ private :
 			:RigidBody() {
 
 	};
-		~CylinderRigidBody();
+		~CylinderRigidBody() {};
 		float getRadius();
 		void setRadius(float Radius);
 		float getHeight();

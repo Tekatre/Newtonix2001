@@ -22,11 +22,11 @@ public:
 	~Vecteur3D();
 	// Accesseurs
 	double getX();
-	const double Vecteur3D::getX() const;
+	const double getX() const;
 	double getY();
-	const double Vecteur3D::getY() const;
+	const double getY() const;
 	double getZ();
-	const double Vecteur3D::getZ() const;
+	const double getZ() const;
 	// Mutateurs
 	void setX(double x);
 	void setY(double y);

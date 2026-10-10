@@ -38,7 +38,7 @@ public:
 
 
 	bool paused = false ;
-	bool pauseAtCollision = true;
+	bool pauseAtCollision = false;
 	int accelerator = 1;
 
 
@@ -83,9 +83,9 @@ public:
 
 
 	Collision collisionDetector;
-	ParticleContact* contacts = new ParticleContact();
-	ParticleCable** cables = new ParticleCable*;
-	ParticleRod** rods = new ParticleRod*;
+	ParticleContact* contacts = new ParticleContact[maxCollisions];
+	ParticleCable** cables = new ParticleCable*[maxCollisions];
+	ParticleRod** rods = new ParticleRod*[maxCollisions];
 	int numberOfCables = 0;
 	/*vector<ParticleContact> contacts;*/
 
@@ -96,8 +96,20 @@ public:
 	int numberOfRods = 0;
 	int numberOfSprings = 0;
 	vector<std::pair<Particule, Vecteur3D>> anchorsLink;
-	//create a vector with RigidBody and 2 Vecteur3D 
-	vector<std::pair<RigidBody*, Vecteur3D>> anchorsLinkRigid;
+	//liens (ressorts) a dessiner : si b est nul, anchorB est un point fixe du monde,
+	//sinon c'est un point du corps b (en coordonnees locales)
+	struct RigidLink {
+		RigidBody* a;
+		Vecteur3D anchorA;
+		RigidBody* b;
+		Vecteur3D anchorB;
+	};
+	vector<RigidLink> rigidLinks;
+	//couleur de chaque corps rigide (meme indice que listRigidBodies)
+	vector<ofColor> rigidBodyColors;
+	//generateurs crees par la scene, liberes a la reinitialisation
+	vector<ForceGenerator*> ownedForceGenerators;
+	GravityGenerator* sceneGravity = nullptr;
 
 	
 
@@ -124,6 +136,9 @@ public:
 	void gotMessage(ofMessage msg);
 	void restartButtonPressed();
 	void addRigidBody();
+	void setupRigidBody(RigidBody* rb, Vecteur3D position, Vecteur3D velocity, double inverseMass, ofColor color);
+	void addAnchorLink(RigidBody* rb, Vecteur3D bodyAnchor, Vecteur3D worldAnchor, float k, float restLength);
+	void addSpringLink(RigidBody* a, Vecteur3D anchorA, RigidBody* b, Vecteur3D anchorB, float k, float restLength);
 
 
 

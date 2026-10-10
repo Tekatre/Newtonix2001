@@ -8,6 +8,7 @@ class Matrix34
 	private:
 	double values[12];
 public:
+	Matrix34();
 	Matrix34 operator*(const Matrix34& other) const;
 	Vecteur3D operator*(const Vecteur3D& vector) const;
 	Matrix34 Inverse();

@@ -7,17 +7,17 @@ private:
 		double values[4];
 	public:
 		Quaternion();
-		Quaternion(double x, double y, double z, double w);	
+		Quaternion(double w, double x, double y, double z);	
 		void Normalized();
 		Quaternion operator*(const Quaternion& other) const;
 		Quaternion operator+(const Quaternion& other) const;
 		Vecteur3D operator*(const Vecteur3D& other) const;
 		void RotateByVector(const Vecteur3D& vector);
 		void UpdateByAngularVelocity(const Vecteur3D& angularVelocity, double duration);
-		const double Quaternion::getW() const;
-		const double Quaternion::getX() const;
-		const double Quaternion::getY() const;
-		const double Quaternion::getZ() const;
+		const double getW() const;
+		const double getX() const;
+		const double getY() const;
+		const double getZ() const;
 		Quaternion operator*(double other);
 
 		Quaternion getConjugate();

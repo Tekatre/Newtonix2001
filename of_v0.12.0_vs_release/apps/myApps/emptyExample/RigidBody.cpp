@@ -115,20 +115,22 @@ void RigidBody::setTransformMatrix(Matrix34 matrix)
 void RigidBody::integrate(double duration)
 {
 
-	//mise à jour de la position
+	//Calculer les valeurs dérivées (la position a pu être modifiée par la résolution des contacts)
+	this->calculateDerivedData();
+	//Calculer l'accélération linéaire p.. = F/m
+	Vecteur3D acceleration = this->forceAccum * this->inverseMass;
+	//Calculer l'accélération angulaire a.. = I^-1' * T (tenseur en coordonnées monde)
+	Vecteur3D angularAcceleration = InverseInertiaTensorWorld * torqueAccum;
+	//Mettre à jour la vélocité linéaire
+	this->velocity = this->velocity*(pow(linearDamping,duration)) + acceleration * duration;
+	//Mettre à jour la vélocité angulaire
+	this->rotation = this->rotation * (pow(angularDamping, duration)) + angularAcceleration * duration;
+	//mise à jour de la position (Euler semi-implicite : avec la nouvelle vélocité)
 	this->position = this->position + this->velocity * duration;
 	//mise à jour de l'orientation
 	this->orientation.UpdateByAngularVelocity(this->rotation, duration);
 	//Calculer les valeurs dérivées (matrice de transformation et I^-1')
 	this->calculateDerivedData();
-	//Calculer l'accélération linéaire p.. = F/m
-	Vecteur3D acceleration = this->forceAccum * this->inverseMass;
-	//Calculer l'accélération angulaire a.. = I^-1' * T
-	Vecteur3D angularAcceleration = InverseInertiaTensor * torqueAccum;
-	//Mettre à jour la vélocité linéaire
-	this->velocity = this->velocity*(pow(linearDamping,duration)) + acceleration * duration;
-	//Mettre à jour la vélocité angulaire
-	this->rotation = this->rotation * (pow(angularDamping, duration)) + angularAcceleration * duration;
 	//Réinitialiser les forces et les torques
 	this->clearAccumulator();
 
@@ -142,96 +144,31 @@ void RigidBody::addForce(const Vecteur3D& force)
 
 void RigidBody::addForceAtPoint(const Vecteur3D& force, const Vecteur3D& point)
 {
-	//convertir le point en coordonnées locales
-	Vecteur3D localPoint = this->transformMatrix.Inverse() * point;
-	//calculer le moment de force
-	Vecteur3D torque = localPoint ^ force;
-
+	//point en coordonnées monde : le moment de force est calculé par rapport au centre de masse
+	Vecteur3D relativePoint = (Vecteur3D)point - this->position;
+	//ajouter la force
+	this->addForce(force);
 	//ajouter le moment de force
-	this->addForceAtBodyPoint(force, point);
+	this->setTorqueAccum(this->getTorqueAccum() + (relativePoint ^ force));
 }
 
 void RigidBody::addForceAtBodyPoint(const Vecteur3D& force, const Vecteur3D& point)
 {
 	//convertir le point local en coordonnées globales
-	Matrix34 invTransformMatrix = this->transformMatrix;
-	Vecteur3D globalPoint = invTransformMatrix * point;
-	//ajouter la force
-	this->addForce(force);
-	//ajouter le moment de force
-	Vecteur3D torque = this->getTorqueAccum();
-	Vecteur3D newTorque = (Vecteur3D)point ^ force;
-	//si le newTorque n'est pas nul
-	if(newTorque != Vecteur3D(0, 0, 0))
-	{
-		//std::cout << "gbkheugi";
-	}
-	this->setTorqueAccum(this->getTorqueAccum() + newTorque);
+	Vecteur3D globalPoint = this->transformMatrix * point;
+	this->addForceAtPoint(force, globalPoint);
 }
 void RigidBody::calculateDerivedData()
 {
 	//call each frame to calculate the transform matrix and normalize the orientation
-
-	//this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
-
-
-	/*switch (shape)
-	{
-		case 0:
-		
-			Matrix33 SphereInertiaTensor;
-			SphereInertiaTensor.setValues(0.4f * mass * radius * radius, 0, 0,
-				0, 0.4f * mass * radius * radius, 0,
-				0, 0, 0.4f * mass * radius * radius);
-			InverseInertiaTensor = SphereInertiaTensor.Inverse();
-			break;
-		
-		case 1:
-		
-			Matrix33 CubeInertiaTensor;
-			CubeInertiaTensor.setValues(1.0f / 12.0f * mass * (height * height + radius * radius), 0, 0,
-				0, 1.0f / 12.0f * mass * (height * height + radius * radius), 0,
-				0, 0, 1.0f / 12.0f * mass * (height * height + height * height));
-			InverseInertiaTensor = CubeInertiaTensor.Inverse();
-			break;
-		
-
-		case 2:
-		
-			Matrix33 CylinderInertiaTensor;
-			CylinderInertiaTensor.setValues(0.083f * mass * height * height + 0.25f * mass * radius * radius, 0, 0,
-				0, 0.5f * mass * radius * radius, 0,
-				0, 0, 0.083f * mass * height * height + 0.25f * mass * radius * radius);
-			InverseInertiaTensor = CylinderInertiaTensor.Inverse();
-			break;
-		
-		default:
-			Matrix33 SphereInertiaTensor2;
-			SphereInertiaTensor2.setValues(0.4f * mass * radius * radius, 0, 0,
-				0, 0.4f * mass * radius * radius, 0,
-				0, 0, 0.4f * mass * radius * radius);
-			InverseInertiaTensor = SphereInertiaTensor2.Inverse();
-		
-	}*/
-
-
-
-
-
-
 	this->orientation.Normalized();
 
 	//calculate the transform matrix
 	this->transformMatrix.setOrientationAndPosition(this->orientation, this->position);
-	//std::cout << "41+1";
 
-	//get the 3x3 of transform matrix
+	//I^-1 monde = R * I^-1 local * R^T (InverseInertiaTensor reste en coordonnées locales)
 	Matrix33 orientationMatrix = this->transformMatrix.getOrientation();
-	InverseInertiaTensor = InverseInertiaTensor * orientationMatrix;
-	this->InverseInertiaTensorWorld = this->transformMatrix.getOrientation() * this->InverseInertiaTensor * this->transformMatrix.getOrientation().Inverse();
-	
-
-
+	this->InverseInertiaTensorWorld = orientationMatrix * this->InverseInertiaTensor * orientationMatrix.Transpose();
 }
 
 Matrix33 RigidBody::getInverseInertiaTensor()
